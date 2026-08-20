@@ -1,0 +1,10 @@
+{
+  "name": "Mitochondrial calcium pathway survey",
+  "description": "MCU, MCUB and VDAC1-3 across the tree-of-life panel. The one presence/absence question this preset is built for: MCU is absent from Saccharomyces cerevisiae, which is why baker's yeast takes up no mitochondrial calcium and part of why the gene took fifty years to find. An absence claim here must pass both D4 bars - a genome-wide contiguity floor and a local check that the locus's neighbourhood is present.",
+  "scope": "mcu",
+  "genes": ["MCU", "MCUB", "VDAC1", "VDAC2", "VDAC3"],
+  "species": "",
+  "sources": ["NCBI", "Ensembl", "UniProt"],
+  "max_per_source": 200,
+  "include_sequence": false
+}

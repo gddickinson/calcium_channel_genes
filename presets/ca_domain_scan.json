@@ -1,0 +1,14 @@
+{
+  "name": "Calcium-channel domain-bait scan",
+  "description": "Enumerate every UniProt protein InterPro annotates with a pore model any census family carries, then classify what comes back. The pfam list is deliberately the union of several pore models rather than PF00520 alone: measured by the parent project, TRPC3, TRPM8, MCOLN1 and PKD2 carry no PF00520 at all, so a PF00520-only enumeration silently loses most of the TRP division (hazard HC7) - and for a calcium census that is most of the non-selective calcium entry pathways at once. Note what the scan cannot do: PF00520 returns the sodium channels and the Ca2+-activated potassium channels alongside the calcium channels, and separating them is the classifier's job (HC1, HC15), not the query's. Excludes nothing by name - a scan that filters by symbol cannot find an unnamed gene model.",
+  "mode": "domain_scan",
+  "scope": "all",
+  "pfam_ids": ["PF00520", "PF08344", "PF18139", "PF08016", "PF08709", "PF07856", "PF04678", "PF14798", "PF00864", "PF00060", "PF02932", "PF02714", "PF12166", "PF01459"],
+  "exclude_name_substrings": [],
+  "exclude_gene_substrings": [],
+  "max_proteins_per_pfam": 400,
+  "max_with_sequences": 60,
+  "reviewed_only": true,
+  "min_length_aa": 60,
+  "max_length_aa": 5200
+}

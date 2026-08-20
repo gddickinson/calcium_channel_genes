@@ -1,0 +1,10 @@
+{
+  "name": "Intracellular Ca2+-release channel survey",
+  "description": "ITPR and RYR across the tree-of-life panel. The grandparent project (../ip3r_genes) is a full census of the IP3 receptors, so anything this returns for ITPR has an external check available - and must never be seeded from it (port the method, never the result). Watch the length band: 2,000-5,100 aa spans the two largest families in the catalogue, and a size filter tuned for one excludes the other.",
+  "scope": "ca_release",
+  "genes": ["ITPR1", "ITPR2", "ITPR3", "RYR1", "RYR2", "RYR3"],
+  "species": "",
+  "sources": ["NCBI", "Ensembl", "UniProt"],
+  "max_per_source": 200,
+  "include_sequence": false
+}

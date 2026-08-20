@@ -1,0 +1,10 @@
+{
+  "name": "Store-operated entry survey (ORAI, and the gate that is not a pore)",
+  "description": "ORAI1-3 across the tree-of-life panel, with STIM1/STIM2 in the sister panel rather than the query. Both proteins produce the same current and the same immunodeficiency when lost, and only one of them is a channel (hazard HC5) - so this preset is also the smallest complete demonstration of what the catalogue's CHANNEL_ASSOCIATED status is for.",
+  "scope": "orai",
+  "genes": ["ORAI1", "ORAI2", "ORAI3"],
+  "species": "",
+  "sources": ["NCBI", "Ensembl", "UniProt"],
+  "max_per_source": 200,
+  "include_sequence": false
+}

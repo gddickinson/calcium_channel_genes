@@ -1,0 +1,11 @@
+{
+  "name": "Exhaustive calcium-channel hunt",
+  "description": "The full pipeline in exhaustive mode: enumerate from every catalogued pore signature, fetch sequences, classify, score unassigned records for novelty, and investigate whatever survives the evidence gate (D3). Expensive and slow - this is the S2/S3 driver, not a browsing preset.",
+  "mode": "exhaustive",
+  "scope": "all",
+  "species": "",
+  "sources": ["UniProt", "NCBI", "Ensembl"],
+  "max_per_source": 500,
+  "include_sequence": true,
+  "reviewed_only": false
+}

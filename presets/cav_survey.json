@@ -1,0 +1,10 @@
+{
+  "name": "Voltage-gated calcium channel survey",
+  "description": "The Cav alpha1 genes across the tree-of-life panel - the baseline search: what the databases already know, before any census work. CACNA1C and CACNA1S are among the best-annotated channels in any vertebrate genome, so this is also the sanity check that a search returning few hits is a real absence rather than a broken client. The sister panel (from the hazard registry) puts SCN5A and NALCN in front of the discovery scorer, which is the point: the nearest neighbour of a calcium channel is very often a sodium channel.",
+  "scope": "cav_hva",
+  "genes": ["CACNA1C", "CACNA1S", "CACNA1A", "CACNA1B", "CACNA1G"],
+  "species": "",
+  "sources": ["NCBI", "Ensembl", "UniProt"],
+  "max_per_source": 200,
+  "include_sequence": false
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Calcium-channel discovery run",
+  "description": "Search, analyse and score unclassified candidates against the whole catalogue. The scorer's evidence gate (D3) and sister-family test (D14) both matter more here than in a single-family project: the sister panel is derived from the hazard registry and therefore contains the sodium channels, the Ca2+-activated potassium channels, the pumps and the EF-hand sensors, which is exactly the set a naive scorer promotes.",
+  "scope": "all",
+  "genes": [],
+  "species": "",
+  "sources": ["UniProt", "NCBI"],
+  "max_per_source": 300,
+  "include_sequence": true,
+  "discover": true,
+  "interpro_lookup": true
+}
