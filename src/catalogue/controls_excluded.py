@@ -90,7 +90,7 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF11933", "Na_trans_cytopl", L.FAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_SCN5A", "SCN5A", "Homo sapiens", "Q14524",
                       "the four-repeat filter anchor: D372/E898/K1419/A1711"),
-                   Ex("Hs_SCN1A", "SCN1A", "Homo sapiens")),
+                   Ex("Hs_SCN1A", "SCN1A", "Homo sapiens", "P35498")),
         human_genes=("SCN1A", "SCN2A", "SCN3A", "SCN4A", "SCN5A", "SCN7A",
                      "SCN8A", "SCN9A", "SCN10A", "SCN11A"),
         length_band_aa=(1600, 2100), filter_motif="DEKA",
@@ -175,7 +175,7 @@ FAMILIES: list[CF] = [
                         "signature, so one architecture rule cannot reach "
                         "both - which is why HC15 needs two")),
         exemplars=(Ex("Hs_KCNMA1", "KCNMA1", "Homo sapiens", "Q12791", "BK"),
-                   Ex("Hs_KCNN2", "KCNN2", "Homo sapiens", "", "SK2")),
+                   Ex("Hs_KCNN2", "KCNN2", "Homo sapiens", "Q9H2S1", "SK2")),
         human_genes=("KCNMA1", "KCNN1", "KCNN2", "KCNN3", "KCNN4", "KCNU1"),
         length_band_aa=(400, 1250), filter_motif="TxGYG",
         confusable_with=("cav_hva", "HC15"),
@@ -195,11 +195,17 @@ FAMILIES: list[CF] = [
         selectivity=Sel.MONOVALENT_CATION, gating=(G.CALCIUM, G.VOLTAGE),
         permeability=_ACTIVATED,
         tm_per_subunit=6, pore_loops_per_subunit=1,
+        # PF16519 was declared here and is carried by *neither* TRPM4 nor
+        # TRPM5 (measured 2026-08-20, S0) - InterPro annotates it on TRPM7
+        # but not on the monovalent pair - so it is not a signature of this
+        # family and has been removed rather than demoted.
         signatures=(Sig("pfam", "PF18139", "LSDAT_euk", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF16519", "TRPM_tetra", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF25508", "TRPM2", L.FAMILY, 1, P.DB,
+                        "the Pfam family is named for TRPM2 but is annotated "
+                        "on TRPM4 and TRPM5 as well"),
                     Sig("pfam", "PF00520", "Ion_trans", L.SUPERFAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_TRPM4", "TRPM4", "Homo sapiens", "Q8TD43"),
-                   Ex("Hs_TRPM5", "TRPM5", "Homo sapiens")),
+                   Ex("Hs_TRPM5", "TRPM5", "Homo sapiens", "Q9NZQ8")),
         human_genes=("TRPM4", "TRPM5"),
         length_band_aa=(1100, 1250), filter_motif="[open]",
         confusable_with=("trpm_ca", "HC15"),
@@ -222,7 +228,7 @@ FAMILIES: list[CF] = [
         signatures=(Sig("pfam", "PF04547", "Anoctamin", L.FAMILY, 1, P.DB),
                     Sig("pfam", "PF16178", "Anoct_dimer", L.FAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_ANO1", "ANO1", "Homo sapiens", "Q5XXA6"),
-                   Ex("Hs_ANO2", "ANO2", "Homo sapiens")),
+                   Ex("Hs_ANO2", "ANO2", "Homo sapiens", "Q9NQ90")),
         human_genes=("ANO1", "ANO2"),
         confusable_with=("osca_tmem63", "HC15"),
         provenance=P.DB,
@@ -300,8 +306,14 @@ FAMILIES: list[CF] = [
                           "resolved by omission"),
         stoichiometry="hexamer (connexin) / heptamer (pannexin)",
         tm_per_subunit=4,
-        signatures=(Sig("pfam", "PF00029", "Connexin", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF00876", "Innexin", L.FAMILY, 1, P.DB)),
+        # Connexins and pannexins are unrelated in sequence and converge on
+        # a hemichannel: measured 2026-08-20 (S0), GJA1 carries PF00029 and
+        # PANX1 carries PF00876, and neither carries the other.
+        signatures=(Sig("pfam", "PF00029", "Connexin", L.SUBFAMILY, 1, P.DB,
+                        "connexins only"),
+                    Sig("pfam", "PF00876", "Innexin", L.SUBFAMILY, 1, P.DB,
+                        "pannexins only - named for the invertebrate innexins "
+                        "they descend from")),
         exemplars=(Ex("Hs_GJA1", "GJA1", "Homo sapiens", "P17302", "Cx43"),
                    Ex("Hs_PANX1", "PANX1", "Homo sapiens", "Q96RD7")),
         human_genes=("GJA1", "GJA3", "GJA4", "GJA5", "GJA8", "GJB1", "GJB2",
@@ -321,11 +333,19 @@ FAMILIES: list[CF] = [
         superfamily="p_type_atpase", status=St.TRANSPORTER,
         fold=Fold.P_TYPE_ATPASE, selectivity=Sel.CA, gating=_NONE,
         permeability=NOT_CALCIUM, tm_per_subunit=10,
+        # PF00702 was declared here and is carried by neither SERCA nor
+        # PMCA. Pfam holds *two* families with the long name "haloacid
+        # dehalogenase-like hydrolase" - PF00702 and PF08282 - and it is
+        # PF08282 that InterPro annotates on the P-type Ca2+-ATPases
+        # (measured 2026-08-20, S0). A hand-picked choice between two
+        # identically named accessions is exactly what S0 exists to catch.
         signatures=(Sig("pfam", "PF00122", "E1-E2_ATPase", L.FAMILY, 1, P.DB),
                     Sig("pfam", "PF00689", "Cation_ATPase_C", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF00702", "Hydrolase", L.FAMILY, 1, P.DB)),
+                    Sig("pfam", "PF00690", "Cation_ATPase_N", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF08282", "Hydrolase_3", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF13246", "Cation_ATPase", L.FAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_ATP2A1", "ATP2A1", "Homo sapiens", "O14983", "SERCA1"),
-                   Ex("Hs_ATP2B1", "ATP2B1", "Homo sapiens", "", "PMCA1")),
+                   Ex("Hs_ATP2B1", "ATP2B1", "Homo sapiens", "P20020", "PMCA1")),
         human_genes=("ATP2A1", "ATP2A2", "ATP2A3", "ATP2B1", "ATP2B2",
                      "ATP2B3", "ATP2B4", "ATP2C1", "ATP2C2"),
         length_band_aa=(900, 1250),
@@ -344,10 +364,16 @@ FAMILIES: list[CF] = [
         superfamily="ca_exchanger", status=St.TRANSPORTER,
         fold=Fold.CACA_EXCHANGER, selectivity=Sel.CA, gating=_NONE,
         permeability=NOT_CALCIUM, tm_per_subunit=10,
-        signatures=(Sig("pfam", "PF01699", "Na_Ca_ex", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF07766", "LETM1_RBD", L.SUBFAMILY, 1, P.DB)),
+        # LETM1 is in this family by function and carries no Na_Ca_ex domain
+        # (measured 2026-08-20, S0), so PF01699 is diagnostic for the NCX /
+        # NCKX / NCLX part of it and not for the family.
+        signatures=(Sig("pfam", "PF01699", "Na_Ca_ex", L.SUBFAMILY, 2, P.DB,
+                        "NCX/NCKX/NCLX only, and in two copies - the "
+                        "exchanger is an internally duplicated fold"),
+                    Sig("pfam", "PF07766", "LETM1_RBD", L.SUBFAMILY, 1, P.DB,
+                        "LETM1 only")),
         exemplars=(Ex("Hs_SLC8A1", "SLC8A1", "Homo sapiens", "P32418", "NCX1"),
-                   Ex("Hs_SLC8B1", "SLC8B1", "Homo sapiens", "", "NCLX"),
+                   Ex("Hs_SLC8B1", "SLC8B1", "Homo sapiens", "Q6J4K2", "NCLX"),
                    Ex("Hs_LETM1", "LETM1", "Homo sapiens", "O95202")),
         human_genes=("SLC8A1", "SLC8A2", "SLC8A3", "SLC8B1",
                      "SLC24A1", "SLC24A2", "SLC24A3", "SLC24A4", "SLC24A5",
@@ -367,8 +393,14 @@ FAMILIES: list[CF] = [
         superfamily="ca_sensor", status=St.NON_CHANNEL_HOMOLOG, fold=Fold.EF_HAND,
         selectivity=Sel.UNKNOWN, gating=_NONE, permeability=NOT_CALCIUM,
         stoichiometry="monomer or dimer", tm_per_subunit=0,
+        # Pfam splits the EF-hand across many families and InterPro assigns
+        # whichever scores best, so the accessions are alternatives rather
+        # than a set: measured 2026-08-20 (S0), calmodulin carries PF13499x2
+        # and no PF00036, parvalbumin PF13499x1, calbindin both. PF13499 is
+        # the one every member has.
         signatures=(Sig("pfam", "PF13499", "EF-hand_7", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF00036", "EF-hand_1", L.FAMILY, 1, P.DB)),
+                    Sig("pfam", "PF00036", "EF-hand_1", L.SUBFAMILY, 1, P.DB,
+                        "an alternative EF-hand model, not a second domain")),
         exemplars=(Ex("Hs_CALM1", "CALM1", "Homo sapiens", "P0DP23"),
                    Ex("Hs_CALB1", "CALB1", "Homo sapiens", "P05937"),
                    Ex("Hs_PVALB", "PVALB", "Homo sapiens", "P20472")),

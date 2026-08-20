@@ -52,7 +52,11 @@ LIG_CHAN = Sig("pfam", "PF00060", "Lig_chan", L.SUPERFAMILY, 1, P.DB,
                "the iGluR pore region; the M2 re-entrant loop that carries "
                "the Q/R site sits inside it")
 LIG_CHAN_GLU = Sig("pfam", "PF10613", "Lig_chan-Glu_bd", L.SUPERFAMILY, 1,
-                   P.CURATED)
+                   P.DB,
+                   "the glutamate/glycine-binding lobe; verified 2026-08-20 "
+                   "(S0) on all eight iGluR exemplars, the two plant GLRs "
+                   "among them - the last CURATED accession in the "
+                   "catalogue, and it held")
 ANF_RECEPTOR = Sig("pfam", "PF01094", "ANF_receptor", L.SHARED_WITH_DECOY, 1,
                    P.DB,
                    "the ancestral periplasmic binding protein - also the "
@@ -97,8 +101,8 @@ FAMILIES: list[CF] = [
         stoichiometry="homopentamer (alpha7) or alpha9/alpha10 heteropentamer",
         tm_per_subunit=4,
         signatures=(NEUR_LBD, NEUR_MEMB),
-        exemplars=(Ex("Hs_CHRNA7", "CHRNA7", "Homo sapiens"),
-                   Ex("Hs_CHRNA9", "CHRNA9", "Homo sapiens")),
+        exemplars=(Ex("Hs_CHRNA7", "CHRNA7", "Homo sapiens", "P36544"),
+                   Ex("Hs_CHRNA9", "CHRNA9", "Homo sapiens", "Q9UGM1")),
         human_genes=("CHRNA7", "CHRNA9", "CHRNA10"),
         length_band_aa=(430, 630),
         compartment="plasma membrane -> cytosol",
@@ -129,7 +133,7 @@ FAMILIES: list[CF] = [
         tm_per_subunit=3, pore_loops_per_subunit=1,
         signatures=(LIG_CHAN, LIG_CHAN_GLU, ANF_RECEPTOR),
         exemplars=(Ex("Hs_GRIA1", "GRIA1", "Homo sapiens", "P42261"),
-                   Ex("Hs_GRIA2", "GRIA2", "Homo sapiens", "",
+                   Ex("Hs_GRIA2", "GRIA2", "Homo sapiens", "P42262",
                       "the edited subunit - the one that closes the pore to "
                       "calcium")),
         human_genes=("GRIA1", "GRIA2", "GRIA3", "GRIA4"),
@@ -160,7 +164,11 @@ FAMILIES: list[CF] = [
         stoichiometry="tetramer", tm_per_subunit=3, pore_loops_per_subunit=1,
         signatures=(LIG_CHAN, LIG_CHAN_GLU, ANF_RECEPTOR),
         exemplars=(Ex("Hs_GRIK1", "GRIK1", "Homo sapiens", "P39086"),
-                   Ex("Hs_GRIK2", "GRIK2", "Homo sapiens")),
+                   Ex("Hs_GRIK2", "GRIK2", "Homo sapiens", "Q13002",
+                      "declared because the symbol is ambiguous: GRIK5 "
+                      "(Q16478, 980 aa) carries GRIK2 in its synonym list, "
+                      "so a symbol lookup returned GRIK5 for it until "
+                      "2026-08-20")),
         human_genes=("GRIK1", "GRIK2", "GRIK3", "GRIK4", "GRIK5"),
         length_band_aa=(900, 980),
         compartment="plasma membrane -> cytosol",
@@ -184,7 +192,7 @@ FAMILIES: list[CF] = [
         tm_per_subunit=3, pore_loops_per_subunit=1,
         signatures=(LIG_CHAN, LIG_CHAN_GLU, ANF_RECEPTOR),
         exemplars=(Ex("Hs_GRIN1", "GRIN1", "Homo sapiens", "Q05586"),
-                   Ex("Hs_GRIN2B", "GRIN2B", "Homo sapiens")),
+                   Ex("Hs_GRIN2B", "GRIN2B", "Homo sapiens", "Q13224")),
         human_genes=("GRIN1", "GRIN2A", "GRIN2B", "GRIN2C", "GRIN2D",
                      "GRIN3A", "GRIN3B"),
         length_band_aa=(900, 1500), filter_motif="N site (GluN1 N598)",
@@ -215,7 +223,7 @@ FAMILIES: list[CF] = [
                           "no single ratio describes it"),
         stoichiometry="trimer", tm_per_subunit=2,
         signatures=(Sig("pfam", "PF00864", "P2X_receptor", L.FAMILY, 1, P.DB),),
-        exemplars=(Ex("Hs_P2RX4", "P2RX4", "Homo sapiens"),
+        exemplars=(Ex("Hs_P2RX4", "P2RX4", "Homo sapiens", "Q99571"),
                    Ex("Hs_P2RX7", "P2RX7", "Homo sapiens", "Q99572")),
         human_genes=("P2RX1", "P2RX2", "P2RX3", "P2RX4", "P2RX5", "P2RX6",
                      "P2RX7"),

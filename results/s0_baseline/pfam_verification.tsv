@@ -5,13 +5,14 @@ PF00027	cNMP_binding	cNMP_binding	Cyclic nucleotide-binding domain	184852	ok	3
 PF00029	Connexin	Connexin	Connexin	19851	ok	1
 PF00036	EF-hand_1	EF-hand_1	EF hand domain	26835	ok	1
 PF00060	Lig_chan	Lig_chan	Ligand-gated ion channel	56608	ok	4
+PF00092	VWA	VWA	von Willebrand factor type A domain	99203	ok	1
 PF00122	E1-E2_ATPase	E1-E2_ATPase	P-type ATPase actuator domain	198722	ok	1
 PF00254	FKBP_C	FKBP_C	FKBP-type peptidyl-prolyl cis-trans isomerase	99670	ok	1
 PF00520	Ion_trans	Ion_trans	Ion transport protein	206115	ok	17
 PF00622	SPRY	SPRY	SPRY domain	113796	ok	1
 PF00625	Guanylate_kin	Guanylate_kin	Guanylate kinase	79996	ok	1
 PF00689	Cation_ATPase_C	Cation_ATPase_C	Cation transporting ATPase, C-terminus	76315	ok	1
-PF00702	Hydrolase	Hydrolase	haloacid dehalogenase-like hydrolase	243591	ok	1
+PF00690	Cation_ATPase_N	Cation_ATPase_N	Cation transporter/ATPase, N-terminus	84314	ok	1
 PF00801	PKD	PKD	PKD domain	12100	ok	1
 PF00822	PMP22_Claudin	PMP22_Claudin	PMP-22/EMP/MP20/Claudin family	34671	ok	1
 PF00864	P2X_receptor	P2X_receptor	ATP P2X receptor	8222	ok	1
@@ -45,6 +46,7 @@ PF07766	LETM1_RBD	LETM1_RBD	LETM1-like, RBD	9748	ok	1
 PF07856	Orai-1	Orai-1	Mediator of CRAC channel activity	3562	ok	1
 PF07885	Ion_trans_2	Ion_trans_2	Ion channel	68571	ok	1
 PF08016	PKD_channel	PKD_channel	Polycystin cation channel	13945	ok	3
+PF08282	Hydrolase_3	Hydrolase_3	haloacid dehalogenase-like hydrolase	83049	ok	1
 PF08344	TRP_2	TRP_2	Transient receptor ion channel II	10568	ok	1
 PF08412	Ion_trans_N	Ion_trans_N	Ion transport protein N-terminal	4174	ok	1
 PF08454	RIH_assoc	RIH_assoc	RyR and IP3R Homology associated	12062	ok	2
@@ -52,13 +54,14 @@ PF08473	VGCC_alpha2	VGCC_alpha2	Neuronal voltage-dependent calcium channel alpha
 PF08709	Ins145_P3_rec	Ins145_P3_rec	Inositol 1,4,5-trisphosphate/ryanodine receptor	12338	ok	2
 PF08763	Ca_chan_IQ	Ca_chan_IQ	Voltage gated calcium channel IQ domain	16373	ok	1
 PF10161	DDDD	DDDD	Putative mitochondrial precursor protein	1177	ok	1
-PF10613	Lig_chan-Glu_bd	Lig_chan-Glu_bd	Ligated ion channel L-glutamate- and glycine-binding site	49207	ok	3
+PF10613	Lig_chan-Glu_bd	Lig_chan-Glu_bd	Ligated ion channel L-glutamate- and glycine-binding site	49207	ok	4
 PF11289	bCoV_viroporin	bCoV_viroporin	Betacoronavirus viroporin	78	ok	1
 PF11933	Na_trans_cytopl	Na_trans_cytopl	Cytoplasmic domain of voltage-gated Na+ ion channel	10488	ok	1
 PF12052	VGCC_beta4Aa_N	VGCC_beta4Aa_N	Voltage gated calcium channel subunit beta domain 4Aa N terminal	8780	ok	1
 PF12166	Piezo_cap	Piezo_cap	Piezo non-specific cation channel, cap domain	5776	ok	1
 PF12796	Ank_2	Ank_2	Ankyrin repeats (3 copies)	542446	ok	4
 PF13202	EF-hand_5	EF-hand_5	EF hand	57384	ok	1
+PF13246	Cation_ATPase	Cation_ATPase	P-type ATPase, cytoplasmic domain N	118075	ok	1
 PF13499	EF-hand_7	EF-hand_7	EF-hand domain pair	239776	ok	1
 PF13637	Ank_4	Ank_4	Ankyrin repeats (many copies)	83176	ok	1
 PF13833	EF-hand_8	EF-hand_8	EF-hand domain pair	38341	ok	1
@@ -68,7 +71,7 @@ PF14798	Ca_hom_mod	Ca_hom_mod	Calcium homeostasis modulator	4977	ok	1
 PF15149	CATSPERB_C	CATSPERB_C	CATSPERB, C-terminal domain	339	ok	1
 PF15917	Piezo_TM25-28	Piezo_TM25-28	Piezo TM25-28	4297	ok	1
 PF16178	Anoct_dimer	Anoct_dimer	Anoctamin, dimerisation domain	14184	ok	1
-PF16519	TRPM_tetra	TRPM_tetra	Tetramerisation domain of TRPM	6731	ok	2
+PF16519	TRPM_tetra	TRPM_tetra	Tetramerisation domain of TRPM	6731	ok	1
 PF16526	CLZ	CLZ	C-terminal leucine zipper domain of cyclic nucleotide-gated channels	4806	ok	1
 PF16533	SOAR	SOAR	STIM1 Orai1-activating region	4503	ok	1
 PF16885	CAC1F_C	CAC1F_C	Voltage-gated calcium channel subunit alpha, C-term	7237	ok	1
@@ -82,4 +85,4 @@ PF23188	THU_Piezo1	THU_Piezo1	Piezo1-like, transmembrane helical unit	5348	ok	1
 PF23317	YVC1_C	YVC1_C	Calcium channel YVC1-like, C-terminal	21078	ok	2
 PF24871	Piezo_TM1-24	Piezo_TM1-24	Piezo TM1-24	4643	ok	1
 PF24874	Piezo_THU9_anchor	Piezo_THU9_anchor	Piezo, THU9 and anchor domain	5714	ok	1
-PF25508	TRPM2	TRPM2	TRPM2-like domain	13457	ok	1
+PF25508	TRPM2	TRPM2	TRPM2-like domain	13457	ok	2

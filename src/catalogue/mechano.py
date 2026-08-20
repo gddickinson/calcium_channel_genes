@@ -66,7 +66,7 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF24874", "Piezo_THU9_anchor", L.FAMILY, 1,
                         P.DB)),
         exemplars=(Ex("Hs_PIEZO1", "PIEZO1", "Homo sapiens", "Q92508"),
-                   Ex("Hs_PIEZO2", "PIEZO2", "Homo sapiens")),
+                   Ex("Hs_PIEZO2", "PIEZO2", "Homo sapiens", "Q9H5I5")),
         human_genes=("PIEZO1", "PIEZO2"),
         length_band_aa=(2500, 2850), filter_motif="[open]",
         compartment="plasma membrane -> cytosol",

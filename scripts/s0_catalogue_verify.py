@@ -119,7 +119,7 @@ def check_exemplars(f: Fetcher, out: Path, limit: int,
 
         if rec is None:
             rows.append((fam_key, e.label, e.gene, e.species, tax or "",
-                         e.uniprot, "", "", "", "", "UNRESOLVED"))
+                         e.uniprot, "", "", "", "", "", "", "UNRESOLVED"))
             n_unresolved += 1
             continue
 
@@ -136,17 +136,29 @@ def check_exemplars(f: Fetcher, out: Path, limit: int,
                 n_declared_ok += 1
             elif not has_gene:
                 status = "NO_GENE_NAME_IN_UNIPROT"
+            elif e.gene.upper() in (rec.get("synonyms") or set()):
+                # The right protein under a different primary symbol.
+                status = "DECLARED_GENE_IS_SYNONYM"
             else:
                 status = "DECLARED_GENE_MISMATCH"
                 n_declared_bad += 1
         elif not gene_ok:
             status = "NO_GENE_NAME_IN_UNIPROT" if not has_gene \
                 else "GENE_NAME_DIFFERS"
+        # A symbol that matched only a *synonym* is worth seeing even when
+        # the resolution is correct: gene symbols are recycled, and the
+        # collision that put GRIK5 in the panel under the GRIK2 label was
+        # invisible until this column existed.
+        if route.startswith("resolved") and rec.get("primary_match") is False \
+                and status == "ok":
+            status = "SYNONYM_MATCH_ONLY"
         n_ok += 1
         resolved[e.gene] = rec["accession"]
         rows.append((fam_key, e.label, e.gene, e.species, tax or "",
                      e.uniprot, rec["accession"], rec["gene"], rec["length"],
-                     rec["protein"][:60], status))
+                     rec["protein"][:60], rec.get("n_candidates", ""),
+                     "yes" if rec.get("primary_match", True) else "no",
+                     status))
 
         observed = protein_pfams(f, rec["accession"])
         sigs = {s.accession: s for s in CATALOGUE[fam_key].signatures}
@@ -183,7 +195,8 @@ def check_exemplars(f: Fetcher, out: Path, limit: int,
     write_tsv(out / "exemplars_resolved.tsv",
               ("family", "label", "gene", "species", "taxon_id",
                "declared_accession", "resolved_accession", "resolved_gene",
-               "length_aa", "protein_name", "status"), rows)
+               "length_aa", "protein_name", "n_candidates", "primary_match",
+               "status"), rows)
     write_tsv(out / "exemplar_architecture.tsv",
               ("family", "label", "accession", "observed_pfam",
                "declared_pfam", "declared_not_observed", "family_level_absent",

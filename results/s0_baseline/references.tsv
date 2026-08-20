@@ -1,0 +1,123 @@
+key	pmid	doi	year	journal	authors	title	status	match
+ringer1883	16991336	10.1113/jphysiol.1883.sp000120	1883	J Physiol	Ringer S.	A further Contribution regarding the influence of the different Constituents of the Blood on the Contraction of the Heart	ok	1.00
+fatt1953	13062231	10.1113/jphysiol.1953.sp004884	1953	J Physiol	FATT P, KATZ B.	The electrical properties of crustacean muscle fibres	ok	1.00
+hodgkin1952	12991237	10.1113/jphysiol.1952.sp004764	1952	J Physiol	HODGKIN AL, HUXLEY AF.	A quantitative description of membrane current and its application to conduction and excitation in nerve	ok	1.00
+neher1976	1083489	10.1038/260799a0	1976	Nature	Neher E, Sakmann B.	Single-channel currents recorded from membrane of denervated frog muscle fibres	ok	1.00
+berridge2000	11413485	10.1038/35036035	2000	Nat Rev Mol Cell Biol	Berridge MJ, Lipp P, Bootman MD.	The versatility and universality of calcium signalling	ok	1.00
+clapham2007	18083096	10.1016/j.cell.2007.11.028	2007	Cell	Clapham DE.	Calcium signaling	ok	1.00
+carafoli2002	11830654	10.1073/pnas.032427999	2002	Proc Natl Acad Sci U S A	Carafoli E.	Calcium signaling: a tale for all seasons	ok	1.00
+bootman2020	31427372	10.1101/cshperspect.a038802	2020	Cold Spring Harb Perspect Biol	Bootman MD, Bultynck G.	Fundamentals of Cellular Calcium Signaling: A Primer	ok	1.00
+tanabe1987	3037387	10.1038/328313a0	1987	Nature	Tanabe T et al.	Primary structure of the receptor for calcium channel blockers from skeletal muscle	ok	1.00
+mikami1989	2474130	10.1038/340230a0	1989	Nature	Mikami A et al.	Primary structure and functional expression of the cardiac dihydropyridine-sensitive calcium channel	ok	1.00
+ertel2000	10774722	10.1016/s0896-6273(00)81057-0	2000	Neuron	Ertel EA et al.	Nomenclature of voltage-gated calcium channels	ok	1.00
+catterall2011	21746798	10.1101/cshperspect.a003947	2011	Cold Spring Harb Perspect Biol	Catterall WA.	Voltage-gated calcium channels	ok	1.00
+zamponi2015	26362469	10.1124/pr.114.009654	2015	Pharmacol Rev	Zamponi GW et al.	The Physiology, Pathology, and Pharmacology of Voltage-Gated Calcium Channels and Their Future Therapeutic Potential	ok	1.00
+dolphin2016	27273705	10.1113/jp272262	2016	J Physiol	Dolphin AC.	Voltage-gated calcium channels and their auxiliary subunits: physiology and pathophysiology and pharmacology	ok	1.00
+dolphin2018	32161339	10.1038/s41583-020-0278-2	2020	Nat Rev Neurosci	Dolphin AC, Lee A.	Presynaptic calcium channels: specialized control of synaptic neurotransmitter release	ok	1.00
+wu2016	27580036	10.1038/nature19321	2016	Nature	Wu J et al.	Structure of the voltage-gated calcium channel Ca(v)1.1 at 3.6 Å resolution	ok	0.99
+wu2015	26680202	10.1126/science.aad2395	2015	Science	Wu J et al.	Structure of the voltage-gated calcium channel Cav1.1 complex	ok	1.00
+rios1987	2434854	10.1038/325717a0	1987	Nature	Rios E, Brum G.	Involvement of dihydropyridine receptors in excitation-contraction coupling in skeletal muscle	ok	1.00
+yang1993	8232554	10.1038/366158a0	1993	Nature	Yang J et al.	Molecular determinants of Ca2+ selectivity and ion permeation in L-type Ca2+ channels	ok	1.00
+sather2003	12471162	10.1146/annurev.physiol.65.092101.142345	2003	Annu Rev Physiol	Sather WA, McCleskey EW.	Permeation and selectivity in calcium channels	ok	1.00
+heinemann1992	1313551	10.1038/356441a0	1992	Nature	Heinemann SH et al.	Calcium channel characteristics conferred on the sodium channel by single mutations	ok	1.00
+tang2014	24270805	10.1038/nature12775	2014	Nature	Tang L et al.	Structural basis for Ca2+ selectivity of a voltage-gated calcium channel	ok	1.00
+payandeh2011	21743477	10.1038/nature10238	2011	Nature	Payandeh J et al.	The crystal structure of a voltage-gated sodium channel	ok	1.00
+catterall2012	22473783	10.1113/jphysiol.2011.224204	2012	J Physiol	Catterall WA.	Voltage-gated sodium channels at 60: structure, function and pathophysiology	ok	1.00
+lu2007	17448995	10.1016/j.cell.2007.02.041	2007	Cell	Lu B et al.	The neuronal channel NALCN contributes resting sodium permeability and is required for normal respiratory rhythm	ok	1.00
+perezreyes2003	12506128	10.1152/physrev.00018.2002	2003	Physiol Rev	Perez-Reyes E.	Molecular physiology of low-voltage-activated t-type calcium channels	ok	1.00
+cribbs1998	9670923	10.1161/01.res.83.1.103	1998	Circ Res	Cribbs LL et al.	Cloning and characterization of alpha1H from human heart, a member of the T-type Ca2+ channel gene family	ok	1.00
+ren2001	12402840	10.1097/00005392-200211000-00119	2002	J Urol	Jarow JP.	A sperm ion channel required for sperm motility and male fertility	ok	1.00
+lishko2011	21412339	10.1038/nature09767	2011	Nature	Lishko PV, Botchkina IL, Kirichok Y.	Progesterone activates the principal Ca2+ channel of human sperm	ok	1.00
+strunker2011	21412338	10.1038/nature09769	2011	Nature	Strünker T et al.	The CatSper channel mediates progesterone-induced Ca2+ influx in human sperm	ok	1.00
+cai2012	18974790	10.1371/journal.pone.0003569	2008	PLoS One	Cai X, Clapham DE.	Evolutionary genomics reveals lineage-specific gene loss and rapid evolution of a sperm-specific ion channel complex: CatSpers and CatSperbeta	ok	1.00
+roos2005	15866891	10.1083/jcb.200502019	2005	J Cell Biol	Roos J et al.	STIM1, an essential and conserved component of store-operated Ca2+ channel function	ok	1.00
+liou2005	16005298	10.1016/j.cub.2005.05.055	2005	Curr Biol	Liou J et al.	STIM is a Ca2+ sensor essential for Ca2+-store-depletion-triggered Ca2+ influx	ok	1.00
+feske2006	16582901	10.1038/nature04702	2006	Nature	Feske S et al.	A mutation in Orai1 causes immune deficiency by abrogating CRAC channel function	ok	1.00
+vig2006	16645049	10.1126/science.1127883	2006	Science	Vig M et al.	CRACM1 is a plasma membrane protein essential for store-operated Ca2+ entry	ok	1.00
+zhang2006	16751269	10.1073/pnas.0603161103	2006	Proc Natl Acad Sci U S A	Zhang SL et al.	Genome-wide RNAi screen of Ca(2+) influx identifies genes that regulate Ca(2+) release-activated Ca(2+) channel activity	ok	0.99
+prakriya2006	16921383	10.1038/nature05122	2006	Nature	Prakriya M et al.	Orai1 is an essential pore subunit of the CRAC channel	ok	1.00
+yeromin2006	16921385	10.1038/nature05108	2006	Nature	Yeromin AV et al.	Molecular identification of the CRAC channel by altered ion selectivity in a mutant of Orai	ok	1.00
+hou2012	23180775	10.1126/science.1228757	2012	Science	Hou X et al.	Crystal structure of the calcium release-activated calcium channel Orai	ok	1.00
+prakriya2015	26400989	10.1152/physrev.00020.2014	2015	Physiol Rev	Prakriya M, Lewis RS.	Store-Operated Calcium Channels	ok	1.00
+hogan2015	25998732	10.1016/j.bbrc.2015.02.110	2015	Biochem Biophys Res Commun	Hogan PG, Rao A.	Store-operated calcium entry: Mechanisms and modulation	ok	1.00
+furuichi1989	2554142	10.1038/342032a0	1989	Nature	Furuichi T et al.	Primary structure and functional expression of the inositol 1,4,5-trisphosphate-binding protein P400	ok	1.00
+mignery1989	2554146	10.1038/342192a0	1989	Nature	Mignery GA et al.	Putative receptor for inositol 1,4,5-trisphosphate similar to ryanodine receptor	ok	1.00
+takeshima1989	2725677	10.1038/339439a0	1989	Nature	Takeshima H et al.	Primary structure and expression from complementary DNA of skeletal muscle ryanodine receptor	ok	1.00
+berridge1993	8381210	10.1038/361315a0	1993	Nature	Berridge MJ.	Inositol trisphosphate and calcium signalling	ok	1.00
+fabiato1983	6346892	10.1152/ajpcell.1983.245.1.c1	1983	Am J Physiol	Fabiato A.	Calcium-induced release of calcium from the cardiac sarcoplasmic reticulum	ok	1.00
+desgeorges2016	27662087	10.1016/j.cell.2016.08.075	2016	Cell	des Georges A et al.	Structural Basis for Gating and Activation of RyR1	ok	1.00
+fan2015	26458101	10.1038/nature15249	2015	Nature	Fan G et al.	Gating machinery of InsP3R channels revealed by electron cryomicroscopy	ok	1.00
+yan2015	25517095	10.1038/nature14063	2015	Nature	Yan Z et al.	Structure of the rabbit ryanodine receptor RyR1 at near-atomic resolution	ok	1.00
+lanner2010	20961976	10.1101/cshperspect.a003996	2010	Cold Spring Harb Perspect Biol	Lanner JT et al.	Ryanodine receptors: structure, expression, molecular details, and function in calcium release	ok	1.00
+yamazaki2011	21803293	10.1016/j.cmet.2011.05.011	2011	Cell Metab	Yamazaki D et al.	TRIC-A channels in vascular smooth muscle contribute to blood pressure maintenance	ok	1.00
+kirichok2004	14737170	10.1038/nature02246	2004	Nature	Kirichok Y, Krapivinsky G, Clapham DE.	The mitochondrial calcium uniporter is a highly selective ion channel	ok	1.00
+perocchi2010	20693986	10.1038/nature09358	2010	Nature	Perocchi F et al.	MICU1 encodes a mitochondrial EF hand protein required for Ca(2+) uptake	ok	1.00
+baughman2011	21685886	10.1038/nature10234	2011	Nature	Baughman JM et al.	Integrative genomics identifies MCU as an essential component of the mitochondrial calcium uniporter	ok	1.00
+destefani2011	21685888	10.1038/nature10230	2011	Nature	De Stefani D et al.	A forty-kilodalton protein of the inner membrane is the mitochondrial calcium uniporter	ok	1.00
+sancak2013	24231807	10.1126/science.1242993	2013	Science	Sancak Y et al.	EMRE is an essential component of the mitochondrial calcium uniporter complex	ok	1.00
+baradaran2018	29995857	10.1038/s41586-018-0331-8	2018	Nature	Baradaran R et al.	Cryo-EM structures of fungal and metazoan mitochondrial calcium uniporters	ok	1.00
+colombini2004	14977174	10.1023/b:mcbi.0000009862.17396.8d	2004	Mol Cell Biochem	Colombini M.	VDAC: the channel at the interface between mitochondria and the cytosol	ok	1.00
+rapizzi2002	12438411	10.1083/jcb.200205091	2002	J Cell Biol	Rapizzi E et al.	Recombinant expression of the voltage-dependent anion channel enhances the transfer of Ca2+ microdomains to mitochondria	ok	1.00
+shoshanbarmatz2010	20346371	10.1016/j.mam.2010.03.002	2010	Mol Aspects Med	Shoshan-Barmatz V et al.	VDAC, a multi-functional mitochondrial protein regulating cell life and death	ok	1.00
+palty2010	20018762	10.1073/pnas.0908099107	2010	Proc Natl Acad Sci U S A	Palty R et al.	NCLX is an essential component of mitochondrial Na+/Ca2+ exchange	ok	1.00
+jiang2009	19797662	10.1126/science.1175145	2009	Science	Jiang D, Zhao L, Clapham DE.	Genome-wide RNAi screen identifies Letm1 as a mitochondrial Ca2+/H+ antiporter	ok	1.00
+caterina1997	9349813	10.1038/39807	1997	Nature	Caterina MJ et al.	The capsaicin receptor: a heat-activated ion channel in the pain pathway	ok	1.00
+clapham2003	14654832	10.1038/nature02196	2003	Nature	Clapham DE.	TRP channels as cellular sensors	ok	1.00
+ramsey2006	16460286	10.1146/annurev.physiol.68.040204.100431	2006	Annu Rev Physiol	Ramsey IS, Delling M, Clapham DE.	An introduction to TRP channels	ok	1.00
+owsianik2006	16460288	10.1146/annurev.physiol.68.040204.101406	2006	Annu Rev Physiol	Owsianik G et al.	Permeation and selectivity of TRP channels	ok	1.00
+nilius2007	17237345	10.1152/physrev.00021.2006	2007	Physiol Rev	Nilius B et al.	Transient receptor potential cation channels in disease	ok	1.00
+peng1999	10428857	10.1074/jbc.274.32.22739	1999	J Biol Chem	Peng JB et al.	Molecular cloning and characterization of a channel-like transporter mediating intestinal calcium absorption	ok	1.00
+hoenderop1999	10085067	10.1074/jbc.274.13.8375	1999	J Biol Chem	Hoenderop JG et al.	Molecular identification of the apical Ca2+ channel in 1, 25-dihydroxyvitamin D3-responsive epithelia	ok	1.00
+hoenderop2005	15618484	10.1152/physrev.00003.2004	2005	Physiol Rev	Hoenderop JG, Nilius B, Bindels RJ.	Calcium absorption across epithelia	ok	1.00
+saotome2016	27296226	10.1038/nature17975	2016	Nature	Saotome K et al.	Crystal structure of the epithelial calcium channel TRPV6	ok	1.00
+launay2002	12015988	10.1016/s0092-8674(02)00719-5	2002	Cell	Launay P et al.	TRPM4 is a Ca2+-activated nonselective cation channel mediating cell membrane depolarization	ok	1.00
+hofmann2003	12842017	10.1016/s0960-9822(03)00431-7	2003	Curr Biol	Hofmann T et al.	TRPM5 is a voltage-modulated and Ca(2+)-activated monovalent selective cation channel	ok	1.00
+dong2008	18794901	10.1038/nature07311	2008	Nature	Dong XP et al.	The type IV mucolipidosis-associated protein TRPML1 is an endolysosomal iron release channel	ok	1.00
+xu2015	25668017	10.1146/annurev-physiol-021014-071649	2015	Annu Rev Physiol	Xu H, Ren D.	Lysosomal physiology	ok	1.00
+calcraft2009	19387438	10.1038/nature08030	2009	Nature	Calcraft PJ et al.	NAADP mobilizes calcium from acidic organelles through two-pore channels	ok	1.00
+wang2012	23063126	10.1016/j.cell.2012.08.036	2012	Cell	Wang X et al.	TPC proteins are phosphoinositide- activated sodium-selective ion channels in endosomes and lysosomes	ok	1.00
+sommer1991	1717158	10.1016/0092-8674(91)90568-j	1991	Cell	Sommer B et al.	RNA editing in brain controls a determinant of ion flow in glutamate-gated channels	ok	1.00
+hume1991	1653450	10.1126/science.1653450	1991	Science	Hume RI, Dingledine R, Heinemann SF.	Identification of a site in glutamate receptor subunits that controls calcium permeability	ok	1.00
+burnashev1992	1370372	10.1016/0896-6273(92)90120-3	1992	Neuron	Burnashev N et al.	Divalent ion permeability of AMPA receptor channels is dominated by the edited form of a single subunit	ok	1.00
+higuchi2000	10894545	10.1038/35017558	2000	Nature	Higuchi M et al.	Point mutation in an AMPA receptor gene rescues lethality in mice deficient in the RNA-editing enzyme ADAR2	ok	1.00
+traynelis2010	20716669	10.1124/pr.109.002451	2010	Pharmacol Rev	Traynelis SF et al.	Glutamate receptor ion channels: structure, regulation, and function	ok	1.00
+mayer2006	16554805	10.1038/nature04709	2006	Nature	Mayer ML.	Glutamate receptors at atomic resolution	ok	1.00
+fucile2004	14670366	10.1016/j.ceca.2003.08.006	2004	Cell Calcium	Fucile S.	Ca2+ permeability of nicotinic acetylcholine receptors	ok	1.00
+north2002	12270951	10.1152/physrev.00015.2002	2002	Physiol Rev	North RA.	Molecular physiology of P2X receptors	ok	1.00
+egan2004	15056721	10.1523/jneurosci.5429-03.2004	2004	J Neurosci	Egan TM, Khakh BS.	Contribution of calcium ions to P2X channel responses	ok	1.00
+kawate2009	19641588	10.1038/nature08198	2009	Nature	Kawate T et al.	Crystal structure of the ATP-gated P2X(4) ion channel in the closed state	ok	1.00
+coste2010	20813920	10.1126/science.1193270	2010	Science	Coste B et al.	Piezo1 and Piezo2 are essential components of distinct mechanically activated cation channels	ok	1.00
+ge2015	26390154	10.1038/nature15247	2015	Nature	Ge J et al.	Architecture of the mammalian mechanosensitive Piezo1 channel	ok	1.00
+kefauver2020	33239794	10.1038/s41586-020-2933-1	2020	Nature	Kefauver JM, Ward AB, Patapoutian A.	Discoveries in structure and physiology of mechanically activated ion channels	ok	1.00
+yuan2014	25162526	10.1038/nature13593	2014	Nature	Yuan F et al.	OSCA1 mediates osmotic-stress-evoked Ca2+ increases vital for osmosensing in Arabidopsis	ok	1.00
+nakagawa2007	17360695	10.1073/pnas.0607703104	2007	Proc Natl Acad Sci U S A	Nakagawa Y et al.	Arabidopsis plasma membrane protein crucial for Ca2+ influx and touch sensing in roots	ok	1.00
+taruno2013	23467090	10.1038/nature11906	2013	Nature	Taruno A et al.	CALHM1 ion channel mediates purinergic neurotransmission of sweet, bitter and umami tastes	ok	1.00
+siebert2013	23300080	10.1074/jbc.m112.409789	2013	J Biol Chem	Siebert AP et al.	Structural and functional similarities of calcium homeostasis modulator 1 (CALHM1) ion channel with connexins, pannexins, and innexins	ok	1.00
+ma2018	29681531	10.1016/j.neuron.2018.03.043	2018	Neuron	Ma Z et al.	CALHM3 Is Essential for Rapid Ion Channel-Mediated Purinergic Neurotransmission of GPCR-Mediated Tastes	ok	1.00
+toyoshima2000	10864315	10.1038/35015017	2000	Nature	Toyoshima C et al.	Crystal structure of the calcium pump of sarcoplasmic reticulum at 2.6 A resolution	ok	1.00
+brini2009	19789383	10.1152/physrev.00032.2008	2009	Physiol Rev	Brini M, Carafoli E.	Calcium pumps in health and disease	ok	1.00
+blaustein1999	10390518	10.1152/physrev.1999.79.3.763	1999	Physiol Rev	Blaustein MP, Lederer WJ.	Sodium/calcium exchange: its physiological implications	ok	1.00
+brown1993	8255296	10.1038/366575a0	1993	Nature	Brown EM et al.	Cloning and characterization of an extracellular Ca(2+)-sensing receptor from bovine parathyroid	ok	1.00
+brown2001	11152759	10.1152/physrev.2001.81.1.239	2001	Physiol Rev	Brown EM, MacLeod RJ.	Extracellular calcium sensing and extracellular calcium signaling	ok	1.00
+case2007	17574670	10.1016/j.ceca.2007.05.001	2007	Cell Calcium	Case RM et al.	Evolution of calcium homeostasis: from birth of the first cell to an omnipresent signalling system	ok	1.00
+verkhratsky2014	24291103	10.1016/j.ejphar.2013.11.013	2014	Eur J Pharmacol	Verkhratsky A, Parpura V.	Calcium signalling and calcium channels: evolution and general principles	ok	1.00
+moran2014	25146647	10.1093/gbe/evu177	2014	Genome Biol Evol	Moran Y, Zakon HH.	The evolution of the four subunits of voltage-gated calcium channels: ancient roots, increasing complexity, and multiple losses	ok	1.00
+verret2010	20456068	10.1111/j.1469-8137.2010.03271.x	2010	New Phytol	Verret F et al.	Calcium channels in photosynthetic eukaryotes: implications for evolution of calcium-based signalling	ok	1.00
+toyota2018	30213912	10.1126/science.aat7744	2018	Science	Toyota M et al.	Glutamate triggers long-distance, calcium-based plant defense signaling	ok	1.00
+mousavi2013	23969459	10.1038/nature12478	2013	Nature	Mousavi SA et al.	GLUTAMATE RECEPTOR-LIKE genes mediate leaf-to-leaf wound signalling	ok	1.00
+hedrich2012	23073631	10.1152/physrev.00038.2011	2012	Physiol Rev	Hedrich R.	Ion channels in plants	ok	1.00
+ashcroft2006	16554803	10.1038/nature04707	2006	Nature	Ashcroft FM.	From molecule to malady	ok	1.00
+kullmann2010	20331364	10.1146/annurev-neuro-060909-153122	2010	Annu Rev Neurosci	Kullmann DM.	Neurological channelopathies	ok	1.00
+bagal2013	23121096	10.1021/jm3011433	2013	J Med Chem	Bagal SK et al.	Ion channels as therapeutic targets: a drug discovery perspective	ok	1.00
+santos2017	27910877	10.1038/nrd.2016.230	2017	Nat Rev Drug Discov	Santos R et al.	A comprehensive map of molecular drug targets	ok	1.00
+alexander2023	38123150	10.1111/bph.16178	2023	Br J Pharmacol	Alexander SPH et al.	The Concise Guide to PHARMACOLOGY 2023/24: Ion channels	ok	1.00
+paysanlafosse2023	36350672	10.1093/nar/gkac993	2023	Nucleic Acids Res	Paysan-Lafosse T et al.	InterPro in 2022	ok	1.00
+mistry2021	33125078	10.1093/nar/gkaa913	2021	Nucleic Acids Res	Mistry J et al.	Pfam: The protein families database in 2021	ok	1.00
+uniprot2023	36408920	10.1093/nar/gkac1052	2023	Nucleic Acids Res	UniProt Consortium.	UniProt: the Universal Protein Knowledgebase in 2023	ok	1.00
+katoh2013	23329690	10.1093/molbev/mst010	2013	Mol Biol Evol	Katoh K, Standley DM.	MAFFT multiple sequence alignment software version 7: improvements in performance and usability	ok	1.00
+minh2020	32011700	10.1093/molbev/msaa015	2020	Mol Biol Evol	Minh BQ et al.	IQ-TREE 2: New Models and Efficient Methods for Phylogenetic Inference in the Genomic Era	ok	1.00
+kalyaanamoorthy2017	28481363	10.1038/nmeth.4285	2017	Nat Methods	Kalyaanamoorthy S et al.	ModelFinder: fast model selection for accurate phylogenetic estimates	ok	1.00
+capellagutierrez2009	19505945	10.1093/bioinformatics/btp348	2009	Bioinformatics	Capella-Gutiérrez S, Silla-Martínez JM, Gabaldón T.	trimAl: a tool for automated alignment trimming in large-scale phylogenetic analyses	ok	1.00
+vankempen2024	37156916	10.1038/s41587-023-01773-0	2024	Nat Biotechnol	van Kempen M et al.	Fast and accurate protein structure search with Foldseek	ok	1.00
+jumper2021	34265844	10.1038/s41586-021-03819-2	2021	Nature	Jumper J et al.	Highly accurate protein structure prediction with AlphaFold	ok	1.00
+eddy2011	22039361	10.1371/journal.pcbi.1002195	2011	PLoS Comput Biol	Eddy SR.	Accelerated Profile HMM Searches	ok	1.00

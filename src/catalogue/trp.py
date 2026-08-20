@@ -63,9 +63,9 @@ FAMILIES: list[CF] = [
         signatures=(ION_TRANS,
                     Sig("pfam", "PF00023", "Ank", L.ACCESSORY, 1, P.DB),
                     Sig("pfam", "PF12796", "Ank_2", L.ACCESSORY, 1, P.DB)),
-        exemplars=(Ex("Hs_TRPV6", "TRPV6", "Homo sapiens", "",
+        exemplars=(Ex("Hs_TRPV6", "TRPV6", "Homo sapiens", "Q9H1D0",
                       "the intestinal Ca2+ uptake channel"),
-                   Ex("Hs_TRPV5", "TRPV5", "Homo sapiens", "",
+                   Ex("Hs_TRPV5", "TRPV5", "Homo sapiens", "Q9NQA5",
                       "the renal Ca2+ reabsorption channel")),
         human_genes=("TRPV5", "TRPV6"),
         length_band_aa=(700, 800), filter_motif="D542 (TRPV6 numbering)",
@@ -99,7 +99,7 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF12796", "Ank_2", L.ACCESSORY, 1, P.DB)),
         exemplars=(Ex("Hs_TRPV1", "TRPV1", "Homo sapiens", "Q8NER1",
                       "the capsaicin and noxious-heat receptor"),
-                   Ex("Hs_TRPV4", "TRPV4", "Homo sapiens")),
+                   Ex("Hs_TRPV4", "TRPV4", "Homo sapiens", "Q9HBA0")),
         human_genes=("TRPV1", "TRPV2", "TRPV3", "TRPV4"),
         length_band_aa=(700, 900), filter_motif="[open]",
         compartment="plasma membrane -> cytosol",
@@ -126,10 +126,14 @@ FAMILIES: list[CF] = [
         signatures=(Sig("pfam", "PF08344", "TRP_2", L.FAMILY, 1, P.DB,
                         "TRPC's pore model; measured: TRPC3 carries NO "
                         "PF00520 at all"),
-                    Sig("pfam", "PF23317", "YVC1_C", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF23317", "YVC1_C", L.SUBFAMILY, 1, P.DB,
+                        "measured 2026-08-20 (S0) on human TRPC3 and TRPC6 "
+                        "and absent from Drosophila trp, which carries "
+                        "PF00023 and PF00520 instead - the founding member "
+                        "of the division is annotated unlike its own family"),
                     Sig("pfam", "PF12796", "Ank_2", L.ACCESSORY, 1, P.DB)),
-        exemplars=(Ex("Hs_TRPC3", "TRPC3", "Homo sapiens"),
-                   Ex("Hs_TRPC6", "TRPC6", "Homo sapiens"),
+        exemplars=(Ex("Hs_TRPC3", "TRPC3", "Homo sapiens", "Q13507"),
+                   Ex("Hs_TRPC6", "TRPC6", "Homo sapiens", "Q9Y210"),
                    Ex("Dm_trp", "trp", "Drosophila melanogaster", "P19334",
                       "the founding member of the whole TRP division, and a "
                       "Ca2+-selective channel: the fly's phototransduction "
@@ -166,8 +170,13 @@ FAMILIES: list[CF] = [
         signatures=(Sig("pfam", "PF18139", "LSDAT_euk", L.FAMILY, 1, P.DB,
                         "the TRPM homology region; present across the family"),
                     Sig("pfam", "PF25508", "TRPM2", L.SUBFAMILY, 1, P.DB),
-                    Sig("pfam", "PF16519", "TRPM_tetra", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF23317", "YVC1_C", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF16519", "TRPM_tetra", L.SUBFAMILY, 1, P.DB,
+                        "measured 2026-08-20 (S0) on TRPM7 and absent from "
+                        "TRPM2, TRPM8 and both monovalent TRPMs - a "
+                        "tetramerisation domain annotated on a minority of "
+                        "the family it is named for"),
+                    Sig("pfam", "PF23317", "YVC1_C", L.SUBFAMILY, 1, P.DB,
+                        "measured on TRPM7 and TRPM8, absent from TRPM2"),
                     Sig("pfam", "PF00520", "Ion_trans", L.SUPERFAMILY, 1, P.DB,
                         "measured present on TRPM2 and absent from BOTH TRPM8 "
                         "and TRPM7 (2026-08-20) - the pore model does not "
@@ -178,9 +187,9 @@ FAMILIES: list[CF] = [
                         "one-domain-of-interest assumption misfiles")),
         exemplars=(Ex("Hs_TRPM8", "TRPM8", "Homo sapiens", "Q7Z2W7",
                       "the cold and menthol receptor"),
-                   Ex("Hs_TRPM2", "TRPM2", "Homo sapiens", "",
+                   Ex("Hs_TRPM2", "TRPM2", "Homo sapiens", "O94759",
                       "NUDT9 pyrophosphatase-fused; ADP-ribose gated"),
-                   Ex("Hs_TRPM7", "TRPM7", "Homo sapiens", "",
+                   Ex("Hs_TRPM7", "TRPM7", "Homo sapiens", "Q96QT4",
                       "alpha-kinase-fused")),
         human_genes=("TRPM1", "TRPM2", "TRPM3", "TRPM6", "TRPM7", "TRPM8"),
         length_band_aa=(1100, 2100), filter_motif="[open]",
@@ -266,7 +275,7 @@ FAMILIES: list[CF] = [
                         "also on PKD1 - the discriminator is PF21381's absence"),
                     Sig("pfam", "PF18109", "Fer4_24", L.SUBFAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_PKD2", "PKD2", "Homo sapiens", "Q13563"),
-                   Ex("Hs_PKD2L1", "PKD2L1", "Homo sapiens")),
+                   Ex("Hs_PKD2L1", "PKD2L1", "Homo sapiens", "Q9P0L9")),
         human_genes=("PKD2", "PKD2L1", "PKD2L2"),
         length_band_aa=(600, 900), filter_motif="[open]",
         compartment="primary cilium / ER -> cytosol",

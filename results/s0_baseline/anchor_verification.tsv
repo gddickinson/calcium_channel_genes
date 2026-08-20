@@ -1,0 +1,4 @@
+anchor	reference_label	uniprot	positions	expected	observed	verified	ref_length	context	note
+four_repeat	Hs_SCN5A	Q14524	372/898/1419/1711	DEKA	DEKA	yes	2016	368-LMTQDCWER-376;894-ILCGEWIET-902;1415-VATFKGWMD-1423;1707-ITTSAGWDG-1715	hazard HC1; the reference is a sodium channel, because the decoy is what the calcium families have to be measured against
+trpv_ca_ring	Hs_TRPV6	Q9H1D0	582	D	D	yes	765	578-LTIIDGPAN-586	hazard HC7b; a D here does not by itself make a family call - TRPV1-4 also carry acidic residues in the outer pore - so the classifier treats it as supporting evidence and the S1 benchmark measures how far it actually separates the two groups
+orai_e106	Hs_ORAI1	Q96D31	106	E	E	yes	301	102-VAMVEVQLD-110	one glutamate per subunit; E106Q abolishes Ca2+ selectivity

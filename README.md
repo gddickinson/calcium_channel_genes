@@ -29,15 +29,16 @@ Three deliverables, in order:
 
 | | |
 |---|---|
-| **Ledger** | Setup complete 2026-08-20; **S0 `in_progress`** — mostly run, not finished. 24 tasks (`PUBLICATION_ROADMAP.md`). |
+| **Ledger** | **S0 and S23 complete** (2026-08-20). Next unblocked task: **S1**, the classifier control benchmark. 24 tasks (`PUBLICATION_ROADMAP.md`). |
 | **Catalogue** | 49 families · 17 superfamilies · 29 census families · **98 human census genes of 245 catalogued** · 19 hazards · `validate()` clean |
 | **Census tiers** | Ca²⁺-selective **28** · store release **11** · Ca²⁺-permeable **50** · conditional **9**. A flat total is never quoted (**D31**). |
-| **Verification** | Partial, and it earned its keep: **eight catalogue corrections and three classifier defects** came out of five S0 passes. Pfam stage **clean on the final pass — 84 accessions, 0 missing, 0 name mismatches**; taxonomy 52/52; 101/102 exemplars resolved. The exemplar-architecture stage was throttled and stopped: `results/s0_baseline/` is mixed-provenance and [says so](results/s0_baseline/PROVENANCE.md). |
-| **Anchors** | Nav1.5 four-repeat **DEKA** ✓ · ORAI1 **E106** ✓ · MCU **WDIME at 260** ✓ · the literature's TRPV6 **D542 does not validate** — the canonical entry puts that aspartate at **D582** (see below). |
+| **Verification** | **Complete — one clean pass, 533 requests, 0 failures.** 87 Pfam accessions (0 missing, 0 name mismatches) · 102/102 exemplars resolved to a *declared* accession · 53/53 taxa · **0 family-level architecture mismatches** · reference panel complete at 102 sequences. Across both sessions it produced **19 catalogue corrections and seven tooling defects** — see [`report.md`](results/s0_baseline/report.md) and [`PROVENANCE.md`](results/s0_baseline/PROVENANCE.md). |
+| **Anchors** | Re-verified against live UniProt by `scripts/s0_anchors.py`, which **exits non-zero on a drift**: Nav1.5 four-repeat **DEKA** ✓ · TRPV6 **D582** ✓ · ORAI1 **E106** ✓ · MCU **WDIME at 260** ✓. The literature's TRPV6 **D542 does not validate** — the canonical entry is the long isoform. |
 | **Classifier** | Built, not yet benchmarked. 26 hazard rules across 19 hazards; three reference-free motifs and three verified projection anchors. **17 of 29 census families are nameable from architecture alone** (`scripts/s0_rule_coverage.py`); the other 12 need the motif or reference tier, and S1 measures whether they get there. |
 | **Phylogeny** | Builders and the tier-3 network in place; `build_tier2()` refuses `largepore` and `viroporin_ca` (**D27**). Real trees run in S7/S8. |
 | **Self-test** | 61 offline invariants, all holding, under a second (`scripts/selftest.py`). |
-| **Review** | Section stubs plus the resolve-then-cite pipeline; 122 sources listed as *titles*, none yet a citation. Writing it is task **S23**. |
+| **Filter atlas** | Read directly: **EEEE** (Cav1/Cav2) · **EEDD** (Cav3) · **DEKA** (Nav) · **EEKE** (NALCN). TPC1 and CatSper1 return *partial* signatures — two repeats, and four positions in four proteins — and are recorded as partial. |
+| **Review** | **Written** — [`docs/channel_review_2026.md`](docs/channel_review_2026.md) + PDF: 17 sections, ~13,000 words, **122/122 sources resolved against Europe PMC**, 7 figures, 31 pages. Figure 6 is reserved for the tier-2 release tree and waits on S6/S8. |
 
 ---
 

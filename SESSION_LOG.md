@@ -149,3 +149,78 @@ isolates.
 final). No S1 work. The permeability audit (S1b) remains the catalogue's
 biggest unchecked surface: no database holds a P_Ca/P_Na, so nothing in S0
 can verify the numbers the census tiers rest on.
+
+---
+
+## 2026-08-20 (session 2) — S0 finished, S23 written
+
+**Protocol.** Dashboard opened with watcher; `git pull` clean; catalogue and
+self-test clean at start. **`python3 -m src.utils.data_root --require` failed
+— the external drive is not attached.** S0 and S23 need no bulk storage, so
+both proceeded; **S4/S5 remain blocked** and this is the first thing to fix
+next session.
+
+### S0 — completed
+
+Started from a mixed-provenance `results/s0_baseline/` (tables from three
+passes) and ended with a single clean run: **533 requests, 0 failures,
+721.8 s**. 87 Pfam accessions (0 missing, 0 name mismatches), 102/102
+exemplars resolved to a declared accession, 53/53 taxa, 3/3 anchors verified
+live, **0 family-level architecture mismatches**, `reference_panel.fasta`
+complete at 102 sequences.
+
+Getting there took three full passes, and two of them were invalidated by my
+own edits mid-flight — the same failure the previous session recorded. The
+working rule: **finish every catalogue decision before launching the pass
+that is meant to be definitive.**
+
+**Written.** `scripts/s0_anchors.py` (the brief called anchor re-verification
+a stop-not-warning and no script did it), `scripts/s0_fold_accessions.py`,
+an anchor section in `s0_report.py`, and `SYNONYM_MATCH_ONLY` /
+`DECLARED_GENE_IS_SYNONYM` statuses so a synonym is not reported as a wrong
+gene.
+
+**Eleven families corrected**, in three kinds: one wrong accession
+(`PF00702`→`PF08282` — two Pfam families share the description "haloacid
+dehalogenase-like hydrolase"); four domains demoted to the level they are
+actually diagnostic at (`PF16519`, `PF16526`, `PF23317`, `PF00036`); and six
+groups whose members share no domain at all (the Cav auxiliary subunits, the
+uniporter regulators, the release regulators, connexin/pannexin, the
+exchangers, the EF-hand sensors).
+
+**Four tooling defects.** The missing anchor stage; the `GRIK2`/`GRIK5`
+synonym collision that had put the wrong protein in the reference panel;
+`PF00027` declared family-level for CNG while the hazard registry said it
+spans CNG, HCN and plant CNGC — which surfaced only when an unrelated
+correction removed the requirement masking it, and immediately named plant
+CNGC as animal CNG; and the review build globbing `*.md` and appending its own
+README to the manuscript.
+
+Also ran `s0_filter_atlas.py`: the four-repeat locus reads EEEE / EEDD /
+DEKA / EEKE across nine channels, with TPC1 and CatSper1 partial exactly as
+predicted.
+
+### S23 — completed
+
+`docs/channel_review_2026.md` + PDF: **17 sections, ~13,000 words, 122
+references, 7 figures, 31 pages A4.** All 122 source titles resolved against
+Europe PMC; three failed first time and were corrected against the live
+records rather than guessed at.
+
+Written against S0 only. The README warned not to write the review before S0
+*and S9*; S9 is many sessions away, so every claim resting on S9/S12 or on
+the census sweeps is marked *(pending: task)* in the text and §15 lists the
+nine open measurements.
+
+**Figure 6 was deliberately not rendered.** A tier-2 release tree built from
+full-length exemplars completed (110 s, IQ-TREE with ModelFinder and 1000
+UFBoot, rooted on ITPR), and `run.py` itself reports that a valid tier-2 tree
+needs S6's pore-module extraction. Substituting it would have been a quiet
+methodological downgrade, so the slot is reserved and the quick-look tree is
+flagged in Emergent tasks as not-for-citation.
+
+**NEXT.** Attach the external drive and re-check `data_root --require`. Then
+**S1** (classifier control benchmark) is the topmost unblocked row — the
+reference panel it needs is now complete and reproducible. Note for S1: three
+control families still have no rule that can name them, and S1 must report
+that rather than score it as a miss.

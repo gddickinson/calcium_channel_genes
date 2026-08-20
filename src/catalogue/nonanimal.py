@@ -89,11 +89,18 @@ FAMILIES: list[CF] = [
                           "permeability ratio - and the catalogue records "
                           "which kind of evidence it has"),
         stoichiometry="tetramer", tm_per_subunit=3, pore_loops_per_subunit=1,
+        # Measured 2026-08-20 (S0): GLR3.3 and GLR3.4 carry PF10613 as well,
+        # which was observed but not declared. Recording it makes HC17
+        # concrete - the plant channels carry all three of the domains the
+        # animal iGluRs carry, and nothing in the architecture separates
+        # them.
         signatures=(Sig("pfam", "PF00060", "Lig_chan", L.SUPERFAMILY, 1, P.DB),
+                    Sig("pfam", "PF10613", "Lig_chan-Glu_bd", L.SUPERFAMILY,
+                        1, P.DB),
                     Sig("pfam", "PF01094", "ANF_receptor", L.SHARED_WITH_DECOY,
                         1, P.DB)),
-        exemplars=(Ex("At_GLR3.3", "GLR3.3", "Arabidopsis thaliana"),
-                   Ex("At_GLR3.4", "GLR3.4", "Arabidopsis thaliana")),
+        exemplars=(Ex("At_GLR3.3", "GLR3.3", "Arabidopsis thaliana", "Q9C8E7"),
+                   Ex("At_GLR3.4", "GLR3.4", "Arabidopsis thaliana", "Q8GXJ4")),
         other_genes=("GLR1.1", "GLR2.1", "GLR3.1", "GLR3.3", "GLR3.4",
                      "GLR3.5", "GLR3.6", "GLR3.7"),
         length_band_aa=(600, 1000),
@@ -131,8 +138,8 @@ FAMILIES: list[CF] = [
                         "CNG and HCN families carry it too, so a rule built "
                         "on it named HCN as a plant channel until "
                         "`s0_rule_coverage.py` caught it (D25, HC16)")),
-        exemplars=(Ex("At_CNGC2", "CNGC2", "Arabidopsis thaliana"),
-                   Ex("At_CNGC4", "CNGC4", "Arabidopsis thaliana")),
+        exemplars=(Ex("At_CNGC2", "CNGC2", "Arabidopsis thaliana", "O65718"),
+                   Ex("At_CNGC4", "CNGC4", "Arabidopsis thaliana", "Q94AS9")),
         other_genes=("CNGC1", "CNGC2", "CNGC4", "CNGC6", "CNGC14", "CNGC18"),
         length_band_aa=(600, 800),
         compartment="plasma membrane -> cytosol",
@@ -164,8 +171,8 @@ FAMILIES: list[CF] = [
                         "measured 2026-08-20 on At_MCA1; the family has two "
                         "domains, and this is the one that is not shared "
                         "with the wider PLAC8 family")),
-        exemplars=(Ex("At_MCA1", "MCA1", "Arabidopsis thaliana"),
-                   Ex("At_MCA2", "MCA2", "Arabidopsis thaliana")),
+        exemplars=(Ex("At_MCA1", "MCA1", "Arabidopsis thaliana", "Q8L7E9"),
+                   Ex("At_MCA2", "MCA2", "Arabidopsis thaliana", "Q3EBY6")),
         other_genes=("MCA1", "MCA2"),
         length_band_aa=(400, 450),
         compartment="plasma membrane -> cytosol",
@@ -203,8 +210,11 @@ FAMILIES: list[CF] = [
                         "measured 2026-08-20 on both At_OSCA1.1 and "
                         "Hs_TMEM63A; the family carries three domains, not "
                         "two")),
-        exemplars=(Ex("At_OSCA1.1", "OSCA1.1", "Arabidopsis thaliana"),
-                   Ex("Hs_TMEM63A", "TMEM63A", "Homo sapiens")),
+        exemplars=(Ex("At_OSCA1.1", "OSCA1.1", "Arabidopsis thaliana", "Q9XEA1",
+                      "UniProt's primary name for it is OSCA1 with OSCA1.1 "
+                      "as a synonym, so the symbol resolves only by synonym "
+                      "and the accession is declared instead"),
+                   Ex("Hs_TMEM63A", "TMEM63A", "Homo sapiens", "O94886")),
         human_genes=("TMEM63A", "TMEM63B", "TMEM63C"),
         other_genes=("OSCA1.1", "OSCA1.2", "OSCA3.1"),
         length_band_aa=(700, 900),
@@ -239,11 +249,15 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF02723", "CoV_E", L.SUBFAMILY, 1, P.DB),
                     Sig("pfam", "PF11289", "bCoV_viroporin", L.SUBFAMILY, 1,
                         P.DB)),
-        exemplars=(Ex("RV_NSP4", "NSP4", "Rotavirus A"),
+        exemplars=(Ex("RV_NSP4", "NSP4", "Rotavirus A", "P04512",
+                      "the SA11 strain the viroporin literature works in; "
+                      "UniProt files every NSP4 under a strain node and "
+                      "gives none of them a gene name, so this one cannot "
+                      "be reached by symbol and must be declared"),
                    Ex("SARS2_E", "E",
-                      "Severe acute respiratory syndrome coronavirus 2"),
+                      "Severe acute respiratory syndrome coronavirus 2", "P0DTC4"),
                    Ex("SARS2_ORF3a", "ORF3a",
-                      "Severe acute respiratory syndrome coronavirus 2")),
+                      "Severe acute respiratory syndrome coronavirus 2", "A0A679G5L0")),
         other_genes=("NSP4", "E", "ORF3a", "2B"),
         length_band_aa=(60, 280),
         compartment="endoplasmic reticulum -> cytosol",

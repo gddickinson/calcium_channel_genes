@@ -160,3 +160,114 @@ re-run since the corrections, so the list of families whose declared
 signatures are not all observed is stale. The permeability values behind
 every census tier remain unaudited — no database holds them, and task S1b
 exists for exactly that. *(pending: S0 completion, S1b.)*
+
+---
+
+## S0 complete — the catalogue now says only things that check out (2026-08-20)
+
+**What changed biologically.** Nothing about which genes are calcium
+channels: the census still counts 98 human genes out of 245 catalogued, in
+four tiers. What changed is that the catalogue's claims about *what these
+proteins are made of* are now measured rather than remembered, and the
+measurement corrected eleven families.
+
+**The corrections divide into three kinds, and the third is the interesting
+one.**
+
+*A wrong accession that no name check could catch.* Pfam holds two families
+with the identical description "haloacid dehalogenase-like hydrolase",
+`PF00702` and `PF08282`. The catalogue had declared `PF00702` for the P-type
+Ca²⁺-ATPases. Neither SERCA nor PMCA carries it; both carry `PF08282`. The
+accession existed and its short name matched what had been written, so every
+check short of asking whether the family's own members carry the domain would
+have passed.
+
+*Domains that are named for a family and carried by a minority of it.*
+`PF16519` is called TRPM_tetra. It is annotated on TRPM7 and absent from
+TRPM2, TRPM8, TRPM4 and TRPM5. Together with the already-known absence of the
+canonical pore model `PF00520` from TRPM8 and TRPM7, the TRP division is
+annotated so unevenly that no single domain enumerates it — which is the
+strongest argument yet for the profile-HMM and genomic sweeps that S3 and S5
+will add. `PF16526` (CNG), `PF23317` (TRPC) and `PF00036` (the EF-hand
+sensors) are the same story at smaller scale.
+
+*Families that are not families.* Several catalogued groups are defined by
+the job their members do, and the catalogue had declared the union of their
+members' domains as though every member carried all of them. Measured, the
+Cav auxiliary subunits share nothing at all: the β subunit is a MAGUK, α2δ
+carries a von Willebrand A domain, and the γ subunits are claudins. The same
+is true of the uniporter regulators (MICU1's EF-hands against EMRE's own
+domain), the release regulators (calsequestrin against FKBP), and connexin
+against pannexin. **A buffer and an immunophilin have in common only the
+channel they regulate**, and the catalogue now says so.
+
+**One correction created a defect, which is worth recording as a rule.** The
+cyclic-nucleotide-binding domain `PF00027` spans animal CNG, HCN and the
+plant CNGCs — the hazard registry had said so since setup — and the catalogue
+simultaneously declared it a family-level signature of animal CNG. The
+contradiction was invisible because a second requirement masked it.
+Correcting that second requirement to its measured level removed the mask,
+and the generated rule immediately named the plant CNGC channels as animal
+CNG channels. Only a coverage test that re-derives every rule after every
+edit catches this, and this is the second time in two sessions that a
+correction has produced a defect.
+
+**A gene symbol is not an identifier.** `GRIK5` carries `GRIK2` in its
+UniProt synonym list, so a symbol lookup for GRIK2 returned GRIK5 — a
+different, longer protein — and the classifier's reference panel had been
+carrying it under the label `Hs_GRIK2`. The project's rule is never to
+consult a gene symbol when classifying; the classifier obeyed it and the code
+that built its references quietly did not. All 102 exemplars now declare a
+UniProt accession explicitly, so the panel no longer depends on what a
+lookup returns on a given day.
+
+**The filters read what they should.** All three projection anchors were
+re-verified against live UniProt — Nav1.5 `Q14524` reads DEKA, TRPV6
+`Q9H1D0` reads D at 582, ORAI1 `Q96D31` reads E at 106 — and the filter
+atlas then read the four-repeat locus across nine channels independently:
+EEEE for Cav1/Cav2, EEDD for Cav3, DEKA for the sodium channels, EEKE for
+NALCN. TPC1 and CatSper1 returned partial signatures, exactly as predicted:
+TPC1 has two repeats rather than four, and CatSper's four positions lie in
+four different proteins. A partial answer recorded as partial is the point.
+
+**What is still unknown.** The permeability values behind every census tier
+remain unaudited — no database holds a P_Ca/P_Na, and the tier boundaries
+rest on literature claims nothing has checked *(pending: S1b)*. Whether the
+TRPV aspartate anchor actually separates TRPV5/6 from TRPV1–4 is unmeasured
+*(pending: S1)*.
+
+---
+
+## S23 — the literature review, written (2026-08-20)
+
+**What it is.** `docs/channel_review_2026.md`: 17 sections, ~13,000 words,
+122 references, seven figures rendered from committed tables. It is generated
+from `docs/review/*.md` and never hand-edited.
+
+**The claim it is organised around** is the one the project has been arguing
+from the start, now stated at length: calcium-channel membership is a
+measured permeability rather than a clade, so there is no motif and no fold
+that defines the subject and no single tree that can contain it. The review
+takes the four best-characterised calcium-selective filters — the EEEE ring,
+ORAI's E106, the uniporter's DIME motif, the TRPV aspartate ring — and shows
+that they share no alignable position, which makes "how many times has a
+Ca²⁺-selective pore evolved" a count of unconnected components in a
+structural network rather than a clade count.
+
+**Every citation was verified before it could be used.** All 122 source
+titles were resolved against Europe PMC, and a record is accepted only if the
+returned title is at least 90 % similar to the one requested. Three failed on
+the first pass and were corrected against the live records rather than
+guessed at: the Cav1.1 structure paper is indexed as "Ca(v)1.1", the
+Prakriya store-operated review needed an author constraint to beat a hundred
+generically titled papers, and the TRPV5 identification paper is indexed with
+a space inside "1, 25-dihydroxyvitamin". A misremembered title fails the
+build rather than becoming a plausible bibliography entry.
+
+**What it does not claim.** The measured sections report S0's results only.
+Everything resting on the census sweeps, the classifier benchmark, the
+phylogenies or the structural comparison is marked in the text with the task
+that will produce it, and section 15 lists those nine open measurements
+explicitly. The review states in its own methods that it establishes the
+catalogue's claims are internally correct, not that the catalogue is
+complete.

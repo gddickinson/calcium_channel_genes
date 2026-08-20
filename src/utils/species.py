@@ -141,6 +141,14 @@ _SPECIES: list[SpeciesInfo] = [
                 "virus", "Vpu"),
     SpeciesInfo("Severe acute respiratory syndrome coronavirus 2", "SARS-CoV-2",
                 2697049, "", "virus", "E and ORF3a"),
+    # The catalogue carried an NSP4 exemplar whose species was absent from
+    # this table, so it had no taxon to search with and was S0's single
+    # unresolved exemplar (2026-08-20). Note that every UniProt NSP4 entry
+    # sits at a *strain* node beneath 28875 and carries no gene name at all,
+    # so this row makes the species resolvable but not the protein - the
+    # exemplar declares its accession explicitly for that reason.
+    SpeciesInfo("Rotavirus A", "rotavirus", 28875, "", "virus",
+                "NSP4, the enterotoxin viroporin"),
 ]
 
 

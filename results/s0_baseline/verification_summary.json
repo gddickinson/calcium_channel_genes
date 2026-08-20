@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-20 09:25:03",
+  "generated": "2026-08-20 10:53:14",
   "catalogue": {
     "superfamilies": 17,
     "families_total": 49,
@@ -12,46 +12,35 @@
     "genes_ca_conditional": 9,
     "genes_ca_release": 11,
     "exemplars": 102,
-    "exemplars_with_accession": 57,
-    "signatures": 84,
+    "exemplars_with_accession": 102,
+    "signatures": 87,
     "shared_signatures": 18,
-    "hazards": 18
+    "hazards": 19
   },
   "internal_problems": 0,
   "pfam": {
-    "n": 84,
+    "n": 87,
     "missing": [],
-    "renamed": [
-      [
-        "PF02888",
-        "Calmodulin_bind",
-        "CaMBD"
-      ],
-      [
-        "PF19584",
-        "MCA_C",
-        "MCAfunc"
-      ]
-    ]
+    "renamed": []
   },
   "exemplars": {
     "n": 102,
-    "resolved": 101,
-    "unresolved": 1,
-    "declared_ok": 57,
+    "resolved": 102,
+    "unresolved": 0,
+    "declared_ok": 100,
     "declared_bad": 0,
-    "sequences": 101,
-    "arch_mismatch": 33
+    "sequences": 102,
+    "arch_mismatch": 30
   },
   "taxonomy": {
-    "n": 52,
+    "n": 53,
     "bad": 0
   },
   "shared_signatures": 18,
-  "requests": 524,
+  "requests": 533,
   "request_failures": [],
-  "elapsed_s": 409.7,
-  "hazards": 18,
+  "elapsed_s": 721.8,
+  "hazards": 19,
   "superfamilies_not_alignable": [
     "largepore",
     "viroporin_ca"

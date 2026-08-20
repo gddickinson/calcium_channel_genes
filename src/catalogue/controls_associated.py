@@ -42,12 +42,22 @@ FAMILIES: list[CF] = [
         superfamily="ploop", status=St.CHANNEL_ASSOCIATED, fold=Fold.UNKNOWN,
         selectivity=Sel.UNKNOWN, gating=_NONE, permeability=NOT_CALCIUM,
         stoichiometry="one beta + one alpha2delta per channel",
-        signatures=(Sig("pfam", "PF00625", "Guanylate_kin", L.FAMILY, 1, P.DB,
-                        "CACNB is a MAGUK - a scaffold fold doing a channel job"),
-                    Sig("pfam", "PF12052", "VGCC_beta4Aa_N", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF08473", "VGCC_alpha2", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF00822", "PMP22_Claudin", L.FAMILY, 1, P.DB,
-                        "the gamma/TARP subunits are claudins")),
+        # Measured 2026-08-20 (S0): no member carries all four. CACNB1 has
+        # PF00625 + PF12052, CACNA2D1 has PF08473, CACNG2 has PF00822 alone.
+        # This "family" is three unrelated protein types sharing a job, so
+        # every signature in it is SUBFAMILY-level by construction (D25).
+        signatures=(Sig("pfam", "PF00625", "Guanylate_kin", L.SUBFAMILY, 1, P.DB,
+                        "beta only; CACNB is a MAGUK - a scaffold fold doing "
+                        "a channel job"),
+                    Sig("pfam", "PF12052", "VGCC_beta4Aa_N", L.SUBFAMILY, 1, P.DB,
+                        "beta only"),
+                    Sig("pfam", "PF08473", "VGCC_alpha2", L.SUBFAMILY, 1, P.DB,
+                        "alpha2delta only"),
+                    Sig("pfam", "PF00092", "VWA", L.SUBFAMILY, 1, P.DB,
+                        "alpha2delta only; the von Willebrand A domain that "
+                        "carries the gabapentin site"),
+                    Sig("pfam", "PF00822", "PMP22_Claudin", L.SUBFAMILY, 1, P.DB,
+                        "gamma/TARP only - the gamma subunits are claudins")),
         exemplars=(Ex("Hs_CACNB1", "CACNB1", "Homo sapiens", "Q02641"),
                    Ex("Hs_CACNA2D1", "CACNA2D1", "Homo sapiens", "P54289"),
                    Ex("Hs_CACNG2", "CACNG2", "Homo sapiens", "Q9Y698",
@@ -97,7 +107,7 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF13202", "EF-hand_5", L.ACCESSORY, 1, P.DB,
                         "the luminal EF-hand that senses store depletion")),
         exemplars=(Ex("Hs_STIM1", "STIM1", "Homo sapiens", "Q13586"),
-                   Ex("Hs_STIM2", "STIM2", "Homo sapiens")),
+                   Ex("Hs_STIM2", "STIM2", "Homo sapiens", "Q9P246")),
         human_genes=("STIM1", "STIM2"),
         confusable_with=("orai", "nonchannel_efhand", "HC5"),
         provenance=P.DB,
@@ -112,10 +122,14 @@ FAMILIES: list[CF] = [
         name="Uniporter regulators (MICU1-3, EMRE/SMDT1, MCUR1)",
         superfamily="mcu", status=St.CHANNEL_ASSOCIATED, fold=Fold.UNKNOWN,
         selectivity=Sel.UNKNOWN, gating=_NONE, permeability=NOT_CALCIUM,
-        signatures=(Sig("pfam", "PF13833", "EF-hand_8", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF10161", "DDDD", L.FAMILY, 1, P.DB,
-                        "EMRE; Pfam still calls it a putative mitochondrial "
-                        "precursor protein")),
+        # Measured 2026-08-20 (S0): MICU1 carries PF13833 and PF13202 and
+        # no PF10161; SMDT1/EMRE carries PF10161 and nothing else. A
+        # gatekeeper and a required subunit are not the same protein.
+        signatures=(Sig("pfam", "PF13833", "EF-hand_8", L.SUBFAMILY, 1, P.DB,
+                        "MICU1-3 only"),
+                    Sig("pfam", "PF10161", "DDDD", L.SUBFAMILY, 1, P.DB,
+                        "EMRE only; Pfam still calls it a putative "
+                        "mitochondrial precursor protein")),
         exemplars=(Ex("Hs_MICU1", "MICU1", "Homo sapiens", "Q9BPX6"),
                    Ex("Hs_SMDT1", "SMDT1", "Homo sapiens", "Q9H4I9")),
         human_genes=("MICU1", "MICU2", "MICU3", "SMDT1", "MCUR1"),
@@ -134,9 +148,14 @@ FAMILIES: list[CF] = [
         superfamily="ca_release", status=St.CHANNEL_ASSOCIATED,
         fold=Fold.UNKNOWN, selectivity=Sel.UNKNOWN, gating=_NONE,
         permeability=NOT_CALCIUM,
-        signatures=(Sig("pfam", "PF01216", "Calsequestrin", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF00254", "FKBP_C", L.FAMILY, 1, P.DB)),
-        exemplars=(Ex("Hs_CASQ2", "CASQ2", "Homo sapiens"),
+        # Measured 2026-08-20 (S0): CASQ2 carries PF01216 alone and FKBP1A
+        # PF00254 alone. A luminal buffer and an immunophilin share only the
+        # channel they regulate.
+        signatures=(Sig("pfam", "PF01216", "Calsequestrin", L.SUBFAMILY, 1, P.DB,
+                        "CASQ1/CASQ2 only"),
+                    Sig("pfam", "PF00254", "FKBP_C", L.SUBFAMILY, 1, P.DB,
+                        "FKBP1A/FKBP1B only")),
+        exemplars=(Ex("Hs_CASQ2", "CASQ2", "Homo sapiens", "O14958"),
                    Ex("Hs_FKBP1A", "FKBP1A", "Homo sapiens", "P62942",
                       "calstabin - the immunophilin bound to every RyR subunit")),
         human_genes=("CASQ1", "CASQ2", "FKBP1A", "FKBP1B", "TRDN", "ASPH"),

@@ -1,0 +1,5 @@
+label	length_aa	motif	left	right	status
+Hs_KCNMA1	1236	TVGYG	MVTMS	DVYAK	ok
+Hs_KCNN2	579	SIGYG	SITFL	DMVPN	ok
+Hs_HCN1	890	CIGYG	MSHML	AQAPV	ok
+Hs_HCN4	0				NOT_IN_PANEL

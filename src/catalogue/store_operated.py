@@ -61,7 +61,7 @@ FAMILIES: list[CF] = [
         signatures=(Sig("pfam", "PF07856", "Orai-1", L.FAMILY, 1, P.DB),),
         exemplars=(Ex("Hs_ORAI1", "ORAI1", "Homo sapiens", "Q96D31"),
                    Ex("Hs_ORAI2", "ORAI2", "Homo sapiens", "Q96SN7"),
-                   Ex("Dm_Orai", "Orai", "Drosophila melanogaster")),
+                   Ex("Dm_Orai", "Orai", "Drosophila melanogaster", "Q9U6B8")),
         human_genes=("ORAI1", "ORAI2", "ORAI3"),
         length_band_aa=(250, 310), filter_motif="E106 (ORAI1 numbering)",
         compartment="plasma membrane -> cytosol",

@@ -88,9 +88,9 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF16885", "CAC1F_C", L.SUBFAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_CACNA1C", "CACNA1C", "Homo sapiens", "Q13936",
                       "Cav1.2 — the L-type channel of heart and brain"),
-                   Ex("Hs_CACNA1S", "CACNA1S", "Homo sapiens", "",
+                   Ex("Hs_CACNA1S", "CACNA1S", "Homo sapiens", "Q13698",
                       "Cav1.1 — the skeletal-muscle voltage sensor for RyR1"),
-                   Ex("Hs_CACNA1A", "CACNA1A", "Homo sapiens", "", "Cav2.1, P/Q-type")),
+                   Ex("Hs_CACNA1A", "CACNA1A", "Homo sapiens", "O00555", "Cav2.1, P/Q-type")),
         human_genes=("CACNA1A", "CACNA1B", "CACNA1C", "CACNA1D", "CACNA1E",
                      "CACNA1F", "CACNA1S"),
         length_band_aa=(1900, 2500), filter_motif="EEEE",
@@ -121,9 +121,9 @@ FAMILIES: list[CF] = [
         stoichiometry="pseudo-tetramer; no obligate auxiliary subunits",
         tm_per_subunit=24, pore_loops_per_subunit=4,
         signatures=(ION_TRANS_4,),
-        exemplars=(Ex("Hs_CACNA1G", "CACNA1G", "Homo sapiens", "",
+        exemplars=(Ex("Hs_CACNA1G", "CACNA1G", "Homo sapiens", "O43497",
                       "Cav3.1 — measured to carry Ion_trans x4 and nothing else"),
-                   Ex("Hs_CACNA1H", "CACNA1H", "Homo sapiens", "", "Cav3.2")),
+                   Ex("Hs_CACNA1H", "CACNA1H", "Homo sapiens", "O95180", "Cav3.2")),
         human_genes=("CACNA1G", "CACNA1H", "CACNA1I"),
         length_band_aa=(2100, 2500), filter_motif="EEDD",
         compartment="plasma membrane -> cytosol",
@@ -153,8 +153,8 @@ FAMILIES: list[CF] = [
         stoichiometry="heterotetramer of four distinct 6TM subunits",
         tm_per_subunit=6, pore_loops_per_subunit=1,
         signatures=(ION_TRANS,),
-        exemplars=(Ex("Hs_CATSPER1", "CATSPER1", "Homo sapiens"),
-                   Ex("Hs_CATSPER2", "CATSPER2", "Homo sapiens")),
+        exemplars=(Ex("Hs_CATSPER1", "CATSPER1", "Homo sapiens", "Q8NEC5"),
+                   Ex("Hs_CATSPER2", "CATSPER2", "Homo sapiens", "Q96P56")),
         human_genes=("CATSPER1", "CATSPER2", "CATSPER3", "CATSPER4"),
         length_band_aa=(400, 800), filter_motif="[open]",
         compartment="plasma membrane -> cytosol",
@@ -183,10 +183,26 @@ FAMILIES: list[CF] = [
                           "the signal that adapts the photoreceptor"),
         tm_per_subunit=6, pore_loops_per_subunit=1,
         signatures=(ION_TRANS,
-                    Sig("pfam", "PF00027", "cNMP_binding", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF16526", "CLZ", L.FAMILY, 1, P.DB)),
+                    # Hazard HC16 already records that PF00027 spans the
+                    # animal CNG channels, HCN and the plant CNGCs, and plant
+                    # CNGC declares it ACCESSORY for that reason. Declaring
+                    # it FAMILY here contradicted that row, and did so
+                    # invisibly while PF16526 was a second family-level
+                    # requirement: demoting PF16526 to its measured level
+                    # left PF00027 alone as the generated CNG rule, which
+                    # promptly named plant CNGC as an animal CNG channel
+                    # (measured 2026-08-20 by s0_rule_coverage.py). The
+                    # cyclic-nucleotide-binding domain names nothing.
+                    Sig("pfam", "PF00027", "cNMP_binding", L.ACCESSORY, 1, P.DB,
+                        "spans animal CNG, HCN and plant CNGC - HC16"),
+                    Sig("pfam", "PF16526", "CLZ", L.SUBFAMILY, 1, P.DB,
+                        "the C-terminal leucine zipper is carried by the "
+                        "CNGA subunits; measured 2026-08-20 (S0) on CNGA1 "
+                        "and absent from CNGB1, so it separates the two "
+                        "halves of the heterotetramer rather than naming "
+                        "the family")),
         exemplars=(Ex("Hs_CNGA1", "CNGA1", "Homo sapiens", "P29973"),
-                   Ex("Hs_CNGB1", "CNGB1", "Homo sapiens")),
+                   Ex("Hs_CNGB1", "CNGB1", "Homo sapiens", "Q14028")),
         human_genes=("CNGA1", "CNGA2", "CNGA3", "CNGA4", "CNGB1", "CNGB3"),
         length_band_aa=(550, 1400), filter_motif="[open]",
         compartment="plasma membrane -> cytosol",
@@ -218,9 +234,9 @@ FAMILIES: list[CF] = [
         tm_per_subunit=12, pore_loops_per_subunit=2,
         signatures=(Sig("pfam", "PF00520", "Ion_trans", L.SUPERFAMILY, 2, P.DB,
                         "two repeats — not one and not four"),),
-        exemplars=(Ex("Hs_TPCN1", "TPCN1", "Homo sapiens"),
-                   Ex("Hs_TPCN2", "TPCN2", "Homo sapiens"),
-                   Ex("At_TPC1", "TPC1", "Arabidopsis thaliana", "",
+        exemplars=(Ex("Hs_TPCN1", "TPCN1", "Homo sapiens", "Q9ULQ1"),
+                   Ex("Hs_TPCN2", "TPCN2", "Homo sapiens", "Q8NHX9"),
+                   Ex("At_TPC1", "TPC1", "Arabidopsis thaliana", "Q94KI8",
                       "the vacuolar SV channel — Ca2+-activated and "
                       "Ca2+-permeable, unlike its animal relatives")),
         human_genes=("TPCN1", "TPCN2"),

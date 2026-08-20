@@ -114,7 +114,11 @@ def pfam_protein_count(f: Fetcher, accession: str) -> int | None:
 # ------------------------------------------------------------- UniProt
 def resolve_gene(f: Fetcher, gene: str, taxon_id: int,
                  reviewed_only: bool = True) -> dict | None:
-    """Gene symbol + taxon → the reviewed entry, longest wins on a tie."""
+    """Gene symbol + taxon → the reviewed entry whose *primary* name matches.
+
+    Falls back to a synonym match when nothing carries the symbol as its
+    primary name, and to the longest candidate within whichever set won.
+    """
     # `taxonomy_id` includes strain-level descendants; `organism_id` is the
     # exact node. Measured 2026-08-19: GLIC (`glvI`, Gloeobacter violaceus)
     # is filed under strain PCC 7421 (251221), so `organism_id:33072` returns
@@ -131,7 +135,24 @@ def resolve_gene(f: Fetcher, gene: str, taxon_id: int,
     if not rows:
         return None
     rows.sort(key=lambda r: -(r.get("sequence", {}).get("length") or 0))
-    r = rows[0]
+
+    # `gene_exact:` matches a *synonym* as readily as a primary name, and
+    # gene symbols are recycled: measured 2026-08-20, `gene_exact:GRIK2`
+    # returns two reviewed human entries, because GRIK5 (Q16478, 980 aa)
+    # carries GRIK2 in its synonym list. Longest-wins then hands back GRIK5
+    # for a GRIK2 query, and the reference panel silently gains the wrong
+    # protein under the right label — the exact failure mode a panel of
+    # references cannot survive. So prefer a candidate whose *primary* gene
+    # name is the symbol that was asked for, and fall back to length only
+    # among those. A query that matches nothing but synonyms still resolves,
+    # and says so in `primary_match`, because that is a real answer for the
+    # viral and plant entries whose primary names are not the ones in use.
+    def _primary(row) -> str:
+        return (((row.get("genes") or [{}])[0].get("geneName") or {})
+                .get("value", ""))
+
+    exact = [r for r in rows if _primary(r).upper() == gene.upper()]
+    r = (exact or rows)[0]
     genes = r.get("genes") or [{}]
     return {
         "accession": r["primaryAccession"],
@@ -145,18 +166,30 @@ def resolve_gene(f: Fetcher, gene: str, taxon_id: int,
                     .get("value", "")),
         "reviewed": r.get("entryType", "").startswith("UniProtKB reviewed"),
         "n_candidates": len(rows),
+        "primary_match": bool(exact),
+        "n_primary": len(exact),
     }
 
 
 def entry_by_accession(f: Fetcher, accession: str) -> dict | None:
+    # `gene_names` rather than `gene_primary`: a declared accession whose
+    # primary symbol differs from the catalogue's is only a *mismatch* if the
+    # catalogue's symbol is absent from the record entirely. Arabidopsis
+    # OSCA1.1 is UniProt's OSCA1 with OSCA1.1 as a synonym (measured
+    # 2026-08-20), and reporting that as "the accession names the wrong gene"
+    # would be false.
     d = f.json(f"{UNIPROT}/uniprotkb/{accession}.json?fields=accession,"
-               f"gene_primary,protein_name,length,organism_name,reviewed")
+               f"gene_names,protein_name,length,organism_name,reviewed")
     if not d:
         return None
     genes = d.get("genes") or [{}]
+    synonyms = {(g.get("geneName") or {}).get("value", "") for g in genes}
+    synonyms |= {syn.get("value", "") for g in genes
+                 for syn in (g.get("synonyms") or [])}
     return {
         "accession": d.get("primaryAccession", accession),
         "gene": (genes[0].get("geneName") or {}).get("value", ""),
+        "synonyms": {x.upper() for x in synonyms if x},
         "length": (d.get("sequence") or {}).get("length"),
         "organism": (d.get("organism") or {}).get("scientificName", ""),
         "taxon_id": (d.get("organism") or {}).get("taxonId"),

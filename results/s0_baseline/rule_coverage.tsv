@@ -2,7 +2,7 @@ family	role	superfamily	declared_architecture	verdict	detail	hazards	any_rule_ca
 cav_hva	census	ploop	PF00520x4 + PF08763 + PF16905 + PF16885	named	cav_hva	HC1,HC2,HC11,HC14	yes
 cav_lva	census	ploop	PF00520x4	superfamily_only	ploop	HC1,HC14	no
 catsper	census	ploop	PF00520	superfamily_only	ploop	HC1,HC10	no
-cng	census	ploop	PF00520 + PF00027 + PF16526	named	cng	HC16	yes
+cng	census	ploop	PF00520 + PF16526	named	cng	HC16	yes
 tpc	census	ploop	PF00520x2	superfamily_only	ploop	HC13	no
 trpv_ca	census	ploop	PF00520	superfamily_only	ploop	HC7,HC7b	no
 trpv_ns	census	ploop	PF00520	superfamily_only	ploop	HC7,HC7b	no
@@ -23,12 +23,12 @@ nmda	census	iglur	PF00060 + PF10613 + [PF01094]	superfamily_only	iglur	HC8,HC17	
 p2x	census	p2x	PF00864	named	p2x	HC16	yes
 piezo	census	piezo	PF12166 + PF15917 + PF24871 + PF23188 + PF24874	named	piezo		yes
 calhm	census	largepore	PF14798	named	calhm		yes
-glr_plant	census	iglur	PF00060 + [PF01094]	superfamily_only	iglur	HC17	no
+glr_plant	census	iglur	PF00060 + PF10613 + [PF01094]	superfamily_only	iglur	HC17	no
 cngc_plant	census	ploop	PF00520	superfamily_only	ploop	HC16	no
 mca_plant	census	mca	PF04749 + PF19584	named	mca_plant		yes
 osca_tmem63	census	osca	PF02714 + PF13967 + PF14703	named	osca_tmem63		yes
 viroporin_ca	census	viroporin_ca	PF01452 + PF02723 + PF11289	named	viroporin_ca		yes
-assoc_cav_aux	control	ploop	PF00625 + PF12052 + PF08473 + PF00822	named	assoc_cav_aux	HC2	yes
+assoc_cav_aux	control	ploop	PF00625 + PF12052 + PF08473 + PF00092 + PF00822	named	assoc_cav_aux	HC2	yes
 assoc_catsper_aux	control	ploop	PF15149	named	assoc_catsper_aux	HC10	yes
 assoc_stim	control	orai	PF07647 + PF16533	named	assoc_stim	HC5,HC12	yes
 assoc_mcu_reg	control	mcu	PF13833 + PF10161	named	assoc_mcu_reg	HC6,HC12	yes
@@ -38,13 +38,13 @@ outofscope_nav	control	ploop	PF00520x4 + PF06512 + PF11933	named	outofscope_nav	
 outofscope_nalcn	control	ploop	PF00520x4	superfamily_only	ploop	HC1	no
 outofscope_hcn	control	ploop	PF00520 + PF00027 + PF08412	named	outofscope_hcn	HC16	yes
 outofscope_kca	control	ploop	PF00520 + PF07885 + PF03493 + PF02254x2 + PF03530 + PF02888	named	outofscope_kca	HC15	yes
-outofscope_trpm_monovalent	control	ploop	PF18139 + PF16519 + PF00520	superfamily_only	ploop	HC15	no
+outofscope_trpm_monovalent	control	ploop	PF18139 + PF25508 + PF00520	NAMED_AS_ANOTHER_FAMILY	trpm_ca	HC15	no
 outofscope_anoctamin	control	tmem16	PF04547 + PF16178	named	outofscope_anoctamin	HC15	yes
 outofscope_nachr_muscle	control	cysloop	PF02931 + PF02932	superfamily_only	cysloop	HC16	no
 outofscope_tric	control		PF05197	no_match			no
 outofscope_connexin	control	largepore	PF00029 + PF00876	no_match			no
-transporter_ca_atpase	control	p_type_atpase	PF00122 + PF00689 + PF00702	named	transporter_ca_atpase	HC11	yes
-transporter_ca_exchanger	control	ca_exchanger	PF01699 + PF07766	named	transporter_ca_exchanger	HC11	yes
+transporter_ca_atpase	control	p_type_atpase	PF00122 + PF00689 + PF00690 + PF08282 + PF13246	named	transporter_ca_atpase	HC11	yes
+transporter_ca_exchanger	control	ca_exchanger	PF01699x2 + PF07766	named	transporter_ca_exchanger	HC11	yes
 nonchannel_efhand	control	ca_sensor	PF13499 + PF00036	named	nonchannel_efhand	HC12	yes
 nonchannel_casr_gpcr	control	iglur	[PF01094] + PF00003	named	nonchannel_casr_gpcr	HC12	yes
 nonchannel_pomt	control	ca_release	[PF02815] + PF02366	named	nonchannel_pomt	HC4	yes

@@ -12,15 +12,15 @@
     },
     {
       "label": "exemplars",
-      "done": false
+      "done": true
     },
     {
       "label": "taxonomy",
-      "done": false
+      "done": true
     },
     {
       "label": "signature sharing",
-      "done": false
+      "done": true
     }
   ]
 }

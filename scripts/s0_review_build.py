@@ -51,10 +51,18 @@ def load_refs() -> dict[str, dict]:
     return {r["key"]: r for r in rows if r.get("status") == "ok"}
 
 
+#: Section files are the numbered ones. `docs/review/README.md` documents how
+#: to write them and is not part of the review; globbing `*.md` swallowed it
+#: into the output, where it sorted *after* 16_methods.md and appended the
+#: house style guide to the end of the manuscript.
+SECTION_RE = re.compile(r"^\d{2}_.+\.md$")
+
+
 def section_files() -> list[Path]:
-    files = sorted(SECTIONS.glob("*.md"))
+    files = sorted(p for p in SECTIONS.glob("*.md")
+                   if SECTION_RE.match(p.name))
     if not files:
-        raise SystemExit(f"[review] no section files in {SECTIONS}")
+        raise SystemExit(f"[review] no numbered section files in {SECTIONS}")
     return files
 
 

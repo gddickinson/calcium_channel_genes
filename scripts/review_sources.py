@@ -48,7 +48,7 @@ SOURCES: list[tuple[str, ...]] = [
     ("zamponi2015", "The physiology, pathology, and pharmacology of voltage-gated calcium channels and their future therapeutic potential"),
     ("dolphin2016", "Voltage-gated calcium channels and their auxiliary subunits: physiology and pathophysiology and pharmacology"),
     ("dolphin2018", "Presynaptic calcium channels: specialized control of synaptic neurotransmitter release"),
-    ("wu2016", "Structure of the voltage-gated calcium channel Cav1.1 at 3.6 A resolution"),
+    ("wu2016", "Structure of the voltage-gated calcium channel Ca(v)1.1 at 3.6 Å resolution"),
     ("wu2015", "Structure of the voltage-gated calcium channel Cav1.1 complex"),
     ("rios1987", "Involvement of dihydropyridine receptors in excitation-contraction coupling in skeletal muscle"),
     # ---------------------------------------------- selectivity and filter
@@ -75,7 +75,7 @@ SOURCES: list[tuple[str, ...]] = [
     ("prakriya2006", "Orai1 is an essential pore subunit of the CRAC channel"),
     ("yeromin2006", "Molecular identification of the CRAC channel by altered ion selectivity in a mutant of Orai"),
     ("hou2012", "Crystal structure of the calcium release-activated calcium channel Orai"),
-    ("prakriya2015", "Store-Operated Calcium Channels"),
+    ("prakriya2015", "Store-Operated Calcium Channels", 'AUTH:"Prakriya M" AND PUB_YEAR:2015'),
     ("hogan2015", "Store-operated calcium entry: Mechanisms and modulation"),
     # ------------------------------------------- intracellular release
     ("furuichi1989", "Primary structure and functional expression of the inositol 1,4,5-trisphosphate-binding protein P400"),
@@ -107,7 +107,7 @@ SOURCES: list[tuple[str, ...]] = [
     ("owsianik2006", "Permeation and selectivity of TRP channels"),
     ("nilius2007", "Transient receptor potential cation channels in disease"),
     ("peng1999", "Molecular cloning and characterization of a channel-like transporter mediating intestinal calcium absorption"),
-    ("hoenderop1999", "Molecular identification of the apical Ca2+ channel in 1,25-dihydroxyvitamin D3-responsive epithelia"),
+    ("hoenderop1999", "Molecular identification of the apical Ca2+ channel in 1, 25-dihydroxyvitamin D3-responsive epithelia"),
     ("hoenderop2005", "Calcium absorption across epithelia"),
     ("saotome2016", "Crystal structure of the epithelial calcium channel TRPV6"),
     ("launay2002", "TRPM4 is a Ca2+-activated nonselective cation channel mediating cell membrane depolarization"),

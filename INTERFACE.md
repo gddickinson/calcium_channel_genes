@@ -15,7 +15,8 @@
 | `docs/classification_rules.md` | How a protein gets classified: the three tiers, the rules they apply, the confidence scheme, and what the classifier deliberately does not do. |
 | `docs/phylogeny_protocol.md` | **Why the phylogeny is a forest** (D27), the three tiers, the rooting table, and the trap specific to this project — a tier-2 P-loop tree contains the sodium channels and must keep them. |
 | `docs/analysis_catalogue.md` | What the harvested data can answer — the analysis menu behind S15–S22, plus the analyses deliberately not attempted. |
-| `docs/review/` | The literature review's **source** (task S23): numbered section files, citation rules, and the planned section list. `docs/channel_review_2026.md` will be *generated* from them and must never be hand-edited. |
+| `docs/review/` | The literature review's **source** (task S23): 17 numbered section files, citation rules, and the section list. `docs/channel_review_2026.md` is *generated* from them and must never be hand-edited — only files matching `NN_*.md` are sections, so the README is not swallowed into the output. |
+| `docs/channel_review_2026.md` / `.pdf` | **The review, generated** (S23, 2026-08-20): 17 sections, ~13,000 words, 122 references each resolved against Europe PMC, 7 figures. Figure 6 is reserved for the tier-2 release tree and waits on S6/S8. |
 | `CLAUDE.md` | Session-start instructions, conventions, the four things that will bite you. |
 | `INTERFACE.md` | (this file) navigation map. |
 | `README.md` | User-facing docs + the project status board. |
@@ -124,6 +125,8 @@ census tiers, never a flat total), `run_phylo()`, plus the stdlib fetchers.
 | `s0_lib.py` | S0 fetchers: `Fetcher` (polite, retrying, keeps a failure ledger), `pfam_entry`, `protein_pfams`, `resolve_gene`, `sequence`, `taxon`, `write_tsv`, `read_tsv`, `live_progress`. |
 | `s0_catalogue_verify.py` | **S0** — re-derives every claim the catalogue makes against live databases and writes six TSVs plus `reference_panel.fasta`. Reports mismatches; never edits the catalogue. |
 | `s0_rule_coverage.py` | **S0, offline** — feeds every family its own declared architecture back through the rule table and records what the architecture tier makes of it. Turns "domain architecture is not a family call" into a number, and **exits non-zero on a family the rules cannot name that no hazard row explains** — which is how hazard **HC17** was found. |
+| `s0_anchors.py` | **S0** — re-verifies the three projection anchors (Nav1.5 `Q14524` ⇒ DEKA, TRPV6 `Q9H1D0` D582, ORAI1 `Q96D31` E106) against live UniProt and **exits non-zero on a drift**. An anchor that has moved makes every projected filter call silently wrong, which is not hypothetical — the TRPV6 aspartate is 40 residues from where the literature puts it. |
+| `s0_fold_accessions.py` | **S0** — writes the accessions S0 resolved back into the `Ex(...)` calls, so the reference panel stops being re-resolved live on every run. Fills gaps only; a declared accession is never overwritten and a resolved-by-synonym match is listed for review rather than folded in. |
 | `s0_report.py` | **S0** — renders `results/s0_baseline/report.md` purely from those tables (D13), including the census-tier table. |
 | `s0_figures.py` | **S0's figure** — families and human genes per superfamily, and every domain signature carried by more than one family with the ones crossing the calcium / non-calcium boundary marked. |
 | `s0_domain_map.py` | InterPro match **coordinates** for the proteins the review's architecture figures compare. |

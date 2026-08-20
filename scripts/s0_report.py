@@ -43,6 +43,7 @@ def build(d: Path) -> str:
     tax = read_tsv(d / "taxonomy_check.tsv")
     share = read_tsv(d / "signature_sharing.tsv")
     problems = read_tsv(d / "catalogue_validation.tsv")
+    anchors = read_tsv(d / "anchor_verification.tsv")
     cat = summary["catalogue"]
 
     L: list[str] = []
@@ -217,7 +218,36 @@ def build(d: Path) -> str:
               f"`exemplar_architecture.tsv`.)*")
         A("")
 
-    A("## 5. Shared signatures — the hazard registry's evidence")
+    A("## 5. Projection anchors")
+    A("")
+    if not anchors:
+        A("**Not run.** `anchor_verification.tsv` is absent — run "
+          "`python3 scripts/s0_anchors.py`. Until it does, every projected "
+          "filter call rests on an anchor that nothing has checked against "
+          "the live reference.")
+        A("")
+    else:
+        abad = [r for r in anchors if r["verified"] != "yes"]
+        A(f"{len(anchors)} anchors re-verified against live UniProt; "
+          f"{len(anchors) - len(abad)} read what the catalogue claims, "
+          f"{len(abad)} do not. Every filter call this project makes is a "
+          f"projection from one of these references, so an anchor that has "
+          f"drifted makes each of those calls silently wrong — and "
+          f"`verify_anchor()` refuses to project rather than guess "
+          f"(**D26**, **D28**). The TRPV6 row is why the check exists: the "
+          f"aspartate is at **D582**, not the literature's D542, because the "
+          f"canonical entry is the long isoform.")
+        A("")
+        A(table(["anchor", "reference", "accession", "positions", "expected",
+                 "observed", "length aa", "context", "verified"],
+                [[r["anchor"], r["reference_label"], r["uniprot"],
+                  r["positions"], r["expected"], r["observed"] or "—",
+                  r["ref_length"], r["context"].replace(";", "; ") or "—",
+                  "yes" if r["verified"] == "yes" else f'**{r["verified"]}**']
+                 for r in anchors]))
+        A("")
+
+    A("## 6. Shared signatures — the hazard registry's evidence")
     A("")
     crossing = [r for r in share if r["crosses_census_boundary"] == "yes"]
     A(f"{len(share)} signatures are carried by more than one family. "
@@ -234,7 +264,7 @@ def build(d: Path) -> str:
              for r in share[:15]]))
     A("")
 
-    A("## 6. Taxonomy")
+    A("## 7. Taxonomy")
     A("")
     tbad = [r for r in tax if r["status"] != "ok"]
     A(f"{len(tax)} taxon ids checked against the UniProt taxonomy service; "
@@ -246,7 +276,7 @@ def build(d: Path) -> str:
                   r["status"]] for r in tbad]))
         A("")
 
-    A("## 7. What this does not verify")
+    A("## 8. What this does not verify")
     A("")
     A("- **Family membership.** That `CACNA1C` belongs to `cav_hva` is a "
       "literature assignment. S1 tests whether the classifier reproduces it; "
