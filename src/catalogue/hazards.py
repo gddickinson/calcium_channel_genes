@@ -175,13 +175,24 @@ HAZARDS: list[Hazard] = [
                          "accessions, sit in the same length band, and are "
                          "sister groups by sequence. P_Ca/P_Na is >100 for "
                          "the first pair and ~1-10 for the second."),
-        discriminator=("The outer-pore aspartate ring - D542 in human TRPV6, "
-                       "D541 in TRPV5 - projected from the TRPV6 reference by "
-                       "alignment, exactly as the four-repeat filter is "
-                       "projected from Nav1.5. Verified against the reference "
-                       "before use; a non-validating anchor refuses to "
-                       "project rather than returning a guess."),
-        test_owner="src/classify/motifs.py:TRPV_CA_ANCHOR",
+        discriminator=("**None from sequence - measured, not assumed.** The "
+                       "outer-pore aspartate ring (D582 in the canonical 765 "
+                       "aa human TRPV6, not the literature's D542, which "
+                       "numbers the short isoform) was projected onto all six "
+                       "human TRPVs by scripts/s1_anchor_power.py on "
+                       "2026-08-20: TRPV5 D, TRPV6 D - and TRPV1 D, TRPV3 D, "
+                       "TRPV4 D. Only TRPV2 reads something else (M). The "
+                       "aspartate is therefore shared by both permeability "
+                       "groups and separates neither; it is retained as "
+                       "supporting evidence and never as a family call. The "
+                       "trpv_ca / trpv_ns split rests on measured P_Ca/P_Na "
+                       "with its method recorded, exactly as HC16's "
+                       "permeability arm does. Anyone who reads the anchor as "
+                       "a test is reading a residue five of six TRPVs carry."),
+        test_owner=("(no positive test - a measured limit of the method; the "
+                    "anchor lives at src/classify/motifs.py:TRPV_CA_ANCHOR "
+                    "and results/benchmark_controls/anchor_power.tsv holds "
+                    "every projection)"),
         severity="high", provenance=P.LIT,
     ),
     Hazard(
@@ -314,7 +325,20 @@ HAZARDS: list[Hazard] = [
                        "literature calls. **TRPM4 versus TRPM7 has no "
                        "sequence discriminator at all** and is recorded as a "
                        "literature split with `Provenance.LIT`, which is what "
-                       "an honest limit looks like."),
+                       "an honest limit looks like. **And the limit is not "
+                       "currently enforced.** S1 measured (2026-08-20) that "
+                       "the architecture tier calls TRPM4 `trpm_ca` outright: "
+                       "`PF18139` is declared at FAMILY level by both this "
+                       "family and its Ca2+-permeable sibling - correctly, "
+                       "both carry it - but `derived_rules()` generates rules "
+                       "only for census families, so the shared domain yields "
+                       "one rule pointing at `trpm_ca` and nothing to tie "
+                       "against. It is the single family-level leak of its "
+                       "kind in the catalogue "
+                       "(results/benchmark_controls/rule_leakage.tsv: 1 of 37 "
+                       "matches; the other 36 are superfamily-only and "
+                       "correct). Until the generator admits control families, "
+                       "a TRPM4-like protein is a false positive."),
         test_owner="src/classify/motifs.py:K_FILTER_RE + the catalogue",
         severity="high", provenance=P.DB,
     ),

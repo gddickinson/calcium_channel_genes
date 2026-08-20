@@ -28,8 +28,10 @@ sys.path.insert(0, str(ROOT))
 from src.catalogue import (CATALOGUE, HAZARDS, CaClass, census_by_tier,
                            census_families, validate)
 from src.classify import ChannelQuery, classify, ef_hand_hits, k_filter_hits
-from src.classify.motifs import (FILTER_CALLS, MCU_DXXE_RE, TRPV_CA_ANCHOR,
-                                 mcu_filter_hits)
+from src.classify.classifier import ChannelCall
+from src.classify.report import coverage_table
+from src.classify.motifs import (ANCHORS, FILTER_CALLS, MCU_DXXE_RE,
+                                 TRPV_CA_ANCHOR, mcu_filter_hits)
 from src.classify.rules import match_architecture
 from src.phylo import NotAlignable, build_tier2, refused_superfamilies
 from src.utils.mafft import (alignment_stats, percent_identity,
@@ -216,6 +218,37 @@ allsc = scope_for("all")
 check_true("the whole-catalogue scope enumerates more than PF00520",
            len(allsc.pfam_ids) > 1 and "PF00520" in allsc.pfam_ids,
            allsc.pfam_ids[:5])
+
+# ------------------------------------------- anchors as tests (D32, S1)
+print("\nan anchor that does not discriminate cannot name a family (D32)")
+# S1 projected the TRPV anchor onto all six human TRPVs and five read D -
+# TRPV5 and TRPV6, which are Ca2+-selective, and also TRPV1, TRPV3 and
+# TRPV4, which are not. The response was to empty its call map, not to add a
+# caveat. This invariant stops the map being refilled without the
+# measurement that would justify it.
+check("the TRPV anchor names no family from a projected residue",
+      dict(TRPV_CA_ANCHOR.calls), {})
+for a in ANCHORS.values():
+    named = {fam for fam, _ in a.calls.values()}
+    check_true(f"every family {a.key} can name is in its own applies_to",
+               named <= set(a.applies_to), f"{named} vs {a.applies_to}")
+    check_true(f"{a.key} expects one residue per declared position",
+               len(a.expected) == len(a.positions),
+               f"{a.expected!r} vs {a.positions}")
+
+# ------------------------------------------ coverage counts the panel (S1)
+print("\ncoverage counts what the panel holds, not what was called (S1)")
+# Measured in S1: CatSper, TPC, TRPA and NMDA each had two panel members and
+# every one was left `unassigned`, so a call-based count reported all four as
+# having no panel member - four recall failures hidden behind an apparent
+# coverage gap.
+_fam = next(f.key for f in census_families())
+_unassigned = ChannelCall(query="X9")
+_cov = {r[0]: r for r in coverage_table([_unassigned], {"X9": _fam})}
+check(f"a panel member left unassigned still counts as covered ({_fam})",
+      _cov[_fam][3], 1)
+check("...and is reported as called zero times",
+      _cov[_fam][4], 0)
 
 print()
 if FAILURES:

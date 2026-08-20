@@ -1,0 +1,45 @@
+{
+  "generated": "2026-08-20 13:47:13",
+  "mafft": "v7.526 (2024/Apr/26)",
+  "anchors": [
+    {
+      "anchor": "four_repeat",
+      "reference": "Hs_SCN5A Q14524",
+      "positions": "372/898/1419/1711",
+      "expected": "DEKA",
+      "n_projected": 27,
+      "n_distinct_strings": 10,
+      "distinct_strings": "---D=CATSPER1; --AN=TPCN2; --D-=CATSPER2,CATSPER4; --PN=TPCN1; -D--=CATSPER3; DEKA=SCN1A,SCN2A,SCN3A,SCN4A,SCN5A,SCN8A,SCN9A,SCN10A,SCN11A; DENA=SCN7A; EEDD=CACNA1G,CACNA1H,CACNA1I; EEEE=CACNA1A,CACNA1B,CACNA1C,CACNA1D,CACNA1E,CACNA1F,CACNA1S; EEKE=NALCN",
+      "discriminates": "yes",
+      "verdict": "discriminates: no projected string is shared between permeability tiers"
+    },
+    {
+      "anchor": "trpv_ca_ring",
+      "reference": "Hs_TRPV6 Q9H1D0",
+      "positions": "582",
+      "expected": "D",
+      "n_projected": 6,
+      "n_distinct_strings": 2,
+      "distinct_strings": "D=TRPV5,TRPV6,TRPV1,TRPV3,TRPV4; M=TRPV2",
+      "discriminates": "no",
+      "verdict": "DOES NOT discriminate: 'D' is read by members of more than one permeability tier"
+    },
+    {
+      "anchor": "orai_e106",
+      "reference": "Hs_ORAI1 Q96D31",
+      "positions": "106",
+      "expected": "E",
+      "n_projected": 3,
+      "n_distinct_strings": 1,
+      "distinct_strings": "E=ORAI1,ORAI2,ORAI3",
+      "discriminates": "no",
+      "verdict": "untested: every projected member is in one tier (ca_selective) \u2014 this panel cannot separate anything"
+    }
+  ],
+  "http": {
+    "requests": 75,
+    "absent": 0,
+    "failures": 0,
+    "failed_urls": []
+  }
+}

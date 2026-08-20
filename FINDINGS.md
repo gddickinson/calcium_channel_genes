@@ -271,3 +271,93 @@ that will produce it, and section 15 lists those nine open measurements
 explicitly. The review states in its own methods that it establishes the
 catalogue's claims are internally correct, not that the catalogue is
 complete.
+
+---
+
+## S1 — the classifier, measured against the things it should reject (2026-08-20)
+
+**The headline.** On a panel of 49 positives (one or two human members of
+every census family with a human gene) and 20 decoys (one per control
+family), the classifier recalls **38/48 (79.2 %)** and rejects **18/20
+(90 %)**. Eighteen of the nineteen hazards were exercised. One positive,
+CHRNA7, could not be fetched from UniProt after four attempts and is reported
+as missing rather than scored as a failure — which is why the denominator is
+48 and not 49. Both numbers are lower than a benchmark usually reports, and
+the reason is the interesting part: almost every miss is the classifier
+**refusing to guess**, not the classifier guessing wrong.
+
+**Nine of the ten recall failures are abstentions.** CatSper, TPC, TRPA,
+NMDA, CNGB1 and the α9 nicotinic subunit were left `unassigned` because the
+nearest reference sequence belonged to another family by less than the 10 %
+margin the project requires before it will make a call (D7). CATSPER1's
+nearest neighbour in the whole panel is a **sodium channel**, at 28.6 %
+identity. A classifier that reported 95 % recall on this panel would be one
+that had stopped requiring a margin.
+
+**The load-bearing test holds: the four-repeat filter separates Cav from Nav
+perfectly.** Projected from the Nav1.5 anchor across all 27 human
+four-repeat channels: every one of the seven Cav1/Cav2 genes reads `EEEE`,
+all three Cav3 genes read `EEDD`, NALCN reads `EEKE`, and eight of the nine
+sodium channels read `DEKA`. No string is shared between a calcium family
+and a non-calcium one. The ninth sodium channel, SCN7A — Na_x, the atypical
+member that is not voltage-gated — reads `DENA`, a lysine-to-asparagine
+difference at repeat III that is a real property of that protein rather than
+a projection error.
+
+**And CatSper's filter is readable after all, but not from one sequence.**
+The four CatSper subunits project to `---D`, `--D-`, `-D--` and `--D-`: each
+subunit carries an aspartate at a *different* repeat position, which is
+exactly what a heterotetramer assembling one pore from four different
+proteins should look like. Three of the four repeat positions are covered
+between them. A joint four-sequence projection is now a concrete proposal
+rather than a hope *(pending: S9)*.
+
+**The TRPV aspartate ring is not a test, and now the catalogue says so.**
+This was the session's most consequential negative result. Hazard HC7b —
+"Ca²⁺ selectivity varies a hundredfold inside one TRP family" — was closed
+by projecting TRPV6's outer-pore aspartate onto its relatives. Projected onto
+all six human TRPVs, **five of them read `D`**: TRPV5 and TRPV6, which are
+the Ca²⁺-selective pair, but also TRPV1, TRPV3 and TRPV4, which are not.
+Only TRPV2 reads anything else. The residue does not separate the groups it
+was supposed to separate. HC7b's discriminator has been rewritten to say
+"none from sequence", and the anchor's call map has been **emptied** so it
+can no longer name a family — it stays as supporting evidence. The
+trpv_ca / trpv_ns boundary rests entirely on measured permeability
+*(pending: S1b)*.
+
+**A decoy was not merely accepted — it was named.** TRPM4 is Ca²⁺-impermeable
+and the architecture tier called it `trpm_ca` outright. The catalogue is
+right that TRPM4 carries the same domains as its Ca²⁺-permeable siblings; the
+fault is that rules are generated only for census families, so a domain both
+sides declare produces one rule pointing at the census family and nothing to
+tie against. Measured across the whole catalogue, this is **1 leak of its
+kind in 37 architecture matches into control families** — the other 36 say
+only "this is a P-loop channel", which is true. It is the third appearance of
+one defect shape (after `PF00027` and HCN), and the fix is to let control
+families generate rules *(pending: emergent task)*.
+
+**The nicotinic boundary cannot be drawn from sequence, and the classifier
+gets it exactly backwards.** CHRNA1, a muscle subunit that is *out* of the
+census, was called `nachr_ca` by reference identity at a comfortable margin
+of +0.165. CHRNA9, which *is* in the census, was left unassigned at a margin
+of +0.004 — ambiguous between `nachr_ca` and `outofscope_nachr_muscle`. Both
+proteins have the same nearest neighbour (TRPV6's panel-mate Hs_CHRNA7) at
+almost the same identity, 39.2 % and 39.3 %. So the decoy got the confident
+call and the real member got the abstention. The α7/α9/α10 versus muscle
+split is a permeability split, and no sequence tier reproduces it. This is
+the same shape as HC16's declared limit, now with a number attached.
+
+**What the tiers actually contributed.** Hazard rules made 28 of the calls,
+reference identity 20, architecture 5 and the motif tier 3, with 12 proteins
+undecided. The classifier is therefore not a nearest-neighbour lookup — most
+correct calls come from hand-written positive tests that would work on a
+sequence with no relative in the panel — but the reference tier is what
+carries the families whose architectures are identical, and those are
+exactly the families where it fails.
+
+**What is still unknown.** HC13 — whether the two-pore channel is in fact
+sodium-selective — was exercised by nothing on this panel and remains
+untested. The ORAI anchor is untested rather than undiscriminating: every
+family in its scope is Ca²⁺-selective, so this panel has nothing for it to
+separate. And the permeability values that every tier boundary depends on
+are still unaudited *(pending: S1b)*.

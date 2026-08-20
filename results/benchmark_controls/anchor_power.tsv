@@ -1,0 +1,37 @@
+anchor	gene	accession	family	expected_group	projected	reference_reads	same_as_reference	note
+four_repeat	CACNA1A	O00555	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1B	Q00975	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1C	Q13936	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1D	Q01668	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1E	Q15878	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1F	O60840	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1S	Q13698	cav_hva	ca_selective	EEEE	DEKA	no	Cav1/Cav2 high-voltage-activated locus
+four_repeat	CACNA1G	O43497	cav_lva	ca_selective	EEDD	DEKA	no	Cav3 (T-type) locus - HC14
+four_repeat	CACNA1H	O95180	cav_lva	ca_selective	EEDD	DEKA	no	Cav3 (T-type) locus - HC14
+four_repeat	CACNA1I	Q9P0X4	cav_lva	ca_selective	EEDD	DEKA	no	Cav3 (T-type) locus - HC14
+four_repeat	SCN1A	P35498	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN2A	Q99250	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN3A	Q9NY46	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN4A	P35499	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN5A	Q14524	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN7A	Q01118	outofscope_nav	not_calcium	DENA	DEKA	no	no call for this string
+four_repeat	SCN8A	Q9UQD0	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN9A	Q15858	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN10A	Q9Y5Y9	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	SCN11A	Q9UI33	outofscope_nav	not_calcium	DEKA	DEKA	yes	voltage-gated sodium channel locus
+four_repeat	NALCN	Q8IZF0	outofscope_nalcn	not_calcium	EEKE	DEKA	no	NALCN leak-channel locus
+four_repeat	CATSPER1	Q8NEC5	catsper	ca_selective	---D	DEKA	no	no call for this string
+four_repeat	CATSPER2	Q96P56	catsper	ca_selective	--D-	DEKA	no	no call for this string
+four_repeat	CATSPER3	Q86XQ3	catsper	ca_selective	-D--	DEKA	no	no call for this string
+four_repeat	CATSPER4	Q7RTX7	catsper	ca_selective	--D-	DEKA	no	no call for this string
+four_repeat	TPCN1	Q9ULQ1	tpc	ca_release	--PN	DEKA	no	no call for this string
+four_repeat	TPCN2	Q8NHX9	tpc	ca_release	--AN	DEKA	no	no call for this string
+trpv_ca_ring	TRPV5	Q9NQA5	trpv_ca	ca_selective	D	D	yes	outer-pore aspartate ring - Ca2+-selective TRPV
+trpv_ca_ring	TRPV6	Q9H1D0	trpv_ca	ca_selective	D	D	yes	outer-pore aspartate ring - Ca2+-selective TRPV
+trpv_ca_ring	TRPV1	Q8NER1	trpv_ns	ca_permeable	D	D	yes	outer-pore aspartate ring - Ca2+-selective TRPV
+trpv_ca_ring	TRPV2	Q9Y5S1	trpv_ns	ca_permeable	M	D	no	no call for this string
+trpv_ca_ring	TRPV3	Q8NET8	trpv_ns	ca_permeable	D	D	yes	outer-pore aspartate ring - Ca2+-selective TRPV
+trpv_ca_ring	TRPV4	Q9HBA0	trpv_ns	ca_permeable	D	D	yes	outer-pore aspartate ring - Ca2+-selective TRPV
+orai_e106	ORAI1	Q96D31	orai	ca_selective	E	E	yes	the E106 glutamate ring of the CRAC pore
+orai_e106	ORAI2	Q96SN7	orai	ca_selective	E	E	yes	the E106 glutamate ring of the CRAC pore
+orai_e106	ORAI3	Q9BRQ5	orai	ca_selective	E	E	yes	the E106 glutamate ring of the CRAC pore

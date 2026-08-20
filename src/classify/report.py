@@ -117,13 +117,25 @@ def hazard_table(calls: list[ChannelCall],
     return rows
 
 
-def coverage_table(calls: list[ChannelCall]) -> list[tuple]:
-    """Which census families the panel actually exercised — the honest denominator."""
-    seen = Counter(c.family for c in calls if c.family)
+def coverage_table(calls: list[ChannelCall],
+                   expected: dict[str, str] | None = None) -> list[tuple]:
+    """Which census families the panel actually exercised — the honest denominator.
+
+    Coverage is counted from what the panel **contains**, not from what the
+    classifier managed to call. Counting calls conflates two different
+    statements: "no member of this family was tested" and "every member of
+    this family was tested and none was recognised". Measured in S1: CatSper,
+    TPC, TRPA and NMDA each had two panel members left `unassigned`, and a
+    call-based count reported all four as untested — which would have hidden
+    four recall failures behind a coverage gap.
+    """
+    expected = expected or {}
+    in_panel = Counter(expected.values())
+    called = Counter(c.family for c in calls if c.family)
     rows = []
     for fam in census_families():
         rows.append((fam.key, fam.superfamily, len(fam.human_genes),
-                     seen.get(fam.key, 0)))
+                     in_panel.get(fam.key, 0), called.get(fam.key, 0)))
     return rows
 
 

@@ -1,0 +1,46 @@
+family	panel_role	name	n	correct	recall	decisive_tiers	confidence	mis_calls
+ampa	positive	AMPA receptors (GRIA1-4)	2	2	1.000	reference=2	bronze=2	
+assoc_catsper_aux	decoy	CatSper auxiliary subunits (CATSPERB/G/D/E/Z, EFCAB9, TMEM249)	1	1	1.000	hazard=1	silver=1	
+assoc_cav_aux	decoy	Cav auxiliary subunits (beta, alpha2delta, gamma/TARP)	1	1	1.000	hazard=1	silver=1	
+assoc_mcu_reg	decoy	Uniporter regulators (MICU1-3, EMRE/SMDT1, MCUR1)	1	1	1.000	hazard=1	silver=1	
+assoc_polycystin1	decoy	Polycystin-1 family (PKD1, PKD1L1-3)	1	1	1.000	hazard=1	silver=1	
+assoc_release_reg	decoy	Ca2+-release channel regulators (calsequestrin, FKBP12/12.6, triadin, junctin)	1	0	0.000			unassigned
+assoc_stim	decoy	STIM proteins (STIM1, STIM2)	1	1	1.000	hazard=1	gold=1	
+calhm	positive	Calcium homeostasis modulators (CALHM1-CALHM6)	2	2	1.000	architecture=2	bronze=2	
+catsper	positive	CatSper sperm-specific calcium channels	2	0	0.000			unassigned
+cav_hva	positive	High-voltage-activated calcium channels (Cav1, Cav2)	2	2	1.000	hazard=2	gold=2	
+cav_lva	positive	Low-voltage-activated (T-type) calcium channels (Cav3)	2	2	1.000	motif=2	gold=2	
+cng	positive	Cyclic-nucleotide-gated channels (CNG)	2	1	0.500	architecture=1	bronze=1	unassigned
+itpr	positive	Inositol 1,4,5-trisphosphate receptors (ITPR1-3)	2	2	1.000	hazard=2	gold=2	
+kainate	positive	Kainate receptors (GRIK1-5)	2	2	1.000	reference=2	bronze=2	
+mcu	positive	Mitochondrial calcium uniporter (MCU, MCUB)	2	2	1.000	hazard=2	silver=1;gold=1	
+nachr_ca	positive	Ca2+-permeable nicotinic receptors (alpha7, alpha9, alpha10)	1	0	0.000			unassigned
+nmda	positive	NMDA receptors (GRIN1, GRIN2A-D, GRIN3A-B)	2	0	0.000			unassigned
+nonchannel_casr_gpcr	decoy	Class C GPCRs including the calcium-sensing receptor (CASR)	1	1	1.000	hazard=1	silver=1	
+nonchannel_efhand	decoy	EF-hand calcium sensors and buffers (calmodulin, calbindin, S100)	1	1	1.000	hazard=1	silver=1	
+nonchannel_pomt	decoy	Protein O-mannosyltransferases (POMT1, POMT2)	1	1	1.000	hazard=1	silver=1	
+orai	positive	ORAI / CRAC channels (ORAI1-3)	2	2	1.000	hazard=2	gold=2	
+osca_tmem63	positive	OSCA / TMEM63 hyperosmolality-gated channels	2	2	1.000	architecture=1;reference=1	bronze=1;gold=1	
+outofscope_anoctamin	decoy	Ca2+-activated chloride channels (TMEM16A, TMEM16B)	1	1	1.000	hazard=1	gold=1	
+outofscope_connexin	decoy	Connexin and pannexin hemichannels	1	0	0.000			unassigned
+outofscope_hcn	decoy	Hyperpolarisation-activated cyclic-nucleotide-gated channels (HCN)	1	1	1.000	hazard=1	silver=1	
+outofscope_kca	decoy	Ca2+-activated potassium channels (BK, SK, IK)	1	1	1.000	hazard=1	silver=1	
+outofscope_nachr_muscle	decoy	Low-Ca2+ nicotinic and anion-selective Cys-loop receptors	1	0	0.000			nachr_ca
+outofscope_nalcn	decoy	NALCN sodium leak channel	1	1	1.000	motif=1	silver=1	
+outofscope_nav	decoy	Voltage-gated sodium channels (Nav1.1-1.9, Nax)	1	1	1.000	hazard=1	gold=1	
+outofscope_tric	decoy	Trimeric intracellular cation channels (TMEM38A/B)	1	0	0.000			unassigned
+outofscope_trpm_monovalent	decoy	Ca2+-activated monovalent TRP channels (TRPM4, TRPM5)	1	0	0.000			trpm_ca
+p2x	positive	P2X ATP-gated receptors (P2RX1-7)	2	2	1.000	reference=2	gold=2	
+piezo	positive	Piezo mechanosensitive channels (PIEZO1, PIEZO2)	2	2	1.000	reference=2	gold=2	
+ryr	positive	Ryanodine receptors (RYR1-3)	2	2	1.000	hazard=2	gold=2	
+tpc	positive	Two-pore channels (TPC1, TPC2)	2	0	0.000			unassigned
+transporter_ca_atpase	decoy	P-type Ca2+-ATPases (SERCA, PMCA, SPCA)	1	1	1.000	hazard=1	silver=1	
+transporter_ca_exchanger	decoy	Na+/Ca2+ exchangers (NCX, NCKX, NCLX) and LETM1	1	1	1.000	hazard=1	silver=1	
+trpa	positive	TRPA1 - ankyrin transient receptor potential channel	1	0	0.000			unassigned
+trpc	positive	TRPC - canonical transient receptor potential channels	2	2	1.000	reference=2	gold=2	
+trpm_ca	positive	Ca2+-permeable melastatin channels (TRPM1, 2, 3, 6, 7, 8)	2	1	0.500	reference=1	gold=1	outofscope_trpm_monovalent
+trpml	positive	TRPML - mucolipins	2	2	1.000	hazard=2	gold=2	
+trpp	positive	TRPP / polycystin-2 channels (PKD2, PKD2L1, PKD2L2)	2	2	1.000	hazard=2	gold=2	
+trpv_ca	positive	Ca2+-selective vanilloid channels (TRPV5, TRPV6)	2	2	1.000	reference=2	bronze=2	
+trpv_ns	positive	Non-selective vanilloid channels (TRPV1-TRPV4)	2	2	1.000	reference=2	bronze=2	
+vdac	positive	Voltage-dependent anion channels (VDAC1-3)	2	2	1.000	reference=2	gold=2	

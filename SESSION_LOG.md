@@ -224,3 +224,119 @@ flagged in Emergent tasks as not-for-citation.
 reference panel it needs is now complete and reproducible. Note for S1: three
 control families still have no rule that can name them, and S1 must report
 that rather than score it as a miss.
+
+---
+
+## 2026-08-20 — S1 (classifier control benchmark)
+
+**Data root unavailable.** `/Volumes/FANTOM` is not mounted, so
+`python3 -m src.utils.data_root --require` exits non-zero. S1 needs no bulk
+storage (as S0 and S23 did not), so the session ran; **S4/S5 remain blocked**
+and the drive must be attached before either starts.
+
+Catalogue validation and `selftest.py` clean at session start and after every
+edit below.
+
+### What ran
+
+1. `scripts/s1_toolchain.py` — every binary present (MAFFT 7.526, HMMER 3.4,
+   BLAST 2.16.0+, miniprot 0.18, trimAl 1.5, IQ-TREE 2.3.6, foldseek 10,
+   datasets 18.35.0). Biopython still missing from the base interpreter, as
+   recorded.
+2. `scripts/s1_benchmark.py` — 69 targets, 68 fetched, leave-one-out (67 of
+   the 68 are themselves catalogue exemplars, so without D29 the reference
+   tier would have scored the panel against itself). CHRNA7's evidence fetch
+   failed after four attempts and is recorded in `missing.tsv`, excluded from
+   the denominators rather than scored as a classifier error — the mechanism
+   built earlier in this session, working on its own output.
+3. `scripts/s1_anchor_power.py` (new) — all three projection anchors over
+   their declared families.
+4. `scripts/s1_rule_leakage.py` (new) — every control family whose declared
+   domains satisfy a census family's generated rule.
+5. `scripts/s1_report.py` — `results/benchmark_controls/report.md`.
+
+The brief's step 2 (`run.py --classify-preset controls_benchmark
+--save-results`) was **verified rather than repeated in full**: it classifies
+the same 69 proteins with the same tiers and writes a strict subset of the
+benchmark's tables, so re-running it would have doubled the network load
+against an endpoint that was already throttling. The CLI path itself was
+checked end-to-end (`run.py --classify CACNA1C,SCN5A`) and returns the full
+audit trail — Cav1.2 `EEEE` → `cav_hva` gold, Nav1.5 `DEKA` →
+`outofscope_nav` gold, both with the hazard rule, the motif, the reference
+hit and the topology check listed separately.
+
+### Results
+
+**Recall 38/48 (79.2 %), specificity 18/20 (90 %), 18/19 hazards
+exercised**, 68/69 fetched. Tier attribution: hazard 28, reference 20,
+architecture 5, motif 3, undecided 12. Nine of the ten recall misses are the
+D7 margin abstaining, not a wrong call.
+
+**The four-repeat filter is 27/27.** Every Cav1/2 `EEEE`, every Cav3 `EEDD`,
+NALCN `EEKE`, eight Nav `DEKA` and SCN7A (Na_x) `DENA`. No string crosses the
+calcium boundary. CatSper's four subunits project to `---D`, `--D-`, `-D--`,
+`--D-` — one aspartate each at a different repeat, covering three of the four
+positions, which makes the joint projection proposed in Emergent tasks a
+concrete method for S9.
+
+**The TRPV anchor does not discriminate.** TRPV1/3/4/5/6 all project to `D`;
+only TRPV2 differs. HC7b's discriminator rewritten to "none from sequence";
+`TRPV_CA_ANCHOR.calls` emptied so it can no longer name a family.
+
+**One decoy was named, not merely accepted.** TRPM4 → `trpm_ca` by the
+architecture tier. Cause measured: `derived_rules()` iterates
+`census_families()` only, so `PF18139` — declared at family level by both
+`trpm_ca` and `outofscope_trpm_monovalent` — yields one rule with no
+competitor. 1 family-level leak in 37 matches; the other 36 are
+superfamily-only and correct.
+
+### Defects found and fixed
+
+**A whole class of silent degradation in the stdlib fetchers.** Every one of
+them was `except Exception: return ""`. Measured consequences: `pfam_counts`
+returning `{}` on a rate limit makes a protein look like it carries no
+domains and scores a positive as a miss; an empty anchor sequence makes
+`verify_anchor()` fail, which this project reads as *the anchor has drifted*.
+The first smoke run hit exactly this — it reported "anchor DOES NOT VALIDATE"
+and "recall 1/1 (100 %)" while two of three targets had silently failed to
+resolve. New `src/utils/http.py` retries with backoff, distinguishes a
+genuine 404 from a transient failure, and **raises `FetchFailed`**; the
+callers in `cli_channel.py`, `reference.py` and `s1_benchmark.py` record
+failures instead of absorbing them. The committed run proved it live: one CHRNA7
+fetch failed after four attempts and was reported in `missing.tsv` and
+excluded from the denominators rather than counted as a classifier error.
+A third pass was started to recover it and abandoned — UniProt had begun
+throttling at roughly two minutes per protein, and hammering it further to
+turn a documented gap into a clean number was not worth it. The committed
+tables are one coherent pass with one honest hole in them.
+
+**`s1_benchmark.py` now stops rather than degrading.** An unfetchable anchor
+exits 2 ("network failure, not a drift"); a fetched anchor reading the wrong
+residues exits 3 ("anchor drift"). The completion criterion is that
+`verify_anchor()` passed *before* any filter result was reported, and quietly
+turning the motif tier off did not satisfy it.
+
+**`coverage_table` counted calls, not panel membership.** CatSper, TPC, TRPA
+and NMDA each had two panel members and were reported as having none, because
+every member was left `unassigned` — four recall failures hidden behind an
+apparent coverage gap. Now counts what the panel contains and reports the
+called count in a separate column.
+
+**The report's four-repeat table showed all 69 projections.** A TRPV aligned
+against Nav1.5 yields four residues from positions that are not its filter.
+Restricted to `FOUR_REPEAT_ANCHOR.applies_to`.
+
+**A ported docstring in `s1_benchmark.py`** named the parent project's decoys
+(KCTD1, GRM1, TPTE, ABCC8), none of which are in this panel. Rewritten to the
+actual one.
+
+### NEXT
+
+**S1b — the permeability audit** is the topmost unblocked row and S1 raised
+its priority: the TRPV boundary now rests *entirely* on P_Ca/P_Na values that
+nothing has checked, because the sequence test that was supposed to support
+it has been measured not to work.
+
+Also carried forward: the rule-generator fix (control families must generate
+rules), HC13 untested by this panel, and the CatSper joint projection now
+worth doing in S9.

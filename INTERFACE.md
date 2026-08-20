@@ -63,10 +63,10 @@ worth.
 | File | Key types / functions |
 |------|-----------------------|
 | `rules.py` | `ArchitectureRule`, `derived_rules()` (generated from the catalogue), `HAZARD_RULES` (hand-written, priority 100, one or more per closable hazard), `_CENSUS_SIGNATURES` (the "carries nothing a calcium channel carries" set, derived from the catalogue), `match_architecture()` → `RuleMatch` (ties are *ambiguity*, never a coin toss), `topology_check()`. |
-| `motifs.py` | Three reference-free regexes — `K_FILTER_RE` (TxGYG ⇒ potassium ⇒ not calcium), `MCU_DXXE_RE` (the DIME motif), `EF_HAND_RE` (the HC12 decoy detector) — and three projected anchors: `FOUR_REPEAT_ANCHOR` (Nav1.5 `Q14524` 372/898/1419/1711 ⇒ DEKA), `TRPV_CA_ANCHOR` (TRPV6 `Q9H1D0` D582), `ORAI_ANCHOR` (ORAI1 `Q96D31` E106). `verify_anchor()`, `filter_signature()`, `scan()`. |
+| `motifs.py` | Three reference-free regexes — `K_FILTER_RE` (TxGYG ⇒ potassium ⇒ not calcium), `MCU_DXXE_RE` (the DIME motif), `EF_HAND_RE` (the HC12 decoy detector) — and three projected anchors: `FOUR_REPEAT_ANCHOR` (Nav1.5 `Q14524` 372/898/1419/1711 ⇒ DEKA), `TRPV_CA_ANCHOR` (TRPV6 `Q9H1D0` D582, **call map deliberately empty** — S1 projected it onto all six human TRPVs and five read `D`, so it is supporting evidence and can no longer name a family), `ORAI_ANCHOR` (ORAI1 `Q96D31` E106, untested: its scope holds no decoy). `verify_anchor()`, `filter_signature()`, `scan()` — and note `scan()` runs **only** the four-repeat anchor, which is why `s1_anchor_power.py` exists. |
 | `reference.py` | `ReferenceSet` (loads `reference_panel.fasta`, 3-mer prefilter, MAFFT identity over mutually covered columns), `best_match(...)` → `ReferenceResult` with the D7 margin, the D29 leave-one-out and the D30 coverage floor. |
 | `classifier.py` | `ChannelQuery`, `ChannelCall`, `Evidence`, `classify()`, `classify_all()`. Tier precedence, confidence tiers, conflict recording. The gene symbol is carried and never consulted. **No permeability is ever predicted.** |
-| `report.py` | `calls_table`, `confusion_table`, `recall_table`, `hazard_table`, `coverage_table`, `summary_counts`, `write_tsv` — the tables S1's report is rendered from (D13). |
+| `report.py` | `calls_table`, `confusion_table`, `recall_table`, `hazard_table`, `coverage_table`, `summary_counts`, `write_tsv` — the tables S1's report is rendered from (D13). `coverage_table` counts what the **panel contains**, not what the classifier called: counting calls hid four families whose members were all left `unassigned` behind an apparent coverage gap. |
 
 ## `src/phylo/` — a forest and a network
 
@@ -84,6 +84,7 @@ worth.
 | `mafft.py` | Stdlib-only MAFFT wrapper: `align()`, `parse_fasta()`, `project_positions()`, `alignment_stats()` (identity **plus coverage of both sequences** — the D30 guard), `percent_identity()`, `MafftUnavailable`. Raises rather than degrading (D28). |
 | `species.py` | 51 species across 15 groups; `PANELS`, `resolve_species()`, `ensembl_species_slug()`, `panel()`. |
 | `data_root.py` | `get_data_root()`, **`require_data_root()`**, `free_bytes()`. `python3 -m src.utils.data_root --require` is the session-protocol check. |
+| `http.py` | **The polite, retrying, stdlib-only HTTP client** every classifier-path fetcher goes through. `Fetcher`, `get_json()`, `get_text()`, `ledger()` and **`FetchFailed`**, which is *raised* rather than returned: a transient failure that came back as `{}` used to make a protein look like it carried no domains, and an empty anchor sequence imitated an anchor drift (measured in S1, 2026-08-20). A missing result is a missing result and a note (**D28**). |
 | `exporters.py` | `write_fasta()`, `write_csv()`, `write_json()`. |
 | `results_writer.py` | `make_bundle_dir()`, `write_bundle()`. |
 | `report.py` | `write_report()` — publication-style markdown + standalone HTML. |
@@ -133,8 +134,10 @@ census tiers, never a flat total), `run_phylo()`, plus the stdlib fetchers.
 | `s0_filter_atlas.py` | The two filter alignments → `filter_k.tsv` (TxGYG, located directly) and `filter_four_repeat.tsv` (projected from Nav1.5). Records near misses explicitly. |
 | `review_sources.py`, `s0_review_refs.py`, `s0_review_build.py`, `review_figlib.py`, `s0_review_fig_*.py` | The review pipeline (task S23). Titles → Europe PMC resolution → generated markdown + PDF. A cited key with no verified reference is a build error. |
 | `s1_toolchain.py` | **S1 step 1** — probes every external binary and Python package, writes `results/toolchain_manifest.txt`. |
-| `s1_benchmark.py` | **S1 driver** — verifies the anchors, loads the reference panel, classifies the control panel, writes recall / confusion / hazard / coverage tables. |
-| `s1_report.py` | **S1** — renders `results/benchmark_controls/report.md`, including per-tier attribution and the untested-hazard list. |
+| `s1_benchmark.py` | **S1 driver** — verifies the four-repeat anchor and **stops** if it cannot (distinguishing a failed fetch from a real drift), loads the reference panel, classifies the control panel leave-one-out, writes recall / confusion / hazard / coverage tables plus `missing.tsv`, the panel members that could not be fetched and are therefore absent from the counts rather than scored as failures. |
+| `s1_anchor_power.py` | **S1** — projects each of the three anchors over the families it declares itself applicable to and asks whether the residue it reads differs *between permeability tiers*. `classify()` only ever runs the four-repeat anchor, so without this the other two were declared, verified and never tested. Writes `anchor_power.tsv` + `anchor_summary.tsv`. This is what measured the TRPV anchor as non-discriminating. |
+| `s1_rule_leakage.py` | **S1, offline** — every control family whose declared domains satisfy a census family's generated rule, split into harmless superfamily-only matches and family-level ones, which are false positives. Writes `rule_leakage.tsv`. |
+| `s1_report.py` | **S1** — renders `results/benchmark_controls/report.md` from those tables (D13): per-tier attribution, per-family recall split positive/decoy, the four-repeat filter table restricted to the families the anchor applies to, the anchor-discrimination verdicts, the rule-leakage mechanism, the untested-hazard list and the decoys no rule can name. |
 | `s14_*.py` | Manuscript assembly: page geometry and figure maps; figure copying under publication numbers; **the claim checker** (D12); the deposit manifest with SHA-256s; the typeset PDF; the driver. |
 | `build_findings_page.py` + `findings_page.css` | Renders `docs/findings_summary.md` to one self-contained HTML page. |
 

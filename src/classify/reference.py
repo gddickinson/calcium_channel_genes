@@ -33,6 +33,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from ..catalogue import CATALOGUE, exemplars
+from ..utils.http import FetchFailed, get_text
 from ..utils.mafft import MafftUnavailable, align, alignment_stats
 
 #: D7: the minimum gap between the best family and the next-best *different*
@@ -120,6 +121,9 @@ class ReferenceSet:
         self.family_of = family_of
         self.accession_of = accession_of or {}
         self._profiles = {l: kmer_profile(s) for l, s in self.sequences.items()}
+        #: Exemplars whose fetch could not be completed, when this set was
+        #: built by `fetch()`. Empty for a panel loaded from the FASTA cache.
+        self.fetch_failures: list[str] = []
 
     # -- construction ----------------------------------------------------
     @classmethod
@@ -161,18 +165,30 @@ class ReferenceSet:
         seqs: dict[str, str] = {}
         fam: dict[str, str] = {}
         acc: dict[str, str] = {}
+        failed: list[str] = []
         for family_key, ex in exemplars(census_only):
             if not ex.uniprot:
                 continue
             if on_progress:
                 on_progress(f"{ex.label} ({ex.uniprot})")
-            s = fetch_uniprot_sequence(ex.uniprot)
+            try:
+                s = fetch_uniprot_sequence(ex.uniprot)
+            except FetchFailed as exc:
+                # A silently short panel is a panel nobody declared: record the
+                # exemplar and let the caller decide (D28).
+                failed.append(f"{ex.label} ({ex.uniprot}): {exc.reason}")
+                if on_progress:
+                    on_progress(f"  FETCH FAILED {ex.label} — {exc.reason}")
+                time.sleep(sleep_s)
+                continue
             if s:
                 seqs[ex.label] = s
                 fam[ex.label] = family_key
                 acc[ex.label] = ex.uniprot
             time.sleep(sleep_s)
-        return cls(seqs, fam, acc)
+        out = cls(seqs, fam, acc)
+        out.fetch_failures = failed
+        return out
 
     # -- scoring ---------------------------------------------------------
     def labels_for(self, family_key: str) -> list[str]:
@@ -272,14 +288,18 @@ class ReferenceSet:
 
 
 def fetch_uniprot_sequence(accession: str, timeout_s: int = 30) -> str:
-    """One sequence by accession, stdlib only (no `requests` dependency)."""
+    """One sequence by accession, stdlib only (no `requests` dependency).
+
+    `""` means UniProt has no such entry. A request that could not be
+    completed raises `FetchFailed` rather than returning `""`, because an
+    empty sequence here silently shrinks the reference panel and, for the
+    projection anchors, imitates an anchor drift (D28).
+    """
     if not accession:
         return ""
     url = f"https://rest.uniprot.org/uniprotkb/{accession}.fasta"
-    try:
-        with urllib.request.urlopen(url, timeout=timeout_s) as r:
-            text = r.read().decode()
-    except Exception:
+    text = get_text(url)
+    if not text:
         return ""
     return "".join(l.strip() for l in text.splitlines() if not l.startswith(">"))
 

@@ -6,12 +6,15 @@ decoys was promoted as a candidate IP3 receptor, because RyRs carry all four
 IP3R-diagnostic Pfam domains. Specificity was 25/31 and every failure was the
 same mistake.
 
-Here there are sixteen such mistakes available, so the benchmark is built
-around them. `presets/controls_benchmark.json` names a positive from every
-census family with a resolvable human gene, and a decoy for every hazard —
-KCTD1 for the Kv T1 domain, GRM1 for the iGluR clamshell, POMT1 for MIR,
-TPTE for the pore-module annotation on a phosphatase, ABCC8 for CFTR's
-architecture. The tables answer four questions:
+Here there are nineteen such mistakes on the register, so the benchmark is
+built around them. `presets/controls_benchmark.json` names positives from
+every census family with a resolvable human gene, and a decoy for the
+confusions that matter — SCN5A for Cav's architecture, TRPM4 for a
+Ca2+-impermeable member of a census family, KCNMA1 and ANO1 for the
+Ca2+-*activated* channels, CACNB1 for a calcium-channel symbol on a protein
+with no pore, ATP2A1 and SLC8A1 for calcium transport without a pore, CALM1
+and CASR for calcium binding and sensing, POMT1 for MIR. The tables answer
+four questions:
 
     recall      does the classifier find each family's own member?
     precision   does it reject each decoy?
@@ -48,6 +51,8 @@ from src.classify.report import (CALLS_HEADER, calls_table, confusion_table,
                                  coverage_table, hazard_table, recall_table,
                                  summary_counts, write_tsv)
 from src.cli_channel import build_query, resolve_symbol
+from src.utils.http import FetchFailed
+from src.utils.http import ledger as http_ledger
 from src.utils.mafft import mafft_available, mafft_version
 
 
@@ -81,14 +86,32 @@ def main() -> int:
         f"({FOUR_REPEAT_ANCHOR.reference_label} "
         f"{FOUR_REPEAT_ANCHOR.reference_uniprot} "
         f"{FOUR_REPEAT_ANCHOR.positions} == {FOUR_REPEAT_ANCHOR.expected})")
-    nav_ref = fetch_uniprot_sequence(FOUR_REPEAT_ANCHOR.reference_uniprot)
+    # A completion criterion of this task is that `verify_anchor()` passed
+    # *before* any filter result was reported, so this gate stops the run
+    # rather than quietly turning the motif tier off. It stops for two very
+    # different reasons and says which: a fetch that could not be completed is
+    # a network problem, while a fetch that succeeded and returned the wrong
+    # residues is an anchor drift — and this project has already been bitten
+    # once by a real drift (TRPV6 D542 → D582), so the two must never be
+    # allowed to look alike.
+    try:
+        nav_ref = fetch_uniprot_sequence(FOUR_REPEAT_ANCHOR.reference_uniprot)
+    except FetchFailed as exc:
+        log(f"  ANCHOR NOT FETCHED — {exc.reason}. This is a network failure, "
+            f"not a drift: the anchor has not been checked either way.")
+        log("  → refusing to report filter calls against an unverified anchor "
+            "(D28). Re-run when UniProt answers.")
+        return 2
     anchor_ok = bool(nav_ref) and verify_anchor(nav_ref)
     log(f"  anchor {'validates' if anchor_ok else 'DOES NOT VALIDATE'} "
         f"(reference {len(nav_ref)} aa)")
     if not anchor_ok:
-        log("  → the motif tier is disabled for this run; the filter columns "
-            "in the tables will be empty rather than wrong")
-        nav_ref = ""
+        log(f"  ANCHOR DRIFT — {FOUR_REPEAT_ANCHOR.reference_uniprot} was "
+            f"fetched ({len(nav_ref)} aa) but positions "
+            f"{FOUR_REPEAT_ANCHOR.positions} no longer read "
+            f"{FOUR_REPEAT_ANCHOR.expected}. Every projected filter call in "
+            f"this project is now suspect; fix the anchor before re-running.")
+        return 3
 
     # -- gate 2: is MAFFT there? -----------------------------------------
     log(f"mafft: {mafft_version() or 'NOT AVAILABLE'}")
@@ -112,13 +135,29 @@ def main() -> int:
     steps = [(t, False) for t in targets]
     live_progress(live, "S1", steps)
     queries, expected, alias = [], {}, {}
+    # A panel member that could not be fetched is MISSING, not wrong. Scoring
+    # it as a miss would understate recall for a reason that has nothing to do
+    # with the classifier, so it is held here and reported separately.
+    missing: list[tuple[str, str]] = []
     for i, sym in enumerate(targets):
-        acc = sym if (len(sym) in (6, 10) and sym[1:2].isdigit()) \
-            else resolve_symbol(sym)
-        if not acc:
-            log(f"  [{i+1}/{len(targets)}] {sym}: UNRESOLVED")
+        try:
+            acc = sym if (len(sym) in (6, 10) and sym[1:2].isdigit()) \
+                else resolve_symbol(sym)
+        except FetchFailed as exc:
+            log(f"  [{i+1}/{len(targets)}] {sym}: LOOKUP FAILED ({exc.reason})")
+            missing.append((sym, f"symbol lookup: {exc.reason}"))
             continue
-        q = build_query(acc)
+        if not acc:
+            log(f"  [{i+1}/{len(targets)}] {sym}: no reviewed human entry")
+            missing.append((sym, "no reviewed UniProt entry for this symbol"))
+            continue
+        try:
+            q = build_query(acc)
+        except FetchFailed as exc:
+            log(f"  [{i+1}/{len(targets)}] {sym} {acc}: EVIDENCE FETCH FAILED "
+                f"({exc.reason})")
+            missing.append((sym, f"evidence fetch: {exc.reason}"))
+            continue
         alias[acc] = sym
         if sym in expected_by_symbol:
             expected[acc] = expected_by_symbol[sym]
@@ -160,8 +199,12 @@ def main() -> int:
                "n_wrong", "wrong_examples", "test_owner", "discriminator"),
               hazard_table(calls, expected))
     write_tsv(out / "coverage.tsv",
-              ("family", "superfamily", "human_genes", "n_in_panel"),
-              coverage_table(calls))
+              ("family", "superfamily", "human_genes", "n_in_panel",
+               "n_called_as"),
+              coverage_table(calls, expected))
+    write_tsv(out / "missing.tsv", ("panel_member", "expected_family", "reason"),
+              [(sym, expected_by_symbol.get(sym, ""), why)
+               for sym, why in missing])
 
     pos_calls = [c for c in calls if alias.get(c.query) in positives]
     dec_calls = [c for c in calls if alias.get(c.query) not in positives]
@@ -178,6 +221,9 @@ def main() -> int:
         "leave_one_out": True,
         "n_targets": len(targets),
         "n_classified": len(calls),
+        "n_missing": len(missing),
+        "missing": [{"symbol": sym, "reason": why} for sym, why in missing],
+        "http": http_ledger(),
         "positives": len(pos_calls),
         "positives_correct": correct_pos,
         "recall": round(correct_pos / len(pos_calls), 4) if pos_calls else None,
@@ -200,6 +246,13 @@ def main() -> int:
         f"({summary['specificity'] or 0:.1%}) — decoys not called as channels")
     log(f"hazards     {summary['hazards_exercised']}/{len(HAZARDS)} exercised "
         f"by this panel")
+    if missing:
+        log(f"missing     {len(missing)}/{len(targets)} panel member(s) could "
+            f"not be fetched — absent from both numbers above, not scored "
+            f"as failures (results/benchmark_controls/missing.tsv)")
+    led = http_ledger()
+    log(f"network     {led['requests']} request(s), {led['failures']} "
+        f"unrecoverable failure(s)")
     log(f"done in {summary['elapsed_s']}s → {out}")
     return 0
 

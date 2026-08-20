@@ -1,26 +1,282 @@
 {
-  "task": "S0",
+  "task": "S1",
   "workers": 1,
   "steps": [
     {
-      "label": "internal validation",
+      "label": "CACNA1C",
       "done": true
     },
     {
-      "label": "pfam accessions",
+      "label": "CACNA1S",
       "done": true
     },
     {
-      "label": "exemplars",
+      "label": "CACNA1G",
       "done": true
     },
     {
-      "label": "taxonomy",
+      "label": "CACNA1H",
       "done": true
     },
     {
-      "label": "signature sharing",
+      "label": "CATSPER1",
       "done": true
+    },
+    {
+      "label": "CATSPER2",
+      "done": false
+    },
+    {
+      "label": "CNGA1",
+      "done": false
+    },
+    {
+      "label": "CNGB1",
+      "done": false
+    },
+    {
+      "label": "TPCN1",
+      "done": false
+    },
+    {
+      "label": "TPCN2",
+      "done": false
+    },
+    {
+      "label": "TRPV6",
+      "done": false
+    },
+    {
+      "label": "TRPV5",
+      "done": false
+    },
+    {
+      "label": "TRPV1",
+      "done": false
+    },
+    {
+      "label": "TRPV4",
+      "done": false
+    },
+    {
+      "label": "TRPC3",
+      "done": false
+    },
+    {
+      "label": "TRPC6",
+      "done": false
+    },
+    {
+      "label": "TRPM8",
+      "done": false
+    },
+    {
+      "label": "TRPM2",
+      "done": false
+    },
+    {
+      "label": "TRPA1",
+      "done": false
+    },
+    {
+      "label": "MCOLN1",
+      "done": false
+    },
+    {
+      "label": "MCOLN2",
+      "done": false
+    },
+    {
+      "label": "PKD2",
+      "done": false
+    },
+    {
+      "label": "PKD2L1",
+      "done": false
+    },
+    {
+      "label": "ITPR1",
+      "done": false
+    },
+    {
+      "label": "ITPR2",
+      "done": false
+    },
+    {
+      "label": "RYR1",
+      "done": false
+    },
+    {
+      "label": "RYR2",
+      "done": false
+    },
+    {
+      "label": "ORAI1",
+      "done": false
+    },
+    {
+      "label": "ORAI2",
+      "done": false
+    },
+    {
+      "label": "MCU",
+      "done": false
+    },
+    {
+      "label": "MCUB",
+      "done": false
+    },
+    {
+      "label": "VDAC1",
+      "done": false
+    },
+    {
+      "label": "VDAC2",
+      "done": false
+    },
+    {
+      "label": "CHRNA7",
+      "done": false
+    },
+    {
+      "label": "CHRNA9",
+      "done": false
+    },
+    {
+      "label": "GRIA1",
+      "done": false
+    },
+    {
+      "label": "GRIA2",
+      "done": false
+    },
+    {
+      "label": "GRIK1",
+      "done": false
+    },
+    {
+      "label": "GRIK2",
+      "done": false
+    },
+    {
+      "label": "GRIN1",
+      "done": false
+    },
+    {
+      "label": "GRIN2B",
+      "done": false
+    },
+    {
+      "label": "P2RX4",
+      "done": false
+    },
+    {
+      "label": "P2RX7",
+      "done": false
+    },
+    {
+      "label": "PIEZO1",
+      "done": false
+    },
+    {
+      "label": "PIEZO2",
+      "done": false
+    },
+    {
+      "label": "CALHM1",
+      "done": false
+    },
+    {
+      "label": "CALHM2",
+      "done": false
+    },
+    {
+      "label": "TMEM63A",
+      "done": false
+    },
+    {
+      "label": "TMEM63B",
+      "done": false
+    },
+    {
+      "label": "CACNB1",
+      "done": false
+    },
+    {
+      "label": "CATSPERB",
+      "done": false
+    },
+    {
+      "label": "STIM1",
+      "done": false
+    },
+    {
+      "label": "MICU1",
+      "done": false
+    },
+    {
+      "label": "CASQ2",
+      "done": false
+    },
+    {
+      "label": "PKD1",
+      "done": false
+    },
+    {
+      "label": "SCN5A",
+      "done": false
+    },
+    {
+      "label": "NALCN",
+      "done": false
+    },
+    {
+      "label": "HCN1",
+      "done": false
+    },
+    {
+      "label": "KCNMA1",
+      "done": false
+    },
+    {
+      "label": "TRPM4",
+      "done": false
+    },
+    {
+      "label": "ANO1",
+      "done": false
+    },
+    {
+      "label": "CHRNA1",
+      "done": false
+    },
+    {
+      "label": "TMEM38A",
+      "done": false
+    },
+    {
+      "label": "GJA1",
+      "done": false
+    },
+    {
+      "label": "ATP2A1",
+      "done": false
+    },
+    {
+      "label": "SLC8A1",
+      "done": false
+    },
+    {
+      "label": "CALM1",
+      "done": false
+    },
+    {
+      "label": "CASR",
+      "done": false
+    },
+    {
+      "label": "POMT1",
+      "done": false
     }
   ]
 }

@@ -137,11 +137,21 @@ TRPV_CA_ANCHOR = FilterAnchor(
     positions=(582,),
     expected="D",
     applies_to=("trpv_ca", "trpv_ns"),
-    calls={"D": ("trpv_ca", "outer-pore aspartate ring - Ca2+-selective TRPV")},
-    note=("hazard HC7b; a D here does not by itself make a family call - "
-          "TRPV1-4 also carry acidic residues in the outer pore - so the "
-          "classifier treats it as supporting evidence and the S1 benchmark "
-          "measures how far it actually separates the two groups"),
+    # `calls` is deliberately EMPTY. It used to map "D" -> trpv_ca. S1
+    # projected this anchor onto all six human TRPVs (2026-08-20,
+    # scripts/s1_anchor_power.py, results/benchmark_controls/anchor_power.tsv)
+    # and five of them read D: TRPV5 and TRPV6, which are the Ca2+-selective
+    # pair, but also TRPV1, TRPV3 and TRPV4, which are not. Only TRPV2 reads
+    # anything else (M). A residue five of six family members carry is not a
+    # positive test, and a call map that turned it into one would have
+    # promoted three non-selective TRPVs into the census. The anchor is kept
+    # because the projection is still evidence worth recording; it just does
+    # not decide anything.
+    calls={},
+    note=("hazard HC7b; MEASURED NOT TO DISCRIMINATE - TRPV1/3/4/5/6 all "
+          "project to D and only TRPV2 differs, so this anchor is supporting "
+          "evidence and never a family call. The trpv_ca / trpv_ns boundary "
+          "is a measured permeability, not a sequence feature"),
 )
 
 #: The ORAI selectivity filter. Verified against UniProt Q96D31 on

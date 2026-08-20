@@ -1,0 +1,47 @@
+{
+  "generated": "2026-08-20 14:14:07",
+  "preset": "controls_benchmark",
+  "anchor_validates": true,
+  "mafft": "v7.526 (2024/Apr/26)",
+  "reference_panel": 102,
+  "panel_proteins_that_are_exemplars": 67,
+  "leave_one_out": true,
+  "n_targets": 69,
+  "n_classified": 68,
+  "n_missing": 1,
+  "missing": [
+    {
+      "symbol": "CHRNA7",
+      "reason": "evidence fetch: URLError"
+    }
+  ],
+  "http": {
+    "requests": 274,
+    "absent": 0,
+    "failures": 1,
+    "failed_urls": [
+      "https://rest.uniprot.org/uniprotkb/P36544.json?fields=accession,gene_primary,organism_name,length,ft_transmem"
+    ]
+  },
+  "positives": 48,
+  "positives_correct": 38,
+  "recall": 0.7917,
+  "decoys": 20,
+  "decoys_rejected": 18,
+  "specificity": 0.9,
+  "hazards_defined": 19,
+  "hazards_exercised": 18,
+  "elapsed_s": 1425.1,
+  "counts_n": 68,
+  "counts_called": 56,
+  "counts_superfamily_only": 9,
+  "counts_unassigned": 3,
+  "counts_with_conflict": 1,
+  "counts_census_members": 40,
+  "counts_conf_gold": 28,
+  "counts_conf_bronze": 23,
+  "counts_conf_silver": 14,
+  "counts_conf_unassigned": 3,
+  "counts_judged": 68,
+  "counts_correct": 53
+}

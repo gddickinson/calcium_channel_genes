@@ -27,6 +27,8 @@ from .classify.report import (CALLS_HEADER, calls_table, confusion_table,
                               recall_table, summary_counts, write_tsv)
 from .phylo import (NotAlignable, build_tier1, build_tier2,
                     needs_modules, write_run)
+from .utils.http import FetchFailed, get_json
+from .utils.http import ledger as http_ledger
 from .utils.scope import scope_for
 
 INTERPRO = "https://www.ebi.ac.uk/interpro/api"
@@ -34,18 +36,22 @@ UNIPROT = "https://rest.uniprot.org/uniprotkb"
 
 
 # ----------------------------------------------------------- fetching
-def _json(url: str, timeout_s: int = 40):
-    req = urllib.request.Request(url, headers={"Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout_s) as r:
-        return json.load(r)
+# Every fetcher below goes through `src/utils/http.py`, which retries and then
+# raises `FetchFailed`. It deliberately does not return an empty result on a
+# network error: an empty `pfam_counts` reads as "carries nothing a calcium
+# channel carries" and would score a positive as a miss (D28).
+def _json(url: str):
+    return get_json(url)
 
 
 def pfam_counts(accession: str) -> dict[str, int]:
-    """`{pfam accession: copies}` for one UniProt entry, via InterPro."""
-    try:
-        data = _json(f"{INTERPRO}/entry/pfam/protein/uniprot/{accession}/"
-                     f"?page_size=100")
-    except Exception:
+    """`{pfam accession: copies}` for one UniProt entry, via InterPro.
+
+    `{}` means the entry has no Pfam match. A failed request raises.
+    """
+    data = _json(f"{INTERPRO}/entry/pfam/protein/uniprot/{accession}/"
+                 f"?page_size=100")
+    if not data:
         return {}
     out: dict[str, int] = {}
     for entry in data.get("results", []):
@@ -62,20 +68,16 @@ def resolve_symbol(symbol: str, taxon: int = 9606) -> str:
     # taxonomy_id, not organism_id: the latter is the exact taxonomy node
     # and misses every strain-level prokaryotic entry (see scripts/s0_lib.py).
     q = f"gene_exact:{symbol} AND taxonomy_id:{taxon} AND reviewed:true"
-    try:
-        d = _json(f"{UNIPROT}/search?query={urllib.parse.quote(q)}"
-                  f"&fields=accession&size=1")
-    except Exception:
-        return ""
-    rs = d.get("results", [])
+    d = _json(f"{UNIPROT}/search?query={urllib.parse.quote(q)}"
+              f"&fields=accession&size=1")
+    rs = (d or {}).get("results", [])
     return rs[0]["primaryAccession"] if rs else ""
 
 
 def entry_meta(accession: str) -> dict:
-    try:
-        d = _json(f"{UNIPROT}/{accession}.json?fields=accession,gene_primary,"
-                  f"organism_name,length,ft_transmem")
-    except Exception:
+    d = _json(f"{UNIPROT}/{accession}.json?fields=accession,gene_primary,"
+              f"organism_name,length,ft_transmem")
+    if not d:
         return {}
     genes = d.get("genes") or [{}]
     tm = sum(1 for f in d.get("features", [])
@@ -118,6 +120,7 @@ def run_classify(project_root: Path, targets: list[str],
     """Classify UniProt accessions (or human gene symbols) into the catalogue."""
     accs: list[str] = []
     alias: dict[str, str] = {}          # accession -> the token the caller used
+    fetch_failures: list[tuple[str, str]] = []
     for t in targets:
         t = t.strip()
         if not t:
@@ -127,9 +130,17 @@ def run_classify(project_root: Path, targets: list[str],
             alias[t] = t
             continue
         symbol, _, organism = t.partition("@")
-        a = resolve_symbol(symbol, int(organism) if organism else 9606)
+        try:
+            a = resolve_symbol(symbol, int(organism) if organism else 9606)
+        except FetchFailed as exc:
+            # "the lookup failed" is not "the symbol does not exist" — say
+            # which one it was, so a rate limit is never read as an absence.
+            print(f"[classify] LOOKUP FAILED for {t!r} — {exc.reason}")
+            fetch_failures.append((t, f"symbol lookup: {exc.reason}"))
+            continue
         if not a:
-            print(f"[classify] could not resolve symbol {t!r}")
+            print(f"[classify] could not resolve symbol {t!r} "
+                  f"(UniProt has no reviewed human entry with that symbol)")
             continue
         print(f"[classify] {t} → {a}")
         accs.append(a)
@@ -145,7 +156,13 @@ def run_classify(project_root: Path, targets: list[str],
     print(f"[classify] fetching evidence for {len(accs)} protein(s)…")
     queries = []
     for i, a in enumerate(accs, 1):
-        q = build_query(a)
+        try:
+            q = build_query(a)
+        except FetchFailed as exc:
+            print(f"[classify]   [{i}/{len(accs)}] {a} FETCH FAILED — "
+                  f"{exc.reason}; not classified")
+            fetch_failures.append((alias.get(a, a), exc.reason))
+            continue
         print(f"[classify]   [{i}/{len(accs)}] {a} {q.gene_symbol or '?':10s} "
               f"{q.length_aa or '?'} aa  {len(q.pfam_counts)} pfam")
         queries.append(q)
@@ -161,7 +178,15 @@ def run_classify(project_root: Path, targets: list[str],
         else:
             print(f"[classify] no reference panel at {cache} — run "
                   f"scripts/s0_catalogue_verify.py first; reference tier off")
-        nav_ref = fetch_uniprot_sequence(FOUR_REPEAT_ANCHOR.reference_uniprot)
+        try:
+            nav_ref = fetch_uniprot_sequence(FOUR_REPEAT_ANCHOR.reference_uniprot)
+        except FetchFailed as exc:
+            print(f"[classify] could not fetch the four-repeat anchor "
+                  f"({FOUR_REPEAT_ANCHOR.reference_uniprot}) — {exc.reason}. "
+                  f"The motif tier's projected filter is OFF for this run; "
+                  f"this is a fetch failure, not an anchor drift.")
+            fetch_failures.append((FOUR_REPEAT_ANCHOR.reference_uniprot,
+                                   f"anchor: {exc.reason}"))
 
     calls = classify_all(queries, refs, nav_ref,
                          on_progress=None if quiet else
@@ -174,7 +199,15 @@ def run_classify(project_root: Path, targets: list[str],
     print()
     print("[classify] " + ", ".join(f"{k}={v}" for k, v in counts.items()))
 
-    out: dict = {"counts": counts, "n": len(calls)}
+    if fetch_failures:
+        print(f"[classify] {len(fetch_failures)} target(s) could not be "
+              f"fetched and are ABSENT from these counts, not negative:")
+        for tok, why in fetch_failures:
+            print(f"[classify]     {tok}: {why}")
+
+    out: dict = {"counts": counts, "n": len(calls),
+                 "fetch_failures": [list(f) for f in fetch_failures],
+                 "http": http_ledger()}
     if save_results:
         from .utils.results_writer import make_bundle_dir
         d = make_bundle_dir(project_root / "results", label or "classify")
@@ -239,7 +272,13 @@ def run_phylo(project_root: Path, unit: str, tier: int = 0,
         for e in CATALOGUE[k].exemplars:
             if not e.uniprot:
                 continue
-            s = fetch_uniprot_sequence(e.uniprot)
+            try:
+                s = fetch_uniprot_sequence(e.uniprot)
+            except FetchFailed as exc:
+                print(f"[phylo] FETCH FAILED {e.label} ({e.uniprot}) — "
+                      f"{exc.reason}; the tree would be built on a silently "
+                      f"short taxon set, so this run stops (D28).")
+                raise
             if s:
                 seqs.append((e.label, s))
             time.sleep(0.1)
