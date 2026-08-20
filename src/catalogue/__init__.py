@@ -14,7 +14,7 @@ Contents:
     controls_associated.py - auxiliary subunits: the CACN* trap, STIM, EMRE
     controls_excluded.py   - Nav, the Ca2+-activated channels, pumps,
                              exchangers, EF-hand sensors, CASR
-    hazards.py        - the eighteen recorded ways to get a call wrong
+    hazards.py        - the nineteen recorded ways to get a call wrong
     registry.py       - assembly, lookups, `census_by_tier()`, `validate()`
 
 Import from `registry` (or from this package), never from a division file.

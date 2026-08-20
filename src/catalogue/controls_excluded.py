@@ -161,10 +161,19 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF07885", "Ion_trans_2", L.SUPERFAMILY, 1, P.DB,
                         "measured on KCNN2 - the 2TM pore model on a 6TM "
                         "channel"),
-                    Sig("pfam", "PF03493", "BK_channel_a", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF02254", "TrkA_N", L.FAMILY, 2, P.DB,
+                    Sig("pfam", "PF03493", "BK_channel_a", L.SUBFAMILY, 1, P.DB,
+                        "BK only"),
+                    Sig("pfam", "PF02254", "TrkA_N", L.SUBFAMILY, 2, P.DB,
                         "the RCK domains that bind Ca2+ - a Ca2+ sensor "
-                        "inside a potassium channel")),
+                        "inside a potassium channel. BK only"),
+                    Sig("pfam", "PF03530", "SK_channel", L.SUBFAMILY, 1, P.DB,
+                        "SK only"),
+                    Sig("pfam", "PF02888", "CaMBD", L.SUBFAMILY, 1, P.DB,
+                        "**measured 2026-08-20: KCNN2 carries PF07885, "
+                        "PF03530 and PF02888 and NONE of BK's domains.** The "
+                        "two halves of this family share no diagnostic "
+                        "signature, so one architecture rule cannot reach "
+                        "both - which is why HC15 needs two")),
         exemplars=(Ex("Hs_KCNMA1", "KCNMA1", "Homo sapiens", "Q12791", "BK"),
                    Ex("Hs_KCNN2", "KCNN2", "Homo sapiens", "", "SK2")),
         human_genes=("KCNMA1", "KCNN1", "KCNN2", "KCNN3", "KCNN4", "KCNU1"),
@@ -336,7 +345,7 @@ FAMILIES: list[CF] = [
         fold=Fold.CACA_EXCHANGER, selectivity=Sel.CA, gating=_NONE,
         permeability=NOT_CALCIUM, tm_per_subunit=10,
         signatures=(Sig("pfam", "PF01699", "Na_Ca_ex", L.FAMILY, 1, P.DB),
-                    Sig("pfam", "PF07766", "LETM1", L.SUBFAMILY, 1, P.CURATED)),
+                    Sig("pfam", "PF07766", "LETM1_RBD", L.SUBFAMILY, 1, P.DB)),
         exemplars=(Ex("Hs_SLC8A1", "SLC8A1", "Homo sapiens", "P32418", "NCX1"),
                    Ex("Hs_SLC8B1", "SLC8B1", "Homo sapiens", "", "NCLX"),
                    Ex("Hs_LETM1", "LETM1", "Homo sapiens", "O95202")),

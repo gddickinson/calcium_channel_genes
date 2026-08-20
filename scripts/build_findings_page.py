@@ -34,7 +34,7 @@ DEFAULT_OUT = ROOT / "docs" / "findings_summary.html"
 #: The page's own name and deck. The markdown's H1 is a document heading
 #: ("What this project found ..."); a published page needs a name instead, and
 #: the scope belongs in the kicker where a reader can size the work at a glance.
-PAGE_TITLE = "The Ion Channel Census"
+PAGE_TITLE = "The Calcium Channel Census"
 #: Scope line. Filled in with the real denominators once the census tasks
 #: have run — leave a placeholder rather than a wrong number.
 KICKER = ("vertebrate genomes &middot; plant and fungal genomes "

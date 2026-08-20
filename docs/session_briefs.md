@@ -23,7 +23,11 @@ and report the mismatches without fixing them.
 4. Read `exemplar_architecture.tsv` line by line. Each difference between
    declared and observed signatures is either an expected subfamily-level
    absence (record it in the family's `notes`) or a catalogue correction.
-5. `python3 scripts/s0_report.py` then `python3 scripts/s0_figures.py`.
+5. `python3 scripts/s0_rule_coverage.py` — offline, instant. It exits
+   non-zero on any family the architecture tier cannot name that has
+   no hazard row explaining why. Fix by adding the hazard or by
+   correcting the signatures; never by loosening a rule.
+6. `python3 scripts/s0_report.py` then `python3 scripts/s0_figures.py`.
 
 **Completion criteria**
 - Every Pfam accession resolves and its short name matches what the
@@ -33,6 +37,7 @@ and report the mismatches without fixing them.
 - Every taxon id resolves.
 - `reference_panel.fasta` exists and covers every census family.
 - `report.md` renders from the tables, with zero hand-written numbers.
+- `s0_rule_coverage.py` exits 0.
 
 **Watch for.** The six `Provenance.CURATED` accessions (`PF04749`,
 `PF02714`, `PF13967`, `PF01452`, `PF07766`, `PF10613`) are the most likely
@@ -56,7 +61,7 @@ look like them, and attribute every correct call to the tier that made it.
 - Per-family recall, per-hazard specificity, and the **per-tier
   attribution** are all reported.
 - `verify_anchor()` passed before any filter result was reported.
-- Every one of the eighteen hazards is either exercised by a panel member or
+- Every one of the nineteen hazards is either exercised by a panel member or
   listed as untested. **A hazard no panel member exercises is untested, not
   solved.**
 - Leave-one-out is on (**D29**) and the panel/exemplar overlap is reported.

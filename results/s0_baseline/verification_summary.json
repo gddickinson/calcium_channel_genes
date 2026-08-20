@@ -1,0 +1,78 @@
+{
+  "generated": "2026-08-20 09:25:03",
+  "catalogue": {
+    "superfamilies": 17,
+    "families_total": 49,
+    "families_census": 29,
+    "families_control": 20,
+    "human_genes_census": 98,
+    "human_genes_catalogued": 245,
+    "genes_ca_selective": 28,
+    "genes_ca_permeable": 50,
+    "genes_ca_conditional": 9,
+    "genes_ca_release": 11,
+    "exemplars": 102,
+    "exemplars_with_accession": 57,
+    "signatures": 84,
+    "shared_signatures": 18,
+    "hazards": 18
+  },
+  "internal_problems": 0,
+  "pfam": {
+    "n": 84,
+    "missing": [],
+    "renamed": [
+      [
+        "PF02888",
+        "Calmodulin_bind",
+        "CaMBD"
+      ],
+      [
+        "PF19584",
+        "MCA_C",
+        "MCAfunc"
+      ]
+    ]
+  },
+  "exemplars": {
+    "n": 102,
+    "resolved": 101,
+    "unresolved": 1,
+    "declared_ok": 57,
+    "declared_bad": 0,
+    "sequences": 101,
+    "arch_mismatch": 33
+  },
+  "taxonomy": {
+    "n": 52,
+    "bad": 0
+  },
+  "shared_signatures": 18,
+  "requests": 524,
+  "request_failures": [],
+  "elapsed_s": 409.7,
+  "hazards": 18,
+  "superfamilies_not_alignable": [
+    "largepore",
+    "viroporin_ca"
+  ],
+  "census_families": 29,
+  "tiers": {
+    "ca_selective": {
+      "families": 7,
+      "human_genes": 28
+    },
+    "ca_permeable": {
+      "families": 15,
+      "human_genes": 50
+    },
+    "ca_conditional": {
+      "families": 2,
+      "human_genes": 9
+    },
+    "ca_release": {
+      "families": 5,
+      "human_genes": 11
+    }
+  }
+}

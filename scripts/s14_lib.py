@@ -91,7 +91,7 @@ EXTENDED_FIGURES = [
      "Which domain signatures are shared, and which cross the "
      "calcium / non-calcium boundary"),
     (2, "hazards", ["benchmark_controls/figures/hazard_matrix"],
-     "The eighteen hazards, the test that closes each, and the ones no "
+     "The nineteen hazards, the test that closes each, and the ones no "
      "panel member exercises"),
     (3, "method_contribution", ["methods/figures/recall_curve"],
      "What each search method was worth, per superfamily"),

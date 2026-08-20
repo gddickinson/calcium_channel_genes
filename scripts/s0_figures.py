@@ -61,7 +61,8 @@ def panel_a(ax) -> None:
     ax.set_yticklabels([R.superfamily_label(k) for k in order],
                        fontsize=fs.FS_TICK - 0.4)
     ax.invert_yaxis()
-    ax.set_xlabel("human pore-forming genes  (right: census + control families)",
+    ax.set_xlabel("human genes encoding a Ca2+-conducting pore  "
+                  "(right: census + control families)",
                   fontsize=fs.FS_LABEL - 0.6)
     ax.set_xlim(0, max(genes.values()) * 1.12)
     fs.despine(ax)
@@ -81,7 +82,7 @@ def _unused_name(key: str) -> str:
 def panel_b(ax, share_rows: list[dict]) -> None:
     rows = [r for r in share_rows if int(r["n_families"]) >= 2][:16]
     y = range(len(rows))
-    crossing = [r["crosses_channel_boundary"] == "yes" for r in rows]
+    crossing = [r["crosses_census_boundary"] == "yes" for r in rows]
     colours = [fs.STATUS["absent"] if c else fs.BLUES[3] for c in crossing]
     ax.barh(list(y), [int(r["n_families"]) for r in rows], color=colours,
             height=0.68, zorder=3)
@@ -95,8 +96,8 @@ def panel_b(ax, share_rows: list[dict]) -> None:
     from matplotlib.patches import Patch
     ax.legend(handles=[
         Patch(facecolor=fs.STATUS["absent"],
-              label="also carried by a non-channel"),
-        Patch(facecolor=fs.BLUES[3], label="channels only")],
+              label="also on something that is not a calcium channel"),
+        Patch(facecolor=fs.BLUES[3], label="census families only")],
         fontsize=fs.FS_TICK - 0.4, frameon=False, loc="lower right")
 
 

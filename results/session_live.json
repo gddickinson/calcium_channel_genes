@@ -1,0 +1,26 @@
+{
+  "task": "S0",
+  "workers": 1,
+  "steps": [
+    {
+      "label": "internal validation",
+      "done": true
+    },
+    {
+      "label": "pfam accessions",
+      "done": true
+    },
+    {
+      "label": "exemplars",
+      "done": false
+    },
+    {
+      "label": "taxonomy",
+      "done": false
+    },
+    {
+      "label": "signature sharing",
+      "done": false
+    }
+  ]
+}

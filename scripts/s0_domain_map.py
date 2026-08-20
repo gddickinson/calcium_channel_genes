@@ -32,34 +32,37 @@ from scripts.s0_lib import INTERPRO, Fetcher, write_tsv
 
 #: (accession, gene, why it is in a figure)
 FIGURE_PROTEINS: list[tuple[str, str, str]] = [
-    # the four-repeat families — identical architecture, different ions
-    ("Q14524", "SCN5A", "Nav: Ion_trans x4 + Na_trans_assoc"),
+    # the four-repeat families - identical architecture, different ions
     ("Q13936", "CACNA1C", "Cav1: Ion_trans x4 + Ca_chan_IQ"),
     ("O43497", "CACNA1G", "Cav3: Ion_trans x4 and nothing else"),
+    ("Q14524", "SCN5A", "Nav: the same architecture, a sodium channel"),
     ("Q8IZF0", "NALCN", "leak: Ion_trans x4 and nothing else"),
     ("Q8NEC5", "CATSPER1", "one 6TM subunit of a heterotetramer"),
-    # the ABC pair
-    ("P13569", "CFTR", "ABC fold + the R domain"),
-    ("Q09428", "ABCC8", "the same ABC fold, no R domain, not a channel"),
-    # the anoctamin pair
-    ("Q5XXA6", "ANO1", "channel"),
-    ("Q4KMQ2", "ANO6", "scramblase, identical architecture"),
+    # the TRPV pair - the boundary inside a family
+    ("Q9H1D0", "TRPV6", "Ca2+-selective; the D582 aspartate ring"),
+    ("Q8NER1", "TRPV1", "the same accessions, non-selective"),
+    # the TRPM pair - the boundary inside a family, with no discriminator
+    ("Q96QT4", "TRPM7", "Ca2+-permeable chanzyme"),
+    ("Q8TD43", "TRPM4", "Ca2+-activated and Ca2+-impermeable"),
     # the PF08016 trio
     ("Q9GZU1", "MCOLN1", "TRPML"),
     ("Q13563", "PKD2", "TRPP"),
     ("P98161", "PKD1", "polycystin-1: same domain, not a pore"),
-    # the shared-signature decoys
-    ("Q09470", "KCNA1", "Kv: Ion_trans + the T1 domain"),
-    ("Q719H9", "KCTD1", "the T1 domain without a channel"),
-    ("P42261", "GRIA1", "iGluR: clamshell + pore"),
-    ("Q13255", "GRM1", "the same clamshell, seven-TM, not ionotropic"),
-    ("P02708", "CHRNA1", "Cys-loop: LBD + TM"),
-    ("P58154", "AChBP", "the same LBD, soluble"),
-    ("Q96D96", "HVCN1", "a channel with no pore domain"),
-    ("P56180", "TPTE", "the same pore annotation, a phosphatase"),
+    # a pore, a gate and a sensor - all three are SOCE hits
+    ("Q96D31", "ORAI1", "the CRAC pore - and, at 301 aa, near the "
+                        "small end of the census's 17-fold length range"),
+    ("Q13586", "STIM1", "the gate, in another organelle"),
+    ("P0DP23", "CALM1", "EF-hands, no membrane domain at all"),
+    # the uniporter: a pore subunit and a regulator
+    ("Q8NE86", "MCU", "the DIME pore"),
+    ("Q9BPX6", "MICU1", "EF-hand gatekeeper, no pore"),
+    # calcium in the name, not in the pore
+    ("Q12791", "KCNMA1", "BK: Ca2+-activated, conducts K+"),
+    ("O14983", "ATP2A1", "SERCA: a pump"),
+    ("P41180", "CASR", "the calcium-sensing receptor, a GPCR"),
+    ("Q9Y698", "CACNG2", "a CACN symbol on an AMPA-receptor subunit"),
     # scale
-    ("P21817", "RYR1", "5,038 aa — the largest"),
-    ("P0A742", "mscL", "136 aa — the smallest"),
+    ("P21817", "RYR1", "5,038 aa - the largest protein in the catalogue"),
 ]
 
 

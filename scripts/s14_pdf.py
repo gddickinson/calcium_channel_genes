@@ -2,7 +2,7 @@
 
 Builds a pandoc-ready markdown from the numbered section files, inserting each
 figure image immediately above its own legend, then renders it with
-`pandoc --pdf-engine=xelatex` to `manuscript/ion_channel_census.pdf`.
+`pandoc --pdf-engine=xelatex` to `manuscript/calcium_channel_census.pdf`.
 
   python scripts/s14_pdf.py            # build the PDF
   python scripts/s14_pdf.py --keep-tex # also keep the intermediate .md/.tex
@@ -26,7 +26,7 @@ from datetime import date
 
 import s14_lib as lib
 
-PDF_OUT = lib.MS / "ion_channel_census.pdf"
+PDF_OUT = lib.MS / "calcium_channel_census.pdf"
 MD_BUILD = lib.MS / ".pdf_build.md"
 TEX_PREAMBLE = lib.MS / ".pdf_preamble.tex"
 

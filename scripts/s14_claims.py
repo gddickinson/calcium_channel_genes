@@ -46,16 +46,24 @@ CLAIMS: list[dict] = [
     # dict(id="C03", section="R1",
     #      claim="family X is absent from N proteomes",
     #      source="results/genome_ledger.tsv", op="count",
-    #      where={"status": "absent", "family": "kv_shaker"}, expect="0"),
+    #      where={"status": "absent", "family": "cav_hva"}, expect="0"),
     # dict(id="C04", section="R2",
     #      claim="the census holds N proteins",
     #      source="results/census_v5/census_v5_stats.json", op="json",
     #      key="v5_rows", expect="8329"),
     # dict(id="C05", section="R3",
-    #      claim="mean omega on the cftr stem",
+    #      claim="mean omega on the ryr stem",
     #      source="results/selection/omega_table.tsv", op="cell",
-    #      where={"branch": "cftr_stem"}, column="omega",
+    #      where={"branch": "ryr_stem"}, column="omega",
     #      expect="0.0412", tol=1e-4),
+    #
+    # **D31 makes one claim row mandatory in this project**: any sentence
+    # quoting a census total must be accompanied by rows for all four
+    # tiers, so a total can never appear in the manuscript without them.
+    # dict(id="C06", section="R1",
+    #      claim="human genes in the ca_selective tier",
+    #      source="results/s0_baseline/verification_summary.json", op="json",
+    #      key="tiers.ca_selective.human_genes", expect="28"),
 ]
 
 def _matches(row: dict, where: dict) -> bool:

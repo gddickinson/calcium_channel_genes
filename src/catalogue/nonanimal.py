@@ -42,19 +42,26 @@ from .schema import Signature as Sig
 from .schema import Status as St
 from .schema import Superfamily as SF
 
-RSN1_TM = Sig("pfam", "PF02714", "RSN1_TM", L.SUPERFAMILY, 1, P.CURATED,
-              "the OSCA/TMEM63 membrane domain; Pfam's historical name for "
-              "it was DUF221")
+#: Verified against InterPro 2026-08-20. The catalogue originally declared
+#: `PF02714` as `RSN1_TM` and `PF13967` as `RSN1_7TM`; S0 found the two
+#: **swapped**. `PF02714` is `RSN1_7TM`, "Calcium-dependent channel, 7TM
+#: region" - the OSCA/TMEM63 membrane domain, historically DUF221 - and
+#: `PF13967` is `RSN1_TM`, "Late exocytosis, associated with Golgi
+#: transport". Both are carried by the same proteins, which is why the
+#: mistake was invisible until a live check made it.
+OSCA_7TM = Sig("pfam", "PF02714", "RSN1_7TM", L.SUPERFAMILY, 1, P.DB,
+               "the OSCA/TMEM63 membrane domain; InterPro calls it "
+               "'Calcium-dependent channel, 7TM region'")
 
 SUPERFAMILIES: list[SF] = [
     SF("mca", "Plant MCA mechanosensitive Ca2+ channels", Fold.UNKNOWN, True,
        "full-length",
-       (Sig("pfam", "PF04749", "PLAC8", L.SUPERFAMILY, 1, P.CURATED),),
+       (Sig("pfam", "PF04749", "PLAC8", L.SUPERFAMILY, 1, P.DB),),
        notes=("Two genes in *Arabidopsis* and no structural relative "
               "anywhere else in this catalogue. Fold recorded as UNKNOWN "
               "rather than guessed.")),
     SF("osca", "OSCA / TMEM63 hyperosmolality-gated channels", Fold.TMEM16,
-       True, "the RSN1_TM membrane domain", (RSN1_TM,),
+       True, "the RSN1_7TM membrane domain", (OSCA_7TM,),
        notes=("Structurally a TMEM16-like fold - the same architecture as the "
               "anoctamins, which are Ca2+-*activated* chloride channels. One "
               "fold, two opposite relationships to calcium, and a good "
@@ -91,6 +98,7 @@ FAMILIES: list[CF] = [
                      "GLR3.5", "GLR3.6", "GLR3.7"),
         length_band_aa=(600, 1000),
         compartment="plasma membrane / vacuole -> cytosol",
+        confusable_with=("ampa", "kainate", "nmda", "HC17"),
         provenance=P.LIT,
         notes=("Plants have ionotropic glutamate receptors and no synapses. "
                "The GLRs carry systemic wound signalling: damage to one leaf "
@@ -114,7 +122,15 @@ FAMILIES: list[CF] = [
                           "feedback the animal CNG channels use"),
         stoichiometry="tetramer", tm_per_subunit=6, pore_loops_per_subunit=1,
         signatures=(Sig("pfam", "PF00520", "Ion_trans", L.SUPERFAMILY, 1, P.DB),
-                    Sig("pfam", "PF00027", "cNMP_binding", L.FAMILY, 1, P.DB)),
+                    Sig("pfam", "PF00027", "cNMP_binding", L.ACCESSORY, 1, P.DB,
+                        "**measured 2026-08-20: At_CNGC4 carries PF00520 and "
+                        "NO cNMP_binding at all.** A family named for "
+                        "cyclic-nucleotide gating whose exemplar has no "
+                        "annotated cyclic-nucleotide-binding domain - so the "
+                        "signature is ACCESSORY, not diagnostic: the animal "
+                        "CNG and HCN families carry it too, so a rule built "
+                        "on it named HCN as a plant channel until "
+                        "`s0_rule_coverage.py` caught it (D25, HC16)")),
         exemplars=(Ex("At_CNGC2", "CNGC2", "Arabidopsis thaliana"),
                    Ex("At_CNGC4", "CNGC4", "Arabidopsis thaliana")),
         other_genes=("CNGC1", "CNGC2", "CNGC4", "CNGC6", "CNGC14", "CNGC18"),
@@ -143,7 +159,11 @@ FAMILIES: list[CF] = [
                           "that this family would never be found by "
                           "homology search"),
         stoichiometry="unknown", tm_per_subunit=1,
-        signatures=(Sig("pfam", "PF04749", "PLAC8", L.FAMILY, 1, P.CURATED),),
+        signatures=(Sig("pfam", "PF04749", "PLAC8", L.FAMILY, 1, P.DB),
+                    Sig("pfam", "PF19584", "MCAfunc", L.FAMILY, 1, P.DB,
+                        "measured 2026-08-20 on At_MCA1; the family has two "
+                        "domains, and this is the one that is not shared "
+                        "with the wider PLAC8 family")),
         exemplars=(Ex("At_MCA1", "MCA1", "Arabidopsis thaliana"),
                    Ex("At_MCA2", "MCA2", "Arabidopsis thaliana")),
         other_genes=("MCA1", "MCA2"),
@@ -174,8 +194,15 @@ FAMILIES: list[CF] = [
                           "is less thoroughly measured, which is why this "
                           "record is contested rather than plain"),
         stoichiometry="dimer (OSCA) or monomer (TMEM63)", tm_per_subunit=11,
-        signatures=(RSN1_TM,
-                    Sig("pfam", "PF13967", "RSN1_7TM", L.FAMILY, 1, P.CURATED)),
+        signatures=(OSCA_7TM,
+                    Sig("pfam", "PF13967", "RSN1_TM", L.FAMILY, 1, P.DB,
+                        "InterPro: 'Late exocytosis, associated with Golgi "
+                        "transport' - a name unrelated to the function, on "
+                        "the same proteins as PF02714"),
+                    Sig("pfam", "PF14703", "PHM7_cyt", L.FAMILY, 1, P.DB,
+                        "measured 2026-08-20 on both At_OSCA1.1 and "
+                        "Hs_TMEM63A; the family carries three domains, not "
+                        "two")),
         exemplars=(Ex("At_OSCA1.1", "OSCA1.1", "Arabidopsis thaliana"),
                    Ex("Hs_TMEM63A", "TMEM63A", "Homo sapiens")),
         human_genes=("TMEM63A", "TMEM63B", "TMEM63C"),
@@ -207,8 +234,8 @@ FAMILIES: list[CF] = [
                           "is also a disease mechanism at whole-organism "
                           "scale"),
         stoichiometry="tetramer (NSP4) / pentamer (E)", tm_per_subunit=1,
-        signatures=(Sig("pfam", "PF01452", "Rotavirus_NSP4", L.SUBFAMILY, 1,
-                        P.CURATED),
+        signatures=(Sig("pfam", "PF01452", "Rota_NSP4", L.SUBFAMILY, 1,
+                        P.DB),
                     Sig("pfam", "PF02723", "CoV_E", L.SUBFAMILY, 1, P.DB),
                     Sig("pfam", "PF11289", "bCoV_viroporin", L.SUBFAMILY, 1,
                         P.DB)),

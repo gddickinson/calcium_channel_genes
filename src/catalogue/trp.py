@@ -169,8 +169,13 @@ FAMILIES: list[CF] = [
                     Sig("pfam", "PF16519", "TRPM_tetra", L.FAMILY, 1, P.DB),
                     Sig("pfam", "PF23317", "YVC1_C", L.FAMILY, 1, P.DB),
                     Sig("pfam", "PF00520", "Ion_trans", L.SUPERFAMILY, 1, P.DB,
-                        "measured present on TRPM2, absent from TRPM8 - the "
-                        "pore model does not cover the family uniformly")),
+                        "measured present on TRPM2 and absent from BOTH TRPM8 "
+                        "and TRPM7 (2026-08-20) - the pore model does not "
+                        "cover the family uniformly (HC7)"),
+                    Sig("pfam", "PF02816", "Alpha_kinase", L.ACCESSORY, 1, P.DB,
+                        "the fused kinase of TRPM6/TRPM7; measured on TRPM7. "
+                        "A channel with an enzyme bolted on is what a "
+                        "one-domain-of-interest assumption misfiles")),
         exemplars=(Ex("Hs_TRPM8", "TRPM8", "Homo sapiens", "Q7Z2W7",
                       "the cold and menthol receptor"),
                    Ex("Hs_TRPM2", "TRPM2", "Homo sapiens", "",

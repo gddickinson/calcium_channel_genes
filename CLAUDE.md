@@ -39,7 +39,7 @@ positive tests with an audit trail), and a **phylogeny** (a forest of trees
 plus a fold network, because the subject spans unrelated folds).
 
 The subject is defined in `src/catalogue/` — 49 families, 17 superfamilies,
-18 hazards — and nothing else in `src/` hard-codes a channel name.
+19 hazards — and nothing else in `src/` hard-codes a channel name.
 
 ## The four things that will bite you
 

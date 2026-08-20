@@ -37,7 +37,7 @@ permeability claim records no method is an error; a `CHANNEL` record in the
 `NOT_CALCIUM` tier is an error (it should be `OUT_OF_SCOPE`); and a calcium
 claim on a non-census record is an error.
 
-Rewrote `src/classify/rules.py`'s hazard rules (24 rules across 18 hazards),
+Rewrote `src/classify/rules.py`'s hazard rules (24 rules across 19 hazards),
 `src/classify/motifs.py` (three reference-free regexes and three projected
 anchors), `src/utils/scope.py`, `src/phylo/forest.py` and
 `src/phylo/network.py` for the new subject; retargeted `figstyle.py` with a
@@ -66,7 +66,7 @@ in `FINDINGS.md`.
 python3 -m src.catalogue      → validation: clean
                                 49 families / 17 superfamilies / 29 census
                                 98 human census genes / 245 catalogued
-                                18 hazards
+                                19 hazards
 python3 scripts/selftest.py   → all invariants hold
 ```
 
@@ -84,3 +84,68 @@ no bulk storage, and S4/S5 cannot start until it is. The literature review
 task S23 and it is deliberately blocked on S0 and S9 so its measured
 sections report this project's results rather than restating the
 literature.
+
+---
+
+## 2026-08-20 — S0 (partial): five passes, eight catalogue corrections, three classifier defects
+
+**Task.** S0 — catalogue verification baseline. **Left `in_progress`.**
+
+**What ran.** Five passes of `scripts/s0_catalogue_verify.py`. Each pass
+found errors; fixing them invalidated the pass that found them, so the
+sequence was pass → correct → re-run, which is what the parent project's
+ledger describes as "clean on the third pass". Here it did not reach clean.
+
+| pass | outcome |
+|------|---------|
+| 1 | 4 wrong Pfam short names, incl. `PF02714`/`PF13967` **swapped**; 33 exemplar-architecture differences; 101/102 exemplars resolved; 52/52 taxa; 514 requests, 0 failures |
+| 2 | stopped early, deliberately, to fold in the architecture findings first |
+| 3 | 2 further wrong names (`CaMBD`, `MCAfunc`) — both on signatures added in response to pass 1; 524 requests, 0 failures |
+| 4 | stale before it finished (catalogue edited mid-run); stopped |
+| 5 | **Pfam clean: 84 accessions, 0 missing, 0 name mismatches.** Exemplar stage throttled by InterPro after ~2,000 requests across the five passes; stopped rather than left hammering a rate-limited endpoint |
+
+**Catalogue corrections (8).** Six Pfam short names; `PF00027` demoted from
+`FAMILY` to `ACCESSORY` on plant CNGC after CNGC4 was measured to carry none;
+three undeclared domains added (`PF02816` on TRPM7, `PF14703` on
+OSCA/TMEM63, `PF19584` on MCA1); BK's and SK's signatures split to
+`SUBFAMILY` after KCNN2 was measured to share nothing with BK.
+
+**Classifier defects (3), all found by a new offline check.** Wrote
+`scripts/s0_rule_coverage.py`, which feeds every family its own declared
+architecture back through the rule table and exits non-zero on a family the
+rules cannot name that no hazard explains. On its first run it found a
+missing hazard (**HC17**, plant GLR vs animal iGluR). It then found that my
+own `PF00027` demotion had made HCN classify as a plant channel, and that
+polycystin-1 tied with TRPP at equal priority — a tie that would have put a
+non-pore into the census. Fixed with a positive HCN test (`PF08412`) and by
+raising the PKD1 rule above the other HC9 rules.
+
+**Checks improved.** The signature-sharing boundary test compared `Status`
+values, so a signature spanning `CHANNEL` and `CHANNEL_CONTESTED` counted as
+"crossing" when both are census members — it now tests census membership.
+The architecture check reported every declared-but-absent signature as a
+mismatch, burying real errors among ~30 expected ones — it is now
+level-aware and separates `FAMILY_SIGNATURE_ABSENT` (a catalogue error) from
+`subfamily_absence_expected` (**D25**). `scripts/s0_report.py` now refuses
+to render against tables written by an older verification script rather than
+silently reporting on columns that are not there (**D13**).
+
+**State.** `python3 -m src.catalogue` clean; `scripts/selftest.py` 61
+invariants, all holding; `scripts/s0_rule_coverage.py` exits 0.
+`results/s0_baseline/` is **mixed-provenance** and carries a `PROVENANCE.md`
+saying which table came from which pass. The stale rendered `report.md` was
+deleted rather than committed.
+
+**NEXT — the exact resume point.** Leave the InterPro endpoint alone for a
+while, then one uninterrupted `python3 scripts/s0_catalogue_verify.py`
+(~7–14 min, ~520 requests), then `s0_report.py` and `s0_figures.py`. The
+catalogue has not changed since pass 5's clean Pfam stage, so Pfam and
+taxonomy are expected clean; **the exemplar-architecture table is the one
+thing still genuinely unreviewed** — review only its
+`FAMILY_SIGNATURE_ABSENT` rows, which is what the level-aware check now
+isolates.
+
+**Not done, on purpose.** No figures (they render from tables that are not
+final). No S1 work. The permeability audit (S1b) remains the catalogue's
+biggest unchecked surface: no database holds a P_Ca/P_Na, so nothing in S0
+can verify the numbers the census tiers rest on.

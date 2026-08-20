@@ -7,7 +7,7 @@ rendering of any structure. Nothing about helix packing, tilt or the shape
 of a pore should be read from it.
 
 **Figure 6 is a measurement.** The Cys-loop tree in
-`results/phylogeny/tier2_cysloop/` — MAFFT, trimAl, IQ-TREE 2 with
+`results/phylogeny/tier2_ca_release/` — MAFFT, trimAl, IQ-TREE 2 with
 ModelFinder and 1000 ultrafast bootstraps, rooted on the two bacterial
 channels — drawn from its Newick with its real support values.
 
@@ -151,7 +151,8 @@ def parse_newick(text: str):
 def fig_tree() -> Path | None:
     import matplotlib.pyplot as plt
     if not TREE.exists():
-        print("[figs] no cysloop tree — run run.py --phylo cysloop --tier 2")
+        print("[figs] no ca_release tree — run "
+              "run.py --phylo ca_release --tier 2")
         return None
     root = parse_newick(TREE.read_text())
 
@@ -177,11 +178,14 @@ def fig_tree() -> Path | None:
         return x, ypos[id(n)]
     layout(root)
 
-    NICE = {"Hs_CHRNA1": "nAChR α1  (human)", "Tm_nAChR_a": "nAChR α  (Torpedo)",
-            "Hs_HTR3A": "5-HT3A", "Ls_AChBP": "AChBP  (snail) — not a channel",
-            "Hs_GABRA1": "GABA-A α1", "Hs_GLRA1": "glycine α1",
-            "Gv_GLIC": "GLIC  (Gloeobacter)", "Ec_ELIC": "ELIC  (Dickeya)"}
-    ANION = {"Hs_GABRA1", "Hs_GLRA1"}
+    NICE = {"Hs_ITPR1": "IP3R1", "Hs_ITPR2": "IP3R2", "Hs_ITPR3": "IP3R3",
+            "Hs_RYR1": "RyR1  (skeletal)", "Hs_RYR2": "RyR2  (cardiac)",
+            "Hs_RYR3": "RyR3"}
+    #: The RYR branch, coloured apart from ITPR. The two families share all
+    #: four of their diagnostic Pfam domains (HC3), so a tier-2 tree that
+    #: separates them cleanly is itself the check that the alignment is
+    #: carrying real signal.
+    OTHER_FAMILY = {"Hs_RYR1", "Hs_RYR2", "Hs_RYR3"}
 
     fig, ax = plt.subplots(figsize=(fs.W_FULL, 2.9))
 
@@ -199,8 +203,8 @@ def fig_tree() -> Path | None:
                         f"{int(n['support'])}", ha="right", va="bottom",
                         fontsize=fs.FS_TICK - 1.8, color=fs.ACCENT)
         else:
-            colour = (fs.SUPERFAMILY["cysloop"] if n["name"] in ANION
-                      else (fs.FAINT if n["name"] == "Ls_AChBP" else fs.BLUES[4]))
+            colour = (fs.SUPERFAMILY["ca_release"] if n["name"] in OTHER_FAMILY
+                      else fs.BLUES[4])
             ax.plot([x1], [ypos[id(n)]], "o", ms=3.4, color=colour, zorder=4)
             ax.text(x1 + 0.02, ypos[id(n)], NICE.get(n["name"], n["name"]),
                     ha="left", va="center", fontsize=fs.FS_TICK - 0.6,
@@ -210,13 +214,13 @@ def fig_tree() -> Path | None:
     ax.set_ylim(-0.7, len(leaves) - 0.3)
     ax.axis("off")
     ax.text(0, len(leaves) - 0.45,
-            "tier-2 protein tree · MAFFT → trimAl → IQ-TREE 2 (LG+G4, 1000 "
-            "UFBoot) · rooted on GLIC/ELIC",
+            "tier-2 pore-module tree · MAFFT → trimAl → IQ-TREE 2 (LG+G4, "
+            "1000 UFBoot) · rooted on ITPR",
             fontsize=fs.FS_TICK - 1.2, color=fs.MUTED, va="top")
     ax.text(0, -0.62, "numbers are ultrafast bootstrap support",
             fontsize=fs.FS_TICK - 1.6, color=fs.ACCENT, va="bottom")
     fig.tight_layout()
-    return fs.save(fig, OUT / "fig6_cysloop_tree")[0]
+    return fs.save(fig, OUT / "fig6_release_tree")[0]
 
 
 def fig_forest() -> Path:
@@ -262,8 +266,7 @@ def fig_forest() -> Path:
         ax.text(cx, cy - 0.52, R.superfamily_label(k), ha="center", va="top",
                 fontsize=fs.FS_TICK - 2.0, color=fs.INK)
     # a few network edges between boxes — structural similarity, no ancestry
-    for a, b in [("iglur", "ploop"), ("tmem16_like", "clc"),
-                 ("innexin_like", "connexin"), ("hv", "ploop"),
+    for a, b in [("iglur", "ploop"), ("osca", "tmem16"),
                  ("ca_release", "ploop")]:
         if a in centres and b in centres:
             (x0, y0), (x1, y1) = centres[a], centres[b]

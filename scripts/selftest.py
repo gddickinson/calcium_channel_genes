@@ -108,7 +108,25 @@ CASES = [
     ("CASR (HC12)",    {"PF01094": 1, "PF00003": 1}, "nonchannel_casr_gpcr", []),
     ("calmodulin (HC12)", {"PF13499": 1}, "nonchannel_efhand", []),
     ("BK (HC15)",      {"PF00520": 1, "PF03493": 1}, "outofscope_kca", []),
+    # Measured in S0: KCNN2 shares no diagnostic domain with BK, so one rule
+    # cannot reach both halves of the Ca2+-activated potassium family.
+    ("SK2 (HC15)",     {"PF07885": 1, "PF03530": 1, "PF02888": 1},
+     "outofscope_kca", []),
+    # Measured in S0: TRPM7 carries no PF00520 either (HC7), and does carry
+    # the fused alpha-kinase.
+    ("TRPM7 (HC7)",    {"PF18139": 1, "PF16519": 1, "PF23317": 1,
+                        "PF25508": 2, "PF02816": 1}, "trpm_ca", []),
     ("ANO1 (HC15)",    {"PF04547": 1, "PF16178": 1}, "outofscope_anoctamin", []),
+    # PF00027 spans CNG, HCN and the plant CNGCs. Found by
+    # scripts/s0_rule_coverage.py: without a positive HCN test, HCN's
+    # architecture was named as a plant channel.
+    ("HCN (HC16)",     {"PF00520": 1, "PF00027": 1, "PF08412": 1},
+     "outofscope_hcn", []),
+    ("CNG (HC16)",     {"PF00520": 1, "PF00027": 1, "PF16526": 1}, "cng", []),
+    # PKD1 carries PF20519 as TRPP does; the fifteen PKD repeats have to
+    # outrank the shared domain or a non-pore ties with a census family.
+    ("PKD1 vs TRPP (HC9)",
+     {"PF08016": 1, "PF20519": 1, "PF00801": 15}, "assoc_polycystin1", []),
 ]
 for name, counts, want_family, want_ambig in CASES:
     m = match_architecture(counts)

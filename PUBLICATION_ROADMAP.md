@@ -122,11 +122,21 @@ Claude: follow this protocol in every session that touches this project.
 Statuses: `pending` / `in_progress` / `completed YYYY-MM-DD`.
 Full step-by-step briefs: `docs/session_briefs.md`.
 
-> **Next session: S0.** The catalogue is written, validated offline and
-> committed; nothing in it has been checked against a live database yet.
-> S0 re-derives every Pfam accession, exemplar, architecture and taxon id,
-> builds `reference_panel.fasta`, and reports the mismatches without fixing
-> them.
+> **Next session: finish S0.** It is `in_progress`, not `pending`. Most of
+> it has run and it has already paid for itself — eight catalogue
+> corrections and three classifier defects — but the exemplar-
+> architecture stage was throttled and stopped, so
+> `results/s0_baseline/` holds tables from three different passes.
+> **Read `results/s0_baseline/PROVENANCE.md` first**: it says which
+> table came from which pass and gives the exact resume command. Leave
+> the InterPro endpoint alone for a while before re-running.
+>
+> The one thing still genuinely unreviewed is the exemplar
+> architecture table: the last full one (pass 3) listed 33 families
+> whose declared signatures were not all observed, and the check has
+> since been made level-aware so that a `SUBFAMILY` absence is no
+> longer reported as a mismatch. Re-run it and review only the
+> `FAMILY_SIGNATURE_ABSENT` rows.
 >
 > **Three things S0 must not skip.** (1) The three projection anchors —
 > Nav1.5 `Q14524` DEKA, TRPV6 `Q9H1D0` D582, ORAI1 `Q96D31` E106 — must be
@@ -157,7 +167,7 @@ Full step-by-step briefs: `docs/session_briefs.md`.
 
 | ID | Task (one session each) | Depends | Status | Results (headline) |
 |----|-------------------------|---------|--------|--------------------|
-| S0 | Catalogue verification + scope confirmation: re-derive every Pfam accession, exemplar, architecture, anchor and taxon id against live databases; build the reference panel | — | pending | |
+| S0 | Catalogue verification + scope confirmation: re-derive every Pfam accession, exemplar, architecture, anchor and taxon id against live databases; build the reference panel | — | **in_progress** | Five passes run; **eight catalogue corrections and three classifier defects came out of them** (see `FINDINGS.md`). Pfam stage **clean on the final pass: 84 accessions, 0 missing, 0 name mismatches**; taxonomy clean (52/52); 101/102 exemplars resolved. **NOT complete**: the exemplar-architecture stage was throttled and stopped, and `results/s0_baseline/` is mixed-provenance — see `results/s0_baseline/PROVENANCE.md` for which table came from which pass and the exact resume command. |
 | S1 | Classifier control benchmark: positives from every census family, one decoy per control family; per-family recall, per-hazard specificity, per-tier attribution | S0 | pending | |
 | S1b | **Permeability audit** — every `P_Ca/P_Na` in the catalogue traced to a resolved reference with its method; the tier boundaries re-examined against what the audit finds | S0 | pending | |
 | S2 | Uncapped InterPro enumeration of every pore signature → census v2, with a positive family call on every record | S1 | pending | |
@@ -228,7 +238,8 @@ than expanding the task in progress.
 | 2026-08-20 | setup | **The TRPV anchor may not discriminate.** TRPV1–4 also carry acidic residues in the outer pore, so projecting TRPV6's D582 may return D for all of them. If it does, HC7b has no positive test and that must be recorded as a limit rather than quietly dropped | open (S1) |
 | 2026-08-20 | setup | **The nicotinic boundary splits sister subunits.** α7/α9/α10 are in the census and α4 is out, on a permeability ratio. Check whether a tier-1 nicotinic tree separates them at all — if it does not, the split is honest and uncomfortable; if it does, it is a real clade | open (S7) |
 | 2026-08-20 | setup | **CatSper's filter is unread.** Four different subunits contribute one residue each, so no single-sequence projection can read it. A four-sequence joint projection might; that would close the last `[open]` in the four-repeat family | open (S9) |
-| 2026-08-20 | setup | Biopython is present in the `piezo1` env but absent from the base interpreter, so `src/analysis` and the GUI only run there. Either pin the env in a wrapper script or drop the Biopython dependency from `alignment.py` in favour of `src/utils/mafft.py` | open |
+| 2026-08-20 | S0 | **Three control families have no rule that can name them** — `assoc_release_reg`, `outofscope_tric`, `outofscope_connexin` (`results/s0_baseline/rule_targets.tsv`). `derived_rules()` only generates rules for *census* families, so a control is recognisable only if a hand-written hazard rule exists for it. All three are real confusions worth a hazard row: calsequestrin mutations cause the same disease as RYR2 mutations, TMEM38B causes a calcium-release disease with a potassium channel, and connexin shares CALHM's fold class. Until then they will classify as `unassigned` or by reference identity alone, and S1 must report that rather than score it as a miss | open (S1) |
+| 2026-08-20 | S0 | Biopython is present in the `piezo1` env but absent from the base interpreter, so `src/analysis` and the GUI only run there. Either pin the env in a wrapper script or drop the Biopython dependency from `alignment.py` in favour of `src/utils/mafft.py` | open |
 
 ---
 
@@ -279,7 +290,7 @@ hand alongside them.
 
 **D14 — Family assignment is a positive test at every stage.** Inherited
 from the IP3R project, where ITPR/RYR was the single instance; here the
-eighteen instances are `src/catalogue/hazards.py`.
+nineteen instances are `src/catalogue/hazards.py`.
 
 **D15 — The species tree is an input, not a result.**
 

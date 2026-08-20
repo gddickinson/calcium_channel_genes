@@ -1,0 +1,85 @@
+accession	declared_name	interpro_short	interpro_name	n_uniprot_proteins	status	n_families_using
+PF00003	7tm_3	7tm_3	7 transmembrane sweet-taste receptor of 3 GCPR	48307	ok	1
+PF00023	Ank	Ank	Ankyrin repeat	210168	ok	2
+PF00027	cNMP_binding	cNMP_binding	Cyclic nucleotide-binding domain	184852	ok	3
+PF00029	Connexin	Connexin	Connexin	19851	ok	1
+PF00036	EF-hand_1	EF-hand_1	EF hand domain	26835	ok	1
+PF00060	Lig_chan	Lig_chan	Ligand-gated ion channel	56608	ok	4
+PF00122	E1-E2_ATPase	E1-E2_ATPase	P-type ATPase actuator domain	198722	ok	1
+PF00254	FKBP_C	FKBP_C	FKBP-type peptidyl-prolyl cis-trans isomerase	99670	ok	1
+PF00520	Ion_trans	Ion_trans	Ion transport protein	206115	ok	17
+PF00622	SPRY	SPRY	SPRY domain	113796	ok	1
+PF00625	Guanylate_kin	Guanylate_kin	Guanylate kinase	79996	ok	1
+PF00689	Cation_ATPase_C	Cation_ATPase_C	Cation transporting ATPase, C-terminus	76315	ok	1
+PF00702	Hydrolase	Hydrolase	haloacid dehalogenase-like hydrolase	243591	ok	1
+PF00801	PKD	PKD	PKD domain	12100	ok	1
+PF00822	PMP22_Claudin	PMP22_Claudin	PMP-22/EMP/MP20/Claudin family	34671	ok	1
+PF00864	P2X_receptor	P2X_receptor	ATP P2X receptor	8222	ok	1
+PF00876	Innexin	Innexin	Innexin	11775	ok	1
+PF01094	ANF_receptor	ANF_receptor	Receptor family ligand binding region	101599	ok	5
+PF01216	Calsequestrin	Calsequestrin	Calsequestrin	2946	ok	1
+PF01365	RYDR_ITPR	RYDR_ITPR	RIH domain	13177	ok	2
+PF01452	Rota_NSP4	Rota_NSP4	Rotavirus non structural protein	1060	ok	1
+PF01459	Porin_3	Porin_3	Eukaryotic porin	16877	ok	1
+PF01699	Na_Ca_ex	Na_Ca_ex	Sodium/calcium exchanger protein	60505	ok	1
+PF02026	RyR	RyR	RyR domain	7030	ok	1
+PF02254	TrkA_N	TrkA_N	TrkA-N domain	57912	ok	1
+PF02366	PMT	PMT	Dolichyl-phosphate-mannose-protein mannosyltransferase	16962	ok	1
+PF02714	RSN1_7TM	RSN1_7TM	Calcium-dependent channel, 7TM region, putative phosphate	21588	ok	1
+PF02723	CoV_E	CoV_E	Coronavirus small envelope protein E	320	ok	1
+PF02815	MIR	MIR	MIR domain	23453	ok	3
+PF02816	Alpha_kinase	Alpha_kinase	Alpha-kinase family	11461	ok	1
+PF02888	CaMBD	CaMBD	Calmodulin binding domain	5686	ok	1
+PF02931	Neur_chan_LBD	Neur_chan_LBD	Neurotransmitter-gated ion-channel ligand binding domain	84421	ok	2
+PF02932	Neur_chan_memb	Neur_chan_memb	Neurotransmitter-gated ion-channel transmembrane region	78377	ok	2
+PF03493	BK_channel_a	BK_channel_a	Calcium-activated BK potassium channel alpha subunit	13344	ok	1
+PF03530	SK_channel	SK_channel	Calcium-activated SK potassium channel	5427	ok	1
+PF04547	Anoctamin	Anoctamin	Calcium-activated chloride channel	24366	ok	1
+PF04678	MCU	MCU	Mitochondrial calcium uniporter	6430	ok	1
+PF04749	PLAC8	PLAC8	PLAC8 family	17638	ok	1
+PF05197	TRIC	TRIC	TRIC channel	2674	ok	1
+PF06459	RR_TM4-6	RR_TM4-6	Ryanodine Receptor TM 4-6	5598	ok	1
+PF06512	Na_trans_assoc	Na_trans_assoc	Sodium ion transport-associated	13867	ok	1
+PF07647	SAM_2	SAM_2	SAM domain (Sterile alpha motif)	65063	ok	1
+PF07766	LETM1_RBD	LETM1_RBD	LETM1-like, RBD	9748	ok	1
+PF07856	Orai-1	Orai-1	Mediator of CRAC channel activity	3562	ok	1
+PF07885	Ion_trans_2	Ion_trans_2	Ion channel	68571	ok	1
+PF08016	PKD_channel	PKD_channel	Polycystin cation channel	13945	ok	3
+PF08344	TRP_2	TRP_2	Transient receptor ion channel II	10568	ok	1
+PF08412	Ion_trans_N	Ion_trans_N	Ion transport protein N-terminal	4174	ok	1
+PF08454	RIH_assoc	RIH_assoc	RyR and IP3R Homology associated	12062	ok	2
+PF08473	VGCC_alpha2	VGCC_alpha2	Neuronal voltage-dependent calcium channel alpha 2acd	7988	ok	1
+PF08709	Ins145_P3_rec	Ins145_P3_rec	Inositol 1,4,5-trisphosphate/ryanodine receptor	12338	ok	2
+PF08763	Ca_chan_IQ	Ca_chan_IQ	Voltage gated calcium channel IQ domain	16373	ok	1
+PF10161	DDDD	DDDD	Putative mitochondrial precursor protein	1177	ok	1
+PF10613	Lig_chan-Glu_bd	Lig_chan-Glu_bd	Ligated ion channel L-glutamate- and glycine-binding site	49207	ok	3
+PF11289	bCoV_viroporin	bCoV_viroporin	Betacoronavirus viroporin	78	ok	1
+PF11933	Na_trans_cytopl	Na_trans_cytopl	Cytoplasmic domain of voltage-gated Na+ ion channel	10488	ok	1
+PF12052	VGCC_beta4Aa_N	VGCC_beta4Aa_N	Voltage gated calcium channel subunit beta domain 4Aa N terminal	8780	ok	1
+PF12166	Piezo_cap	Piezo_cap	Piezo non-specific cation channel, cap domain	5776	ok	1
+PF12796	Ank_2	Ank_2	Ankyrin repeats (3 copies)	542446	ok	4
+PF13202	EF-hand_5	EF-hand_5	EF hand	57384	ok	1
+PF13499	EF-hand_7	EF-hand_7	EF-hand domain pair	239776	ok	1
+PF13637	Ank_4	Ank_4	Ankyrin repeats (many copies)	83176	ok	1
+PF13833	EF-hand_8	EF-hand_8	EF-hand domain pair	38341	ok	1
+PF13967	RSN1_TM	RSN1_TM	Late exocytosis, associated with Golgi transport	19684	ok	1
+PF14703	PHM7_cyt	PHM7_cyt	Cytosolic domain of 10TM putative phosphate transporter	20724	ok	1
+PF14798	Ca_hom_mod	Ca_hom_mod	Calcium homeostasis modulator	4977	ok	1
+PF15149	CATSPERB_C	CATSPERB_C	CATSPERB, C-terminal domain	339	ok	1
+PF15917	Piezo_TM25-28	Piezo_TM25-28	Piezo TM25-28	4297	ok	1
+PF16178	Anoct_dimer	Anoct_dimer	Anoctamin, dimerisation domain	14184	ok	1
+PF16519	TRPM_tetra	TRPM_tetra	Tetramerisation domain of TRPM	6731	ok	2
+PF16526	CLZ	CLZ	C-terminal leucine zipper domain of cyclic nucleotide-gated channels	4806	ok	1
+PF16533	SOAR	SOAR	STIM1 Orai1-activating region	4503	ok	1
+PF16885	CAC1F_C	CAC1F_C	Voltage-gated calcium channel subunit alpha, C-term	7237	ok	1
+PF16905	GPHH	GPHH	Voltage-dependent L-type calcium channel, IQ-associated	17007	ok	1
+PF18109	Fer4_24	Fer4_24	Ferredoxin I 4Fe-4S cluster domain	1393	ok	1
+PF18139	LSDAT_euk	LSDAT_euk	SLOG in TRPM	13872	ok	2
+PF19584	MCAfunc	MCAfunc	MCAfunc domain	2085	ok	1
+PF20519	Polycystin_dom	Polycystin_dom	Polycystin domain	8492	ok	2
+PF21381	MCLN_ECD	MCLN_ECD	Mucolipin, extracytosolic domain	4755	ok	1
+PF23188	THU_Piezo1	THU_Piezo1	Piezo1-like, transmembrane helical unit	5348	ok	1
+PF23317	YVC1_C	YVC1_C	Calcium channel YVC1-like, C-terminal	21078	ok	2
+PF24871	Piezo_TM1-24	Piezo_TM1-24	Piezo TM1-24	4643	ok	1
+PF24874	Piezo_THU9_anchor	Piezo_THU9_anchor	Piezo, THU9 and anchor domain	5714	ok	1
+PF25508	TRPM2	TRPM2	TRPM2-like domain	13457	ok	1

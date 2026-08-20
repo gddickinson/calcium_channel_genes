@@ -29,13 +29,14 @@ Three deliverables, in order:
 
 | | |
 |---|---|
-| **Ledger** | Setup complete 2026-08-20; **S0 next**. 24 tasks (`PUBLICATION_ROADMAP.md`). |
-| **Catalogue** | 49 families · 17 superfamilies · 29 census families · **98 human census genes of 245 catalogued** · 18 hazards · `validate()` clean |
+| **Ledger** | Setup complete 2026-08-20; **S0 `in_progress`** — mostly run, not finished. 24 tasks (`PUBLICATION_ROADMAP.md`). |
+| **Catalogue** | 49 families · 17 superfamilies · 29 census families · **98 human census genes of 245 catalogued** · 19 hazards · `validate()` clean |
 | **Census tiers** | Ca²⁺-selective **28** · store release **11** · Ca²⁺-permeable **50** · conditional **9**. A flat total is never quoted (**D31**). |
-| **Verification** | Not yet run. Four claims checked live during setup: the Nav1.5 four-repeat anchor (**DEKA** ✓), ORAI1 E106 (✓), the MCU DIME motif (**WDIME at 260** ✓) — and the literature's TRPV6 D542, which **does not validate**: the canonical entry puts that aspartate at **D582** (see below). |
-| **Classifier** | Built, not yet benchmarked. 24 hazard rules across 18 hazards; three reference-free motifs and three verified projection anchors. S1 measures it. |
+| **Verification** | Partial, and it earned its keep: **eight catalogue corrections and three classifier defects** came out of five S0 passes. Pfam stage **clean on the final pass — 84 accessions, 0 missing, 0 name mismatches**; taxonomy 52/52; 101/102 exemplars resolved. The exemplar-architecture stage was throttled and stopped: `results/s0_baseline/` is mixed-provenance and [says so](results/s0_baseline/PROVENANCE.md). |
+| **Anchors** | Nav1.5 four-repeat **DEKA** ✓ · ORAI1 **E106** ✓ · MCU **WDIME at 260** ✓ · the literature's TRPV6 **D542 does not validate** — the canonical entry puts that aspartate at **D582** (see below). |
+| **Classifier** | Built, not yet benchmarked. 26 hazard rules across 19 hazards; three reference-free motifs and three verified projection anchors. **17 of 29 census families are nameable from architecture alone** (`scripts/s0_rule_coverage.py`); the other 12 need the motif or reference tier, and S1 measures whether they get there. |
 | **Phylogeny** | Builders and the tier-3 network in place; `build_tier2()` refuses `largepore` and `viroporin_ca` (**D27**). Real trees run in S7/S8. |
-| **Self-test** | 56 offline invariants, all holding, under a second (`scripts/selftest.py`). |
+| **Self-test** | 61 offline invariants, all holding, under a second (`scripts/selftest.py`). |
 | **Review** | Section stubs plus the resolve-then-cite pipeline; 122 sources listed as *titles*, none yet a citation. Writing it is task **S23**. |
 
 ---
@@ -66,6 +67,9 @@ python3 run.py --phylo largepore --tier 2       # refused — with the reason
 
 # the offline invariants — under a second, no network
 python3 scripts/selftest.py
+
+# which families can domain architecture name, and which cannot? (offline)
+python3 scripts/s0_rule_coverage.py
 
 # re-derive every catalogue claim against live databases (task S0)
 python3 scripts/s0_catalogue_verify.py
@@ -134,7 +138,7 @@ on something the genome does not encode.
 ## Layout
 
 ```
-src/catalogue/    the subject: 49 families, 17 superfamilies, 18 hazards,
+src/catalogue/    the subject: 49 families, 17 superfamilies, 19 hazards,
                   and a Permeability record on every one of them
 src/classify/     three tiers → one ChannelCall with an audit trail
 src/phylo/        pore modules, tier-1/tier-2 forests, the tier-3 network

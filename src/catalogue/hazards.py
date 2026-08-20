@@ -7,7 +7,7 @@ ryanodine-receptor decoys as candidate novel IP3 receptors. The fix - a
 positive test on distances to a labelled sister-family bait - became its
 decision D14 and is carried here as D14 too.
 
-A calcium census has eighteen, and they come in two shapes.
+A calcium census has nineteen, and they come in two shapes.
 
 **Architecture cannot resolve it.** Cav and Nav have the same fold, the same
 `PF00520`x4 architecture and overlapping length bands (HC1). TRPV5 and TRPV1
@@ -320,14 +320,26 @@ HAZARDS: list[Hazard] = [
     ),
     Hazard(
         "HC16", "Ca2+ permeability varies across sister families with one architecture",
-        ("cng", "outofscope_hcn", "nachr_ca", "outofscope_nachr_muscle", "p2x"),
-        shared_evidence=("CNG and HCN share the pore module and the "
-                         "cyclic-nucleotide-binding domain and differ ten- to "
-                         "twentyfold in fractional Ca2+ current. The nicotinic "
-                         "alpha7 subunit reaches P_Ca/P_Na ~10 and its sister "
-                         "alpha4 ~1. The seven P2X paralogues span an order of "
-                         "magnitude with one Pfam accession between them."),
-        discriminator=("**None from sequence.** Permeability is recorded as a "
+        ("cng", "outofscope_hcn", "cngc_plant", "nachr_ca",
+         "outofscope_nachr_muscle", "p2x"),
+        shared_evidence=("`PF00027` (cNMP_binding) spans the animal CNG "
+                         "channels, the HCN channels and the plant CNGCs - "
+                         "three families, two of them in this census and one "
+                         "not, differing ten- to twentyfold in fractional "
+                         "Ca2+ current. Measured 2026-08-20 by "
+                         "`scripts/s0_rule_coverage.py`: a rule resting on "
+                         "`PF00027` named HCN as a plant channel. The "
+                         "nicotinic alpha7 subunit reaches P_Ca/P_Na ~10 and "
+                         "its sister alpha4 ~1; the seven P2X paralogues span "
+                         "an order of magnitude with one accession between "
+                         "them."),
+        discriminator=("For the *family* call: `PF08412` (Ion_trans_N) => "
+                       "HCN, and `PF16526` (CLZ) with `PF00027` => animal "
+                       "CNG. `PF00027` alone is ACCESSORY-level evidence and "
+                       "names nothing - the plant CNGCs have no diagnostic "
+                       "domain at all and correctly fall to the reference "
+                       "tier. For the *permeability*: **none from "
+                       "sequence.** Permeability is recorded as a "
                        "family-level literature attribute with its "
                        "measurement method (`Permeability`), never predicted "
                        "per sequence, and the classifier emits a family call "
@@ -336,6 +348,32 @@ HAZARDS: list[Hazard] = [
                        "buried in a gene list (D31)."),
         test_owner="(no test - a declared limit of the method)",
         severity="high", provenance=P.LIT,
+    ),
+    Hazard(
+        "HC17", "The plant glutamate receptor-like channels are architecturally "
+                "identical to the animal ionotropic glutamate receptors",
+        ("glr_plant", "ampa", "kainate", "nmda"),
+        shared_evidence=("`PF00060` (Lig_chan) and `PF01094` (ANF_receptor) "
+                         "are carried by the *Arabidopsis* GLRs and by every "
+                         "animal iGluR. There is no plant-specific accession "
+                         "and no animal-specific one, so the architecture "
+                         "tier returns the superfamily and declines to name a "
+                         "family - correctly."),
+        discriminator=("Reference identity to the exemplar panel with the D7 "
+                       "margin, and tier-1 clade membership: the plant GLRs "
+                       "are a distinct clade, not a subgroup of any animal "
+                       "family. **Species is not the test** - a plant "
+                       "sequence in a metagenome has no organism label, and "
+                       "assigning by taxonomy would make the census unable to "
+                       "place the very sequences it exists to place."),
+        test_owner="src/classify/reference.py + src/phylo/forest.py",
+        severity="medium", provenance=P.DB,
+        notes=("Added 2026-08-20 by `scripts/s0_rule_coverage.py`, which "
+               "found `glr_plant` to be the one census family the "
+               "architecture tier cannot name and no hazard explained. That "
+               "is precisely the gap the script exists to surface: an "
+               "unnameable family without a hazard row means either the "
+               "hazard is missing or the signatures are wrong."),
     ),
 ]
 

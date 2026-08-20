@@ -154,9 +154,14 @@ HAZARD_RULES: list[ArchitectureRule] = [
                      rationale="EMRE: required for conduction, lines no pore"),
     # HC9 - PF08016 covers TRPML, TRPP and polycystin-1.
     ArchitectureRule("HC9-pkd1", "assoc_polycystin1", "ploop", ("PF08016",),
-                     min_copies=(("PF00801", 5),), priority=P_HAZARD,
+                     min_copies=(("PF00801", 5),), priority=P_HAZARD + 10,
                      hazard="HC9",
-                     rationale="a long PKD-repeat ectodomain => polycystin-1"),
+                     rationale="a long PKD-repeat ectodomain => polycystin-1. "
+                               "Priority is above the other HC9 rules because "
+                               "PKD1 also carries PF20519 and would otherwise "
+                               "tie with TRPP: fifteen PKD repeats is more "
+                               "evidence than one shared domain, and a tie "
+                               "here would hand a non-pore to the census"),
     ArchitectureRule("HC9-trpml", "trpml", "ploop", ("PF08016", "PF21381"),
                      priority=P_HAZARD, hazard="HC9",
                      rationale="the mucolipin extracytosolic domain"),
@@ -186,11 +191,25 @@ HAZARD_RULES: list[ArchitectureRule] = [
                      priority=P_HAZARD, hazard="HC12",
                      rationale="an EF-hand with no channel signature => a calcium "
                                "sensor or buffer, not a channel"),
+    # HC16 - PF00027 spans CNG, HCN and the plant CNGCs, so it can never be
+    # a family call on its own. HCN needs a positive test of its own.
+    ArchitectureRule("HC16-hcn", "outofscope_hcn", "ploop", ("PF08412",),
+                     priority=P_HAZARD, hazard="HC16",
+                     rationale="Ion_trans_N, the HCN-specific N-terminal "
+                               "extension. Without it, HCN's PF00520 + "
+                               "PF00027 matched a plant CNGC rule - measured "
+                               "by scripts/s0_rule_coverage.py"),
     # HC15 - Ca2+-activated channels conduct potassium or chloride.
     ArchitectureRule("HC15-bk", "outofscope_kca", "ploop", ("PF03493",),
                      priority=P_HAZARD, hazard="HC15",
                      rationale="BK_channel_a => a Ca2+-activated potassium "
                                "channel; confirm with the TxGYG filter"),
+    ArchitectureRule("HC15-sk", "outofscope_kca", "ploop",
+                     ("PF03530",), priority=P_HAZARD, hazard="HC15",
+                     rationale="SK_channel => a small-conductance "
+                               "Ca2+-activated potassium channel. Measured: "
+                               "KCNN2 shares no diagnostic domain with BK, so "
+                               "the BK rule cannot reach it"),
     ArchitectureRule("HC15-ano", "outofscope_anoctamin", "tmem16",
                      ("PF04547",), priority=P_HAZARD, hazard="HC15",
                      rationale="the anoctamin fold => a Ca2+-activated "

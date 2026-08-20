@@ -53,7 +53,7 @@ worth.
 | `nonanimal.py` | Plant GLR, plant CNGC, plant MCA, OSCA/TMEM63, and the viral viroporins. |
 | `controls_associated.py` | `CHANNEL_ASSOCIATED`: the sixteen `CACN`-prefixed auxiliary subunits, the CatSper accessories, STIM, the MCU regulators, the release-channel regulators, polycystin-1. |
 | `controls_excluded.py` | `OUT_OF_SCOPE` / `TRANSPORTER` / `NON_CHANNEL_HOMOLOG`: Nav, NALCN, HCN, the Ca²⁺-activated potassium and chloride channels, TRPM4/5, TRIC, connexins, the P-type pumps, the Na⁺/Ca²⁺ exchangers, the EF-hand sensors, CASR, POMT. |
-| `hazards.py` | **The hazard registry** — 18 recorded ways to classify wrongly, each with the families involved, the shared evidence, the discriminating positive test, and the module that owns it. |
+| `hazards.py` | **The hazard registry** — 19 recorded ways to classify wrongly, each with the families involved, the shared evidence, the discriminating positive test, and the module that owns it. |
 | `registry.py` | Assembly and lookup: `CATALOGUE`, `SUPERFAMILIES`, `census_families()`, `control_families()`, **`census_by_tier()`**, **`families_by_ca_class()`**, `human_genes()`, `signature_index()`, `shared_signatures()`, `pore_signatures()`, `exemplars()`, `reference_panel()`, `hazards_for()`, `validate()`, `stats()`. |
 | `__main__.py` | `python3 -m src.catalogue [--tiers] [--families] [--shared] [--excluded]` — validate and print. Exits non-zero on any validation problem, so it works as a pre-commit gate. |
 
@@ -123,6 +123,7 @@ census tiers, never a flat total), `run_phylo()`, plus the stdlib fetchers.
 | `selftest.py` | **The offline invariants**, under a second and no network: catalogue validation, the census-tier rules (D31), every hazard rule fired against the synthetic architecture it was written for, the classifier's blindness to gene symbols, the three motif regexes, the alignment helpers, the D27 refusal, and the scope's derivation of its sister panel. Session-protocol step 4. |
 | `s0_lib.py` | S0 fetchers: `Fetcher` (polite, retrying, keeps a failure ledger), `pfam_entry`, `protein_pfams`, `resolve_gene`, `sequence`, `taxon`, `write_tsv`, `read_tsv`, `live_progress`. |
 | `s0_catalogue_verify.py` | **S0** — re-derives every claim the catalogue makes against live databases and writes six TSVs plus `reference_panel.fasta`. Reports mismatches; never edits the catalogue. |
+| `s0_rule_coverage.py` | **S0, offline** — feeds every family its own declared architecture back through the rule table and records what the architecture tier makes of it. Turns "domain architecture is not a family call" into a number, and **exits non-zero on a family the rules cannot name that no hazard row explains** — which is how hazard **HC17** was found. |
 | `s0_report.py` | **S0** — renders `results/s0_baseline/report.md` purely from those tables (D13), including the census-tier table. |
 | `s0_figures.py` | **S0's figure** — families and human genes per superfamily, and every domain signature carried by more than one family with the ones crossing the calcium / non-calcium boundary marked. |
 | `s0_domain_map.py` | InterPro match **coordinates** for the proteins the review's architecture figures compare. |

@@ -43,7 +43,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.s0_lib import (Fetcher, entry_by_accession, live_progress,
                             pfam_entry, pfam_protein_count, protein_pfams,
                             resolve_gene, sequence, taxon, write_tsv)
-from src.catalogue import (CATALOGUE, HAZARDS, SUPERFAMILIES,
+from src.catalogue import (CATALOGUE, HAZARDS, SUPERFAMILIES, Level,
                            census_by_tier, census_families, exemplars,
                            shared_signatures, signature_index, stats,
                            validate)
@@ -149,15 +149,29 @@ def check_exemplars(f: Fetcher, out: Path, limit: int,
                      rec["protein"][:60], status))
 
         observed = protein_pfams(f, rec["accession"])
-        declared = {s.accession: s.copies for s in CATALOGUE[fam_key].signatures}
+        sigs = {s.accession: s for s in CATALOGUE[fam_key].signatures}
+        declared = {a: sg.copies for a, sg in sigs.items()}
         missing = sorted(set(declared) - set(observed))
         extra = sorted(set(observed) - set(declared))
+        # A missing signature only matters at the level it was declared at.
+        # `FAMILY` means "every member carries this", so its absence from an
+        # exemplar is a catalogue error. `SUBFAMILY` means "some members
+        # carry this" and `ACCESSORY`/`SUPERFAMILY` make no per-member
+        # promise at all, so their absence is expected and reporting it as a
+        # mismatch would bury the real errors in noise (**D25**).
+        family_missing = [a for a in missing if sigs[a].level is Level.FAMILY]
+        if not missing:
+            arch_status = "ok"
+        elif family_missing:
+            arch_status = "FAMILY_SIGNATURE_ABSENT"
+        else:
+            arch_status = "subfamily_absence_expected"
         arch_rows.append((
             fam_key, e.label, rec["accession"],
             ",".join(f"{a}x{n}" for a, n in sorted(observed.items())),
             ",".join(f"{a}x{n}" for a, n in sorted(declared.items())),
-            ",".join(missing), ",".join(extra),
-            "ok" if not missing else "DECLARED_NOT_OBSERVED"))
+            ",".join(missing), ",".join(family_missing), ",".join(extra),
+            arch_status))
 
         if fetch_seqs:
             s = sequence(f, rec["accession"])
@@ -172,8 +186,8 @@ def check_exemplars(f: Fetcher, out: Path, limit: int,
                "length_aa", "protein_name", "status"), rows)
     write_tsv(out / "exemplar_architecture.tsv",
               ("family", "label", "accession", "observed_pfam",
-               "declared_pfam", "declared_not_observed", "observed_not_declared",
-               "status"), arch_rows)
+               "declared_pfam", "declared_not_observed", "family_level_absent",
+               "observed_not_declared", "status"), arch_rows)
     if fasta:
         (out / "reference_panel.fasta").write_text("".join(fasta))
     step(f"exemplars: {n_ok}/{len(ex)} resolved, {n_unresolved} unresolved, "
@@ -213,15 +227,24 @@ def check_taxa(f: Fetcher, out: Path) -> dict:
 
 # ------------------------------------------------------------------ 5
 def write_sharing(out: Path) -> int:
+    """Which signatures are shared, and which cross the census boundary.
+
+    The boundary test is **census membership**, not `Status`. A signature
+    carried by a `CHANNEL` and a `CHANNEL_CONTESTED` family has not crossed
+    anything - both are counted - whereas one carried by a census family and
+    by a Ca2+-activated potassium channel, a pump or an auxiliary subunit
+    has, and that is the hazard registry's empirical basis.
+    """
     rows = []
     for acc, fams in sorted(shared_signatures().items(),
                             key=lambda kv: (-len(kv[1]), kv[0])):
         statuses = {CATALOGUE[k].status.value for k in fams}
+        member = {CATALOGUE[k].census_member() for k in fams}
         rows.append((acc, len(fams), ",".join(fams), ",".join(sorted(statuses)),
-                     "yes" if len(statuses) > 1 else "no"))
+                     "yes" if len(member) > 1 else "no"))
     write_tsv(out / "signature_sharing.tsv",
               ("accession", "n_families", "families", "statuses",
-               "crosses_channel_boundary"), rows)
+               "crosses_census_boundary"), rows)
     step(f"signature sharing: {len(rows)} shared signature(s)")
     return len(rows)
 

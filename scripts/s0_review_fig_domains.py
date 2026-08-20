@@ -39,23 +39,29 @@ from src.catalogue import CATALOGUE, SUPERFAMILIES
 DATA = ROOT / "results" / "s0_baseline"
 OUT = ROOT / "docs" / "figures"
 
-#: The pairs and trios section 12.4 tabulates, with the point of each.
+#: The pairs and trios the review's annotation section tabulates, with the
+#: point of each. Every row is a case where the domain architecture is the
+#: same and the answer to "is this a calcium channel" is not.
 TRAPS: list[tuple[str, list[str], str]] = [
     ("Four repeats, three different ions",
-     ["SCN5A", "CACNA1C", "CACNA1G", "NALCN"],
+     ["CACNA1C", "CACNA1G", "SCN5A", "NALCN"],
      "identical composition; separated only by the filter (fig. 3)"),
-    ("An ABC transporter that is a channel, and one that is not",
-     ["CFTR", "ABCC8"],
-     "one accession apart: PF14396, CFTR's R domain"),
-    ("A chloride channel and a lipid scramblase",
-     ["ANO1", "ANO6"],
-     "no sequence-level difference is known"),
+    ("A Ca2+-selective TRP and its non-selective sister",
+     ["TRPV6", "TRPV1"],
+     "same accessions, same length band, ~100-fold apart in P_Ca/P_Na"),
+    ("Inside one family, on both sides of the boundary",
+     ["TRPM7", "TRPM4"],
+     "Ca2+-permeable and Ca2+-activated-but-impermeable; no sequence "
+     "discriminator is known"),
     ("One domain, three families",
      ["MCOLN1", "PKD2", "PKD1"],
      "PF08016 spans TRPML, TRPP and a protein that is not a pore"),
-    ("Domains that exist outside channels",
-     ["KCNA1", "KCTD1", "GRIA1", "GRM1", "CHRNA1", "AChBP", "HVCN1", "TPTE"],
-     "each pair shares its first-listed domain and only one is a channel"),
+    ("A pore, a gate and a sensor",
+     ["ORAI1", "STIM1", "CALM1"],
+     "all three are 'store-operated calcium' hits and one is a channel"),
+    ("Calcium in the name, not in the pore",
+     ["KCNMA1", "ATP2A1", "CASR", "CACNG2"],
+     "a K+ channel, a pump, a GPCR, and an AMPA-receptor subunit"),
 ]
 
 
@@ -163,9 +169,9 @@ def fig_domain_matrix() -> Path:
     ax.set_xlabel("domain accession (number of families carrying it)",
                   fontsize=fs.FS_LABEL - 0.6)
     from matplotlib.patches import Patch
-    ax.legend(handles=[Patch(facecolor=fs.BLUES[3], label="ion-channel family"),
+    ax.legend(handles=[Patch(facecolor=fs.BLUES[3], label="calcium-channel family"),
                        Patch(facecolor=fs.STATUS["absent"],
-                             label="catalogued, not an ion channel")],
+                             label="catalogued, not a calcium channel")],
               fontsize=fs.FS_TICK - 1.2, frameon=False,
               loc="upper left", bbox_to_anchor=(0, -0.055), ncol=2)
     fig.tight_layout()

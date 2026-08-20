@@ -165,36 +165,69 @@ def build(d: Path) -> str:
 
     A("## 4. Declared architecture vs observed")
     A("")
-    mismatch = [r for r in arch if r["status"] != "ok"]
+    if arch and "family_level_absent" not in arch[0]:
+        # The tables predate the level-aware architecture check. Rendering
+        # anyway would silently produce a report about columns that are not
+        # there, which is the drift D13 exists to prevent.
+        raise SystemExit(
+            "[s0_report] exemplar_architecture.tsv has no "
+            "'family_level_absent' column - it was written by an older "
+            "s0_catalogue_verify.py. Re-run the verification before "
+            "rendering the report (D13).")
+    exact = [r for r in arch if r["status"] == "ok"]
+    expected = [r for r in arch if r["status"] == "subfamily_absence_expected"]
+    real = [r for r in arch if r["status"] == "FAMILY_SIGNATURE_ABSENT"]
     A(f"{len(arch)} exemplars had their Pfam architecture re-derived. "
-      f"**{len(arch) - len(mismatch)} match the catalogue's declaration; "
-      f"{len(mismatch)} do not.**")
+      f"**{len(exact)} match the catalogue's declaration exactly, "
+      f"{len(expected)} differ only at signatures the catalogue does not "
+      f"promise every member carries, and {len(real)} are missing a "
+      f"signature declared at `FAMILY` level.**")
     A("")
-    A("A mismatch is not automatically an error in the catalogue — a "
-      "signature declared for a family need not be present on every member, "
-      "and that is exactly what hazard **H7** records for the TRP families. "
-      "It is, however, always something a person should look at.")
+    A("The split matters and is the reason this table is not one column "
+      "(**D25**). A `FAMILY`-level signature is a claim that *every* member "
+      "carries it, so its absence from an exemplar is a catalogue error. A "
+      "`SUBFAMILY` signature says only that some members carry it, and "
+      "`ACCESSORY` and `SUPERFAMILY` signatures make no per-member promise "
+      "at all — reporting those absences as mismatches would bury the real "
+      "errors in noise. Hazard **HC7** is the canonical case: most TRP "
+      "families carry no `PF00520`, which is a fact about Pfam's coverage "
+      "and not a fault in the catalogue.")
     A("")
-    if mismatch:
-        A(table(["family", "exemplar", "declared but not observed",
+    if real:
+        A("**Missing at `FAMILY` level — each of these is either a catalogue "
+          "correction or a signature that should be demoted to `SUBFAMILY`:**")
+        A("")
+        A(table(["family", "exemplar", "family-level signature absent",
                  "observed but not declared"],
                 [[r["family"], r["label"],
-                  r["declared_not_observed"] or "—",
+                  r["family_level_absent"] or "—",
                   (r["observed_not_declared"] or "—")[:60]]
-                 for r in mismatch[:40]]))
-        if len(mismatch) > 40:
+                 for r in real[:40]]))
+        A("")
+    if expected:
+        A("**Expected absences** (subfamily-, accessory- or "
+          "superfamily-level only):")
+        A("")
+        A(table(["family", "exemplar", "declared but not observed"],
+                [[r["family"], r["label"], r["declared_not_observed"] or "—"]
+                 for r in expected[:40]]))
+        if len(expected) > 40:
             A("")
-            A(f"*({len(mismatch) - 40} further rows in "
+            A(f"*({len(expected) - 40} further rows in "
               f"`exemplar_architecture.tsv`.)*")
         A("")
 
     A("## 5. Shared signatures — the hazard registry's evidence")
     A("")
-    crossing = [r for r in share if r["crosses_channel_boundary"] == "yes"]
+    crossing = [r for r in share if r["crosses_census_boundary"] == "yes"]
     A(f"{len(share)} signatures are carried by more than one family. "
-      f"**{len(crossing)} of them cross the channel / non-channel boundary** "
-      f"— a domain that is evidence for a channel family and is also carried "
-      f"by something the catalogue does not count as a channel.")
+      f"**{len(crossing)} of them cross the census boundary** — a domain "
+      f"that is evidence for a calcium-channel family and is also carried by "
+      f"something the census does not count: a sodium channel, a "
+      f"Ca2+-activated channel, a pump, an auxiliary subunit or a sensor. "
+      f"This table is the hazard registry's empirical basis, and every row "
+      f"in it is a place where architecture alone cannot decide membership "
+      f"(**D25**).")
     A("")
     A(table(["accession", "families", "statuses"],
             [[r["accession"], r["families"][:80], r["statuses"]]

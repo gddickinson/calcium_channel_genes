@@ -1,0 +1,19 @@
+family	role	name	hazards
+cav_lva	census	Low-voltage-activated (T-type) calcium channels (Cav3)	HC1,HC14
+catsper	census	CatSper sperm-specific calcium channels	HC1,HC10
+tpc	census	Two-pore channels (TPC1, TPC2)	HC13
+trpv_ca	census	Ca2+-selective vanilloid channels (TRPV5, TRPV6)	HC7,HC7b
+trpv_ns	census	Non-selective vanilloid channels (TRPV1-TRPV4)	HC7,HC7b
+trpa	census	TRPA1 - ankyrin transient receptor potential channel	HC7
+nachr_ca	census	Ca2+-permeable nicotinic receptors (alpha7, alpha9, alpha10)	HC16
+ampa	census	AMPA receptors (GRIA1-4)	HC2,HC8,HC17
+kainate	census	Kainate receptors (GRIK1-5)	HC8,HC17
+nmda	census	NMDA receptors (GRIN1, GRIN2A-D, GRIN3A-B)	HC8,HC17
+glr_plant	census	Plant glutamate receptor-like channels (GLR)	HC17
+cngc_plant	census	Plant cyclic-nucleotide-gated channels (CNGC)	HC16
+assoc_release_reg	control	Ca2+-release channel regulators (calsequestrin, FKBP12/12.6, triadin, junctin)	
+outofscope_nalcn	control	NALCN sodium leak channel	HC1
+outofscope_trpm_monovalent	control	Ca2+-activated monovalent TRP channels (TRPM4, TRPM5)	HC15
+outofscope_nachr_muscle	control	Low-Ca2+ nicotinic and anion-selective Cys-loop receptors	HC16
+outofscope_tric	control	Trimeric intracellular cation channels (TMEM38A/B)	
+outofscope_connexin	control	Connexin and pannexin hemichannels	
