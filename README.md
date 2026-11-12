@@ -136,6 +136,37 @@ on something the genome does not encode.
 
 ---
 
+## Web dashboard
+
+A read-only results dashboard of this repo's committed outputs: the census in
+its four tiers (never a flat total, D31), all 49 catalogue families, the S0
+verification and S1 benchmark tables, the phylogeny tasks and the D27 refusals,
+the task ledger, every `(pending: task)` marker checked against the ledger,
+FINDINGS.md, the review and its figures. Live at
+**https://gddickinson.github.io/calcium_channel_genes/** (published by
+`.github/workflows/pages.yml` on every push to `main`).
+
+Every number on it is read from a committed table or JSON when the site is
+built; nothing is typed by hand. Each panel names its source file and the
+commit that last changed it. Only files git tracks are read, and
+`scripts/build_static.py` refuses to publish a file with uncommitted edits.
+No tree files are committed yet, so the phylogeny page shows S7/S8 as pending
+and fills in when they land.
+
+```bash
+pip install -r requirements-web.txt
+python run_web.py                       # http://127.0.0.1:8177 (local only)
+python scripts/build_static.py          # the static site in site/
+python -m pytest -q tests               # web tests (+ node markdown tests)
+```
+
+| | |
+|---|---|
+| ![Home](docs/img/home.png) | ![Census](docs/img/census.png) |
+| ![S1 benchmark](docs/img/benchmark.png) | ![Pending claims](docs/img/pending.png) |
+
+---
+
 ## Layout
 
 ```
@@ -153,6 +184,7 @@ docs/             the scope decision, the biology baseline, the
                   classification rules, the phylogeny protocol, task briefs
 presets/          calcium_human, controls_benchmark, and scoped surveys
 results/          committed tables and reports, one directory per task
+src/web/          the read-only results dashboard (FastAPI + static ES modules)
 ```
 
 Read `INTERFACE.md` before opening any source file.

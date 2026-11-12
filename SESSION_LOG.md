@@ -340,3 +340,33 @@ it has been measured not to work.
 Also carried forward: the rule-generator fix (control families must generate
 rules), HC13 untested by this panel, and the CatSper joint projection now
 worth doing in S9.
+
+
+---
+
+## 2026-11-12 — web dashboard (not a ledger task)
+
+Added a read-only results dashboard (`src/web/`, `run_web.py`, port 8177) and
+a GitHub Pages export (`scripts/build_static.py`, `.github/workflows/pages.yml`).
+George approved publishing a full dashboard of the committed tables. No ledger
+task was worked and no result, table or catalogue entry changed.
+
+- Every number shown is read from a committed file at build time; each panel
+  shows its file and the commit that last changed it. Reads refuse untracked
+  files; the strict build refuses files with uncommitted edits.
+- Pages: home (tiers, catalogue, ledger progress), census (49 families),
+  S0 verification, S1 benchmark, phylogeny (no trees committed; S6–S18
+  pending; D27 refusals), task ledger + emergent tasks + Q1–Q7, pending
+  claims, FINDINGS.md, the review, scope, figures, all tables.
+- `test_census_tiers_agree_across_committed_tables`: the S0 summary's tier
+  counts equal the `coverage.tsv` per-family gene counts summed by catalogue
+  tier — they agree (28 / 50 / 9 / 11).
+- Permeability strings (`P_Ca/P_Na`) are deliberately not shown: they are
+  unaudited literature values in source code, not a committed output table
+  (pending S1b).
+- Evidence-audit observations (not changed — George's content): 5 of 21
+  `(pending: …)` markers name a task the ledger marks completed (FINDINGS.md:
+  S0 x2, S1; review §2.4 and §12.4: S1) and are due for the sweep. The
+  ledger's "Next session: finish S0 … It is `in_progress`" note predates S0's
+  completion. D2 and the GitHub description still say "private until S14b",
+  but the repo is public.

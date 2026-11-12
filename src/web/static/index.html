@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcium channels: census dashboard</title>
+<meta name="description" content="Read-only dashboard of the calcium-channel census: the four permeability tiers, catalogue verification, the classifier benchmark, the phylogeny plan and every pending claim, read from the repo's committed tables.">
+<link rel="icon" href="static/icon.svg">
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="static/style_app.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/"><span class="mark"></span>Ca channels</a>
+  <nav class="groups">
+    <a href="#/census" data-nav="census">Census</a>
+    <details><summary>Stages</summary><div class="menu">
+      <a href="#/verification" data-nav="verification">S0 verification</a>
+      <a href="#/benchmark" data-nav="benchmark">S1 classifier benchmark</a>
+      <a href="#/phylogeny" data-nav="phylogeny">Phylogeny (S7/S8)</a>
+    </div></details>
+    <details><summary>Progress</summary><div class="menu">
+      <a href="#/roadmap" data-nav="roadmap">Task ledger</a>
+      <a href="#/pending" data-nav="pending">Pending claims</a>
+    </div></details>
+    <details><summary>Documents</summary><div class="menu">
+      <a href="#/findings" data-nav="findings">Findings</a>
+      <a href="#/review" data-nav="review">Literature review</a>
+      <a href="#/scope" data-nav="scope">Scope and boundaries</a>
+      <a href="#/figures" data-nav="figures">Figures</a>
+      <a href="#/tables" data-nav="tables">All tables</a>
+    </div></details>
+    <a href="#/about" data-nav="about">About</a>
+  </nav>
+  <div class="right"><a class="small mute" href="https://github.com/gddickinson/calcium_channel_genes" target="_blank" rel="noopener">GitHub</a></div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer class="foot">Calcium channels: census, classification and phylogeny · <a href="https://github.com/gddickinson/calcium_channel_genes">source on GitHub</a> · <span id="mode"></span></footer>
+<script type="module" src="static/main.js"></script>
+</body>
+</html>

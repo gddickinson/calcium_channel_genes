@@ -26,6 +26,11 @@
 | `data_root.txt` | Path to the bulk-data root, read by `src/utils/data_root.py`. |
 | `requirements.txt` | `requests` (required), `biopython` + `matplotlib` (search / analysis / figures only). |
 | `presets/` | `calcium_human` (all 98 census genes), `controls_benchmark` (the S1 panel: a positive per census family, a decoy per control family), `ca_domain_scan`, `calcium_all` (exhaustive mode), and the scoped surveys `cav_survey`, `release_survey`, `soce_survey`, `mito_survey`, `ca_discovery`. |
+| `run_web.py` | Starts the read-only results dashboard on http://127.0.0.1:8177 (`src/web/`). |
+| `requirements-web.txt` | Pinned deps for the dashboard and its tests (fastapi, httpx, pytest, uvicorn). |
+| `.github/workflows/pages.yml` | Tests, builds `site/` with `scripts/build_static.py` and publishes it to GitHub Pages on push to `main`. |
+| `tests/test_web.py` | Dashboard tests: every endpoint, the static build (< 50 MB), committed-files-only reads, census tiers consistent across the S0 summary / coverage table / catalogue, pending-marker ledger states, and the node markdown tests. |
+| `docs/img/` | README screenshots of the dashboard (`scripts/screenshots.py --static --shots`). |
 | `cache/` | On-disk JSON cache (auto-created, gitignored). |
 | `results/` | Committed analysis output, one directory per task. |
 | `manuscript/` | The submission package, built by `scripts/s14_assemble.py`. |
@@ -105,6 +110,22 @@ Ported from the parent projects and retargeted at this catalogue.
 | `investigation/pipeline.py` | `Investigator(accession, options).run()` — seven evidence lines on one candidate. |
 | `gui/app.py`, `gui/tools*.py` | `MainWindow`; the Analysis menu, the task runner, and `classify_selection()`, which shows the whole audit trail rather than just the answer. |
 
+## `src/web/` — the read-only results dashboard
+
+Every view is assembled from **committed** files at build time; nothing is
+typed or recomputed. Each response carries `source` (path, last commit, date).
+
+| File | Contents |
+|------|----------|
+| `sources.py` | The one list of what the site shows: `TABLES` (key → committed TSV, task, title), `DOCS` (rendered markdown), `REVIEW_FIGURES` / `STAGE_FIGURES`, the summary JSON paths. |
+| `provenance.py` | `read_tsv` / `read_json` / `read_text`, which **refuse files git does not track**; `source(rel)` (last commit touching a file); `head()`; `served_problems()` (served files with uncommitted edits — the strict build refuses them). |
+| `data.py` | `overview()`, `census()` (tiers from the S0 summary; per-family gene counts from `coverage.tsv`; labels from `src/catalogue`), `ledger()` (via `scripts/dashboard.py:parse_ledger`, plus emergent tasks and Q1–Q7), `phylogeny()` (committed tree files, phylogeny tasks, superfamilies' `alignable`), `pending()` (every `(pending: task)` marker with its tasks' ledger state). |
+| `app.py` | FastAPI routes under `/api`, `files/<path>` for the listed figures only, `STATIC_ENDPOINTS` and `FILES` for the export. |
+| `static/` | ES-module front end: `core.js` (shared kit router), `main.js`, `ui.js` (provenance footer, status badges, sortable/filterable table), `markdown.js` (+ `.test.mjs`; tables, images, pending markers), pages `home.js`, `census.js`, `stages.js` (S0/S1), `phylogeny.js`, `roadmap.js` (ledger + pending), `docs.js` (findings, review, figures, tables); `static_api.js` answers from exported JSON. |
+
+`scripts/build_static.py` exports the site (`--allow-dirty` for local preview
+only); `scripts/screenshots.py` is the browser smoke test.
+
 ## `src/cli.py` and `src/cli_channel.py`
 
 `cli.py` — `run_headless()` and `run_investigate()`, both scope-aware. Needs
@@ -139,6 +160,7 @@ census tiers, never a flat total), `run_phylo()`, plus the stdlib fetchers.
 | `s1_rule_leakage.py` | **S1, offline** — every control family whose declared domains satisfy a census family's generated rule, split into harmless superfamily-only matches and family-level ones, which are false positives. Writes `rule_leakage.tsv`. |
 | `s1_report.py` | **S1** — renders `results/benchmark_controls/report.md` from those tables (D13): per-tier attribution, per-family recall split positive/decoy, the four-repeat filter table restricted to the families the anchor applies to, the anchor-discrimination verdicts, the rule-leakage mechanism, the untested-hazard list and the decoys no rule can name. |
 | `s14_*.py` | Manuscript assembly: page geometry and figure maps; figure copying under publication numbers; **the claim checker** (D12); the deposit manifest with SHA-256s; the typeset PDF; the driver. |
+| `build_static.py` / `screenshots.py` | Static export of the web dashboard (refuses uncommitted sources) / Playwright smoke test and README screenshots. |
 | `build_findings_page.py` + `findings_page.css` | Renders `docs/findings_summary.md` to one self-contained HTML page. |
 
 Each ledger task adds its own `s<n>_*.py`. The parent projects'
